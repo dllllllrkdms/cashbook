@@ -4,6 +4,7 @@ public class Cash {
 	private int cashNo;
 	// private Category category;
 	private int categoryNo; // FK -> join을 사용 -> HashMap타입 
+	private String cashDate;
 	private long cashPrice; // 합계를 구하게 되면 숫자가 커질 수 있기 때문에 long타입 설정
 	private String memo;
 	private String updatedate;
@@ -19,6 +20,12 @@ public class Cash {
 	}
 	public void setCategoryNo(int categoryNo) {
 		this.categoryNo = categoryNo;
+	}
+	public String getCashDate() {
+		return cashDate;
+	}
+	public void setCashDate(String cashDate) {
+		this.cashDate = cashDate;
 	}
 	public long getCashPrice() {
 		return cashPrice;
