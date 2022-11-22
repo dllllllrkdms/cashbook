@@ -1,14 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.net.*"%>
 <%@ page import="java.util.*"%> <!-- Calendar, ArrayList -->
 <%@ page import="vo.*" %>
 <%@ page import="dao.*"%>
 <%
 	// 1. Controller : session, request
+	String msg = URLEncoder.encode("다시 입력해주세요","UTF-8");
+	String redirectUrl = "/loginForm.jsp";
+	if(session.getAttribute("loginMember")==null){ // 로그인 해야함
+		response.sendRedirect(request.getContextPath()+redirectUrl);
+		return;
+	}
+	Member loginMember = (Member)session.getAttribute("loginMember");
+	String memberId = loginMember.getMemberId();
 	// 날짜가 나오고, 날짜를 클릭하면 수입/지출의 상세항목과 그 날짜에 입력할 수 있는 폼
 	// 날짜계산 -> 메서드로 분리
 	int year = 0;
 	int month = 0;	
-	if(request.getParameter("year")==null||request.getParameter("month")==null){ // 입력날짜값이 없으면 오늘날짜 보여주기
+	if(request.getParameter("year")==null||request.getParameter("year").equals("")||request.getParameter("month")==null||request.getParameter("month").equals("")){ // 입력날짜값이 없으면 오늘날짜 보여주기
 		Calendar today = Calendar.getInstance(); // 오늘날짜 
 		year = today.get(Calendar.YEAR);
 		month = today.get(Calendar.MONTH); // 1월:0, 12월:11
@@ -33,14 +42,16 @@
 	int firstDay = targetDate.get(Calendar.DAY_OF_WEEK); // firstDay는 1일의 요일
 	// 마지막 날짜 
 	int lastDate = targetDate.getActualMaximum(Calendar.DATE);
-	System.out.println(lastDate);
+	//System.out.println(lastDate);
 	// 달력 시작 공백칸과 마지막공백칸의 갯수
 	int beginBlank = firstDay - 1;
+	/*
 	int weeks = (beginBlank + lastDate)%7;
 	if((beginBlank + lastDate)%7!=0){
 		weeks+=1;
 	}
-	int endBlank = 0; // 7로 나누어떨어진다 (마지막날짜의 요일을 구하여 계산하거나)
+	*/
+	int endBlank = 0; // 7로 나누어떨어진다 
 	if((beginBlank + lastDate)%7!=0){
 		endBlank = 7-(beginBlank + lastDate)%7;
 	}
@@ -48,9 +59,11 @@
 	int totalTd = beginBlank + lastDate + endBlank;
 
 	CashDao cashDao = new CashDao();
-	ArrayList<HashMap<String,Object>> cashList = cashDao.selectCashListByMonth(year, month+1);
-	
-	//Member loginMember = (Member)session.getAttribute("loginMember");
+	ArrayList<HashMap<String,Object>> cashList = cashDao.selectCashListByMonth(memberId, year, month+1);
+	ArrayList<HashMap<String,Object>> cashDateList = null;
+	System.out.println(memberId);
+	System.out.println(year+month);
+
 	
 	
 	//<%=loginMember.getMemberId()
@@ -72,7 +85,9 @@
 		<%=year%>년 <%=month+1%>월
 	</div>
 	<div>
-		<table>
+		<a href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month-1%>">이전 달</a>
+		<a href="<%=request.getContextPath()%>/cash/cashList.jsp?year=<%=year%>&month=<%=month+1%>">다음 달</a>
+		<table border="1">
 			<tr>
 				<th>일</th>
 				<th>월</th>
@@ -91,9 +106,21 @@
 			<%
 					if(date>0&&date<=lastDate){
 			%>
-					<%=date%>
+						<div>
+							<a href="<%=request.getContextPath()%>/cash/cashDateList.jsp?year=<%=year%>&month=<%=month+1%>&date=<%=date%>"><%=date%></a>
+						</div>
+			<%			
+						cashDateList = cashDao.selectCashListByDate(memberId, year, month+1, date);
+						for(HashMap<String, Object> m : cashDateList){
+			%>
+								<!-- 형변환하여 사용 -->
+								<%=(String)m.get("categoryKind")%>
+								<%=(String)m.get("categoryName")%>
+								<%=(Long)m.get("cashPrice")%>원
+								<br>
 			<%
-					}
+							}
+						}
 			%>
 					</td>
 			<%
@@ -102,24 +129,8 @@
 						</tr><tr>
 			<%
 					}
-				}
+				}			
 			%>
-		</table>
-		<table>
-		<%
-			for(HashMap<String,Object> m : cashList){
-		%>
-				<tr>
-					<td><%=m.get("cashNo")%></td>
-					<td><%=m.get("cashDate")%></td>
-					<td><%=m.get("cashPrice")%></td>
-					<td><%=m.get("categoryNo")%></td>
-					<td><%=m.get("categoryKind")%></td>
-					<td><%=m.get("categoryName")%></td>		
-				</tr>	
-		<%
-			}
-		%>
 		</table>
 	</div>
 </body>

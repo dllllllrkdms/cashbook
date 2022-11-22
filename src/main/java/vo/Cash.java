@@ -3,6 +3,7 @@ package vo;
 public class Cash {
 	private int cashNo;
 	// private Category category;
+	private String memberId;
 	private int categoryNo; // FK -> join을 사용 -> HashMap타입 
 	private String cashDate;
 	private long cashPrice; // 합계를 구하게 되면 숫자가 커질 수 있기 때문에 long타입 설정
@@ -14,6 +15,12 @@ public class Cash {
 	}
 	public void setCashNo(int cashNo) {
 		this.cashNo = cashNo;
+	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 	public int getCategoryNo() {
 		return categoryNo;

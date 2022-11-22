@@ -5,8 +5,9 @@
 		response.sendRedirect(request.getContextPath()+"/cashList.jsp");
 		return;
 	}
+	String msg = "";
 	if(request.getParameter("msg")!=null){
-		String msg = request.getParameter("msg");
+		msg = request.getParameter("msg");
 	}
 %>
 <!DOCTYPE html>
@@ -18,6 +19,7 @@
 <body>
 	<div>
 		<!-- 로그인 폼 -->
+		<div><%=msg%></div>
 		<form action="<%=request.getContextPath()%>/loginAction.jsp" method="post">
 		<table>
 			<tr>
@@ -32,6 +34,7 @@
 				<td colspan="2"><button type="submit">로그인</button></td>
 			</tr>
 		</table>
+		<a href="<%=request.getContextPath()%>/insertMemberForm.jsp">회원가입</a>
 		</form>
 	</div>
 </body>

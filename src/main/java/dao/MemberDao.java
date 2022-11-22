@@ -13,9 +13,9 @@ public class MemberDao { // 2. Model
 		stmt.setString(2, paramMember.getMemberPw());
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()==false) { // 디버깅
-			System.out.println("로그인 실패");
+			//System.out.println("로그인 실패");
 		}else {
-			System.out.println("로그인 성공");
+			//System.out.println("로그인 성공");
 			resultMember = new Member(); // 로그인 성공시에 객체 생성
 			resultMember.setMemberId(rs.getString("memberId"));  
 			resultMember.setMemberName(rs.getString("memberName"));
@@ -25,5 +25,15 @@ public class MemberDao { // 2. Model
 		conn.close();
 		return resultMember;
 	}
+	public int insertMember(Member paramMember) throws Exception { // 회원가입
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = dbUtil.getConnection();
+		String sql = "INSERT INTO member(member_id, member_pw, member_name, updatedate, createdate) VALUES(?,?,?,curdate(),curdate())";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, paramMember.getMemberId());
+		stmt.setString(2, paramMember.getMemberPw());
+		stmt.setString(3, paramMember.getMemberName());
+		int row = stmt.executeUpdate();
+		return row;
+	}
 }
-// 회원가입 
