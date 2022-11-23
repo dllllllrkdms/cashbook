@@ -61,11 +61,6 @@
 	CashDao cashDao = new CashDao();
 	ArrayList<HashMap<String,Object>> cashList = cashDao.selectCashListByMonth(memberId, year, month+1);
 	ArrayList<HashMap<String,Object>> cashDateList = null;
-	System.out.println(memberId);
-	System.out.println(year+month);
-
-	
-	
 	//<%=loginMember.getMemberId()
 	//<%=loginMember.getMemberName()
 	
@@ -101,16 +96,19 @@
 			<%
 				for(int i=1; i<=totalTd; i++){
 					int date = i-beginBlank;
+					String cashDate = year+"-"+(month+1)+"-"+date;
+					System.out.println(cashDate);
+					// date를 lastDate보다 임의로 크게했을 경우에 방어코드 작성해야함
 			%>
 					<td>
 			<%
 					if(date>0&&date<=lastDate){
 			%>
 						<div>
-							<a href="<%=request.getContextPath()%>/cash/cashDateList.jsp?year=<%=year%>&month=<%=month+1%>&date=<%=date%>"><%=date%></a>
+							<a href="<%=request.getContextPath()%>/cash/cashDateList.jsp?cashDate=<%=cashDate%>"><%=date%></a>
 						</div>
 			<%			
-						cashDateList = cashDao.selectCashListByDate(memberId, year, month+1, date);
+						cashDateList = cashDao.selectCashListByDate(memberId, cashDate);
 						for(HashMap<String, Object> m : cashDateList){
 			%>
 								<!-- 형변환하여 사용 -->
