@@ -7,3 +7,10 @@
 	<%=memberName%>님 반갑습니다.
 	<a href="<%=request.getContextPath()%>/member/memberOne.jsp">내 정보</a>
 	<a href="<%=request.getContextPath()%>/member/logout.jsp">로그아웃</a>
+<%
+	if(loginMember.getMemberLevel()>0){
+%>
+		<a href="<%=request.getContextPath()%>/admin/adminMain.jsp">관리자페이지</a>
+<%		
+	}
+%>

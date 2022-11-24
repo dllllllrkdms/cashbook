@@ -18,6 +18,7 @@
 		cashDate = year+"-"+(month+1)+"-"+date;
 	}else{
 		cashDate = request.getParameter("cashDate");
+		// 10이하의 date가 01 02처럼 두자릿수로 나와야함
 	}
 	//System.out.println(cashDate+"<--cashDateList cashDate");
 	Member loginMember = (Member)session.getAttribute("loginMember");

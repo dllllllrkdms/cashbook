@@ -90,7 +90,7 @@
 			<%
 					if(date>0&&date<=lastDate){
 						String cashDate = year+"-"+(month+1)+"-"+date;
-						System.out.println(cashDate+"<--cashList cashDate");
+						//System.out.println(cashDate+"<--cashList cashDate");
 			%>
 						<div>
 							<a href="<%=request.getContextPath()%>/cash/cashDateList.jsp?cashDate=<%=cashDate%>"><%=date%></a>

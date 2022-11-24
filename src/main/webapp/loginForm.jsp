@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
+<%@ page import="dao.*"%>
+<%@ page import="vo.*"%>
 <%
 	// session(로그인) 유효성 검사
 	if(session.getAttribute("returnMember")!=null){
@@ -9,6 +12,14 @@
 	if(request.getParameter("msg")!=null){
 		msg = request.getParameter("msg");
 	}
+	int currentPage = 1;
+	if(request.getParameter("currentPage")!=null){
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	}
+	int rowPerPage = 5;
+	int beginRow = (currentPage-1)*rowPerPage;
+	NoticeDao noticeDao = new NoticeDao();
+	ArrayList<Notice> noticeList = noticeDao.selectNoticeListByPage(beginRow, rowPerPage);
 %>
 <!DOCTYPE html>
 <html>
@@ -17,6 +28,29 @@
 <title>loginForm</title>
 </head>
 <body>
+	<!-- 공지(5개) 목록 페이징 -->
+	<div>
+		<table>
+			<tr>
+				<th>No</th>
+				<th>공지사항</th>
+				<th>날짜</th>
+			</tr>
+			<%
+				for(Notice n : noticeList){
+			%>
+				<tr>
+					<td><%=n.getNoticeNo()%></td>	
+					<td><%=n.getNoticeMemo()%></td>	
+					<td><%=n.getUpdatedate()%></td>	
+			<%
+				}
+			%>
+		</table>
+		<div>
+			
+		</div>
+	</div>
 	<div>
 		<!-- 로그인 폼 -->
 		<div><%=msg%></div>
