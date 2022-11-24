@@ -28,9 +28,7 @@ public class CashDao {
 			cashList.add(hmCash);
 		}
 		//System.out.println(cashList);
-		rs.close();
-		stmt.close();
-		conn.close();
+		dbUtil.close(rs, stmt, conn);
 		return cashList;
 	}
 	// cashDateList 상세보기
@@ -54,15 +52,11 @@ public class CashDao {
 			hmCash.put("categoryKind", rs.getString("categoryKind"));
 			cashDateList.add(hmCash);
 		}
-		rs.close();
-		stmt.close();
-		conn.close();
+		dbUtil.close(rs, stmt, conn);
 		return cashDateList;
 	}
-	// cashDate 상세보기
 	// cashDate 추가하기
-	public boolean insertCashList(Cash cash) throws Exception{
-		boolean result = false;
+	public int insertCashList(Cash cash) throws Exception{
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		String sql = "INSERT INTO cash(member_id, category_no, cash_date, cash_price, cash_memo, updatedate, createdate) VALUES(?,?,?,?,?,CURDATE(),CURDATE())";
@@ -73,17 +67,11 @@ public class CashDao {
 		stmt.setLong(4, cash.getCashPrice());
 		stmt.setString(5, cash.getCashMemo());
 		int row = stmt.executeUpdate();
-		if(row==1) {
-			//System.out.println("insertCashList 성공");
-			result=true;
-		}
-		stmt.close();
-		conn.close();
-		return result;
+		dbUtil.close(null, stmt, conn);
+		return row;
 	}
 	// cashDateList 수정
-	public boolean updateCashList(Cash cash) throws Exception {
-		boolean result = false;
+	public int updateCashList(Cash cash) throws Exception {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		String sql = "UPDATE cash SET category_no=?, cash_price=?, cash_date=?, cash_memo=?, updatedate=CURDATE(), createdate=CURDATE() WHERE member_id=? AND cash_no=?";
@@ -95,15 +83,11 @@ public class CashDao {
 		stmt.setString(5, cash.getMemberId());
 		stmt.setInt(6, cash.getCashNo());
 		int row = stmt.executeUpdate();
-		if(row==1) {
-			result = true;
-			System.out.println(result+"<--updateCashList");
-		}
-		return result;
+		dbUtil.close(null, stmt, conn);
+		return row;
 	}
 	// cashDateList 삭제 
-	public boolean deleteCashList(String memberId, int cashNo) throws Exception {
-		boolean result = false;
+	public int deleteCashList(String memberId, int cashNo) throws Exception {
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		String sql = "DELETE FROM cash WHERE member_id=? AND cash_no=?";
@@ -111,10 +95,7 @@ public class CashDao {
 		stmt.setString(1, memberId);
 		stmt.setInt(2, cashNo);
 		int row = stmt.executeUpdate();
-		if(row==1) {
-			result=true;
-			//System.out.println(result+"<--deleteCashList");
-		}
-		return result;
+		dbUtil.close(null, stmt, conn);
+		return row;
 	}
 }

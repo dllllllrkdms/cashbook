@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	// Controller 
-	if(session.getAttribute("loginMember")!=null){ // 로그인 상태에선 이 페이지 접근불가
+	if(session.getAttribute("loginMember")!=null){ // 로그인(session) 유효성 검사
 		response.sendRedirect(request.getContextPath()+"/cash/cashList.jsp");
 		return;
 	}

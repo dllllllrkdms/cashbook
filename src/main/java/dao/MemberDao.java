@@ -7,7 +7,7 @@ public class MemberDao { // 2. Model
 		Member resultMember = null; // 반환할 변수초기화
 		DBUtil dbUtil = new DBUtil(); 
 		Connection conn = dbUtil.getConnection(); // db연결 메서드
-		String sql = "SELECT member_id memberId, member_name memberName FROM member WHERE member_id = ? AND member_pw = PASSWORD(?)";
+		String sql = "SELECT member_id memberId, member_name memberName, member_level memberLevel FROM member WHERE member_id = ? AND member_pw = PASSWORD(?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, paramMember.getMemberId());
 		stmt.setString(2, paramMember.getMemberPw());
@@ -19,13 +19,13 @@ public class MemberDao { // 2. Model
 			resultMember = new Member(); // 로그인 성공시에 객체 생성
 			resultMember.setMemberId(rs.getString("memberId"));  
 			resultMember.setMemberName(rs.getString("memberName"));
+			resultMember.setMemberLevel(rs.getInt("memberLevel"));
 		}
-		rs.close();
-		stmt.close();
-		conn.close();
+		dbUtil.close(rs, stmt, conn);
 		return resultMember;
 	}
-	public boolean idDup(String memberId) throws Exception { // 아이디 중복검사
+	// 하나의 메서드엔 최소한의 쿼리로 분리시키기
+	public boolean idDup(String memberId) throws Exception { // 회원가입에 필요한 아이디 중복검사
 		boolean result = false;
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
@@ -34,36 +34,29 @@ public class MemberDao { // 2. Model
 		stmt.setString(1, memberId);
 		ResultSet rs = stmt.executeQuery();
 		if(rs.next()) {
+			//System.out.println("중복된 아이디");
 			result = true;
 		}
-		rs.close();
-		stmt.close();
-		conn.close();
+		dbUtil.close(rs, stmt, conn);
 		return result;
 	}
-	public boolean insertMember(Member paramMember) throws Exception { // 회원가입
-		boolean result = false;
+	public int insertMember(Member paramMember) throws Exception { // 회원가입
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "INSERT INTO member(member_id, member_pw, member_name, updatedate, createdate) VALUES(?,?,?,curdate(),curdate())";
+		String sql = "INSERT INTO member(member_id, member_pw, member_name, updatedate, createdate) VALUES(?,PASSWORD(?),?,curdate(),curdate())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, paramMember.getMemberId());
 		stmt.setString(2, paramMember.getMemberPw());
 		stmt.setString(3, paramMember.getMemberName());
 		int row = stmt.executeUpdate();
-		if(row==1) {
-			//System.out.println("회원가입 성공");
-			result=true;
-		}
-		stmt.close();
-		conn.close();
-		return result;
+		dbUtil.close(null, stmt, conn);
+		return row;
 	}
 	public Member updateMember(Member paramMember) throws Exception { // 회원정보수정
 		Member resultMember = new Member();
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql="UPDATE member SET member_name=?, updatedate=CURDATE(), createdate=CURDATE() WHERE member_id=? AND member_pw=PASSWORD(?)";
+		String sql="UPDATE member SET member_name=?, updatedate=CURDATE() WHERE member_id=? AND member_pw=PASSWORD(?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, paramMember.getMemberName());
 		stmt.setString(2, paramMember.getMemberId());
@@ -74,24 +67,18 @@ public class MemberDao { // 2. Model
 			resultMember.setMemberId(paramMember.getMemberId());
 			resultMember.setMemberName(paramMember.getMemberName());
 		}
-		stmt.close();
-		conn.close();
+		dbUtil.close(null, stmt, conn);
 		return resultMember;
 	}
-	public boolean updateMemberPw(String memberId, String memberPw, String newMemberPw) throws Exception { // 비밀번호 변경
-		boolean result=false;
+	public int updateMemberPw(String memberId, String memberPw, String newMemberPw) throws Exception { // 비밀번호 변경
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "UPDATE member SET member_pw=PASSWORD(?), updatedate=CURDATE(), createdate=CURDATE() WHERE member_id=? AND member_pw=PASSWORD(?)";
+		String sql = "UPDATE member SET member_pw=PASSWORD(?), updatedate=CURDATE() WHERE member_id=? AND member_pw=PASSWORD(?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, newMemberPw);
 		stmt.setString(2, memberId);
 		stmt.setString(3, memberPw);
 		int row = stmt.executeUpdate();
-		if(row==1) {
-			//System.out.println("pw 변경 성공");
-			result=true;
-		}
-		return result;
+		return row;
 	}
 }

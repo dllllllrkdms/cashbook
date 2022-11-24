@@ -13,11 +13,11 @@
 	cash.setCashPrice(Long.parseLong(request.getParameter("cashPrice")));
 	cash.setCategoryNo(Integer.parseInt(request.getParameter("categoryNo")));
 	CashDao cashDao = new CashDao();
-	boolean result = cashDao.insertCashList(cash);
+	int row = cashDao.insertCashList(cash);
 	String msg = URLEncoder.encode("다시 시도해주세요","UTF-8");
 	String redirectUrl = "/cash/insertCashListForm.jsp?=msg"+msg;
-	if(result){
-		//System.out.println("insertCashList 성공");
+	if(row==1){
+		//System.out.println(row+"<--insertCashListAction row");
 		redirectUrl = "/cash/cashDateList.jsp?cashDate="+cash.getCashDate();
 	}
 	response.sendRedirect(request.getContextPath()+redirectUrl);

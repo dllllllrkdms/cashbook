@@ -4,15 +4,10 @@
 <%@ page import="vo.*"%>
 <%
 	// Controller 
-	request.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8"); // 인코딩
 	String msg = URLEncoder.encode("다시 입력해주세요","UTF-8");
 	String redirectUrl = "/insertMemberForm.jsp?msg="+msg;
-	if(session.getAttribute("loginMember")!=null){ // 로그인이 되어있다면 접근 불가
-		redirectUrl = "/cash/cashList.jsp";
-		response.sendRedirect(request.getContextPath()+redirectUrl);
-		return;
-	}
-	// 빈칸을 입력했을 때
+	// 파라메타값 유효성검사
 	if(request.getParameter("memberId")==null||request.getParameter("memberId").equals("")||request.getParameter("memberPw")==null||request.getParameter("memberPw").equals("")
 			||request.getParameter("memberName")==null||request.getParameter("memberName").equals("")||request.getParameter("checkPw")==null||request.getParameter("checkPw").equals("")){
 		response.sendRedirect(request.getContextPath()+redirectUrl);
@@ -22,9 +17,10 @@
 	MemberDao memberDao = new MemberDao();
 	boolean idDupResult = memberDao.idDup(request.getParameter("memberId"));
 	String idDupMsg = URLEncoder.encode("사용가능한 아이디입니다.","UTF-8");
-	if(idDupResult) { // true이면 중복
+	if(idDupResult) { // true이면 중복-> 사용불가
 		idDupMsg = URLEncoder.encode("사용할 수 없는 아이디입니다.","UTF-8");
-		response.sendRedirect(request.getContextPath()+"/insertMemberForm.jsp?idDupMsg="+idDupMsg);
+		redirectUrl = "/insertMemberForm.jsp?idDupMsg="+idDupMsg;
+		response.sendRedirect(request.getContextPath()+redirectUrl);
 		return;
 	}
 	if(!request.getParameter("memberPw").equals(request.getParameter("checkPw"))){ // 비밀번호와 비밀번호확인이 같지 않으면 
@@ -36,8 +32,9 @@
 	paramMember.setMemberId(request.getParameter("memberId"));
 	paramMember.setMemberPw(request.getParameter("memberPw"));
 	paramMember.setMemberName(request.getParameter("memberName"));
-	boolean result = memberDao.insertMember(paramMember);
-	if(result){
+	int insertMemberRow = memberDao.insertMember(paramMember);
+	if(insertMemberRow==1){
+		//System.out.println("회원가입 성공");
 		redirectUrl = "/loginForm.jsp";
 	}
 	response.sendRedirect(request.getContextPath()+redirectUrl);

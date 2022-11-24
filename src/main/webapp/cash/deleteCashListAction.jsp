@@ -9,10 +9,11 @@
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	String memberId = loginMember.getMemberId();
 	CashDao cashDao = new CashDao();	
-	boolean result = cashDao.deleteCashList(memberId, cashNo);
+	int row = cashDao.deleteCashList(memberId, cashNo);
 	String msg = URLEncoder.encode("다시 시도해주세요","UTF-8");
 	String redirectUrl = "/cash/cashDateList.jsp"+msg;
-	if(result){
+	if(row==1){
+		//System.out.println(row+"<--deleteCashListAction row");
 		redirectUrl = "/cash/cashDateList.jsp?cashDate="+cashDate;
 	}
 	response.sendRedirect(request.getContextPath()+redirectUrl);

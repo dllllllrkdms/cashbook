@@ -7,17 +7,16 @@
 	// 1. Controller : session, request
 	String msg = URLEncoder.encode("다시 입력해주세요","UTF-8");
 	String redirectUrl = "/loginForm.jsp";
-	if(session.getAttribute("loginMember")==null){ // 로그인 해야함
+	if(session.getAttribute("loginMember")==null){ // session 유효성검사
 		response.sendRedirect(request.getContextPath()+redirectUrl);
 		return;
 	}
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	String memberId = loginMember.getMemberId();
-	// 날짜가 나오고, 날짜를 클릭하면 수입/지출의 상세항목과 그 날짜에 입력할 수 있는 폼
-	// 날짜계산 -> 메서드로 분리
 	int year = 0;
 	int month = 0;	
-	if(request.getParameter("year")==null||request.getParameter("year").equals("")||request.getParameter("month")==null||request.getParameter("month").equals("")){ // 입력날짜값이 없으면 오늘날짜 보여주기
+	// 파라메타값 유효성검사 입력날짜값이 없으면 오늘날짜 보여주기
+	if(request.getParameter("year")==null||request.getParameter("year").equals("")||request.getParameter("month")==null||request.getParameter("month").equals("")){ 
 		Calendar today = Calendar.getInstance(); // 오늘날짜 
 		year = today.get(Calendar.YEAR);
 		month = today.get(Calendar.MONTH); // 1월:0, 12월:11
@@ -42,28 +41,18 @@
 	int firstDay = targetDate.get(Calendar.DAY_OF_WEEK); // firstDay는 1일의 요일
 	// 마지막 날짜 
 	int lastDate = targetDate.getActualMaximum(Calendar.DATE);
-	//System.out.println(lastDate);
+	//System.out.println(lastDate+"");
 	// 달력 시작 공백칸과 마지막공백칸의 갯수
 	int beginBlank = firstDay - 1;
-	/*
-	int weeks = (beginBlank + lastDate)%7;
-	if((beginBlank + lastDate)%7!=0){
-		weeks+=1;
-	}
-	*/
 	int endBlank = 0; // 7로 나누어떨어진다 
 	if((beginBlank + lastDate)%7!=0){
 		endBlank = 7-(beginBlank + lastDate)%7;
 	}
 	// 전체 td의 개수 
 	int totalTd = beginBlank + lastDate + endBlank;
-
 	CashDao cashDao = new CashDao();
 	ArrayList<HashMap<String,Object>> cashList = cashDao.selectCashListByMonth(memberId, year, month+1);
 	ArrayList<HashMap<String,Object>> cashDateList = null;
-	//<%=loginMember.getMemberId()
-	//<%=loginMember.getMemberName()
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -96,13 +85,12 @@
 			<%
 				for(int i=1; i<=totalTd; i++){
 					int date = i-beginBlank;
-					String cashDate = year+"-"+(month+1)+"-"+date;
-					System.out.println(cashDate);
-					// date를 lastDate보다 임의로 크게했을 경우에 방어코드 작성해야함
 			%>
 					<td>
 			<%
 					if(date>0&&date<=lastDate){
+						String cashDate = year+"-"+(month+1)+"-"+date;
+						System.out.println(cashDate+"<--cashList cashDate");
 			%>
 						<div>
 							<a href="<%=request.getContextPath()%>/cash/cashDateList.jsp?cashDate=<%=cashDate%>"><%=date%></a>

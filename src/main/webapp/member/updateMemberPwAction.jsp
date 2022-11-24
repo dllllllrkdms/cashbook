@@ -19,8 +19,9 @@
 	String memberPw = request.getParameter("memberPw");
 	String newMemberPw = request.getParameter("newMemberPw");
 	MemberDao memberDao = new MemberDao();
-	boolean result = memberDao.updateMemberPw(memberId, memberPw, newMemberPw);
-	if(result){
+	int updatePwRow = memberDao.updateMemberPw(memberId, memberPw, newMemberPw);
+	if(updatePwRow==1){
+		//System.out.println("비밀번호 변경");
 		redirectUrl = "/loginForm.jsp";
 	}
 	response.sendRedirect(request.getContextPath()+redirectUrl);

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	// session 유효성 검사 (로그인이 되어있을 경우에는 이 페이지에 접근 불가함)
+	// session(로그인) 유효성 검사
 	if(session.getAttribute("returnMember")!=null){
 		response.sendRedirect(request.getContextPath()+"/cashList.jsp");
 		return;

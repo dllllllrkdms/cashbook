@@ -4,31 +4,22 @@
 <%@ page import="vo.*"%>
 <%
 	// Controller
-	if(session.getAttribute("loginMember")==null){ // 비로그인 시 접근불가
+	if(session.getAttribute("loginMember")==null){ // session 유효성검사
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
+	// 파라메타값 유효성검사
 	String cashDate = null;
-	int year = 0;
-	int month = 0;
-	int date = 0;
-	if(request.getParameter("cashDate")==null){ 
+	if(request.getParameter("cashDate")==null||request.getParameter("cashDate").equals("")){ 
 		Calendar today = Calendar.getInstance(); // 오늘날짜 
-		year = today.get(Calendar.YEAR);
-		month = today.get(Calendar.MONTH)+1; // 1월:0, 12월:11
-		date = today.get(Calendar.DATE);
+		int year = today.get(Calendar.YEAR);
+		int month = today.get(Calendar.MONTH); // 1월:0, 12월:11
+		int date = today.get(Calendar.DATE);
+		cashDate = year+"-"+(month+1)+"-"+date;
 	}else{
 		cashDate = request.getParameter("cashDate");
-		year = Integer.parseInt(cashDate.substring(0, 4));
-		month = Integer.parseInt(cashDate.substring(5, 7));
-		date = Integer.parseInt(cashDate.substring(8));
 	}
-	System.out.println(cashDate);
-	/*
-	System.out.println(year);
-	System.out.println(month);
-	System.out.println(date);
-	*/
+	//System.out.println(cashDate+"<--cashDateList cashDate");
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	String memberId = loginMember.getMemberId();
 	CashDao cashDao = new CashDao();
@@ -43,10 +34,17 @@
 <title>cashDateList</title>
 </head>
 <body>
-	<!-- cashDateList 추가 -->
+	<!-- 로그인 정보 출력 -->
+	<div>
+		<jsp:include page="/inc/menu.jsp"></jsp:include>
+	</div>
+	<!-- insertCashDateListForm -->
 	<form action="<%=request.getContextPath()%>/cash/insertCashListAction.jsp" method="post">
 		<input type="hidden" name="memberId" value="<%=memberId%>">
 		<table>
+			<tr>
+				<td><input type="date" name="cashDate" value="<%=cashDate%>" readonly=readonly></td> <!-- 지금은 변경불가하게 -->
+			</tr>
 			<tr>
 				<td>
 					<select name="categoryNo">
@@ -64,9 +62,6 @@
 				<td><input type="number" name="cashPrice">원</td>
 			</tr>
 			<tr>
-				<td><input type="date" name="cashDate" value="<%=cashDate%>"></td>
-			</tr>
-			<tr>
 				<td><textarea cols="50" rows="2" name="cashMemo"></textarea></td>
 			</tr>
 		</table>
@@ -76,18 +71,20 @@
 	<table border="1">
 		<%		
 			for(HashMap<String, Object> m : cashDateList) {
+				int cashNo = (int)m.get("cashNo");
 		%>
 				<tr>
 					<td><%=(String)m.get("categoryKind")%></td>
 					<td><%=(String)m.get("categoryName")%></td>
 					<td><%=(Long)m.get("cashPrice")%>원</td>
 					<td><%=(String)m.get("cashMemo")%></td>
-					<td><a href="<%=request.getContextPath()%>/cash/updateCashListForm.jsp?cashNo=<%=(int)m.get("cashNo")%>&cashDate=<%=cashDate%>">수정</a></td>
-					<td><a href="<%=request.getContextPath()%>/cash/deleteCashListAction.jsp?cashNo=<%=(int)m.get("cashNo")%>&cashDate=<%=cashDate%>">삭제</a></td>
+					<td><a href="<%=request.getContextPath()%>/cash/updateCashListForm.jsp?cashNo=<%=cashNo%>&cashDate=<%=cashDate%>">수정</a></td>
+					<td><a href="<%=request.getContextPath()%>/cash/deleteCashListAction.jsp?cashNo=<%=cashNo%>&cashDate=<%=cashDate%>">삭제</a></td>
 				</tr>
 		<%
 			}
 		%>
 	</table>
+	<a href="<%=request.getContextPath()%>/cash/cashList.jsp">이전</a>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <%@ page import="vo.*"%>
 <%
 	// Controller
-	if(session.getAttribute("loginMember")==null){
+	if(session.getAttribute("loginMember")==null){ // 로그인(session) 유효성검사
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
