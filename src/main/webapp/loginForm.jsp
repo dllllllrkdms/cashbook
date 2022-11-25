@@ -12,7 +12,7 @@
 	if(request.getParameter("msg")!=null){
 		msg = request.getParameter("msg");
 	}
-	int currentPage = 1;
+	int currentPage = 1; // 공지 페이징
 	if(request.getParameter("currentPage")!=null){
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
@@ -30,6 +30,7 @@
 <body>
 	<!-- 공지(5개) 목록 페이징 -->
 	<div>
+		<h4>공지사항</h4> <a href="">더보기</a>
 		<table>
 			<tr>
 				<th>No</th>
@@ -42,7 +43,7 @@
 				<tr>
 					<td><%=n.getNoticeNo()%></td>	
 					<td><%=n.getNoticeMemo()%></td>	
-					<td><%=n.getUpdatedate()%></td>	
+					<td><%=n.getCreatedate()%></td>	
 			<%
 				}
 			%>

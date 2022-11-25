@@ -3,7 +3,7 @@
 <%
 	// Controller
 	Member loginMember = (Member)session.getAttribute("loginMember");
-	if(loginMember==null||loginMember.getMemberLevel()<1){
+	if(loginMember==null||loginMember.getMemberLevel()<1){ // 관리자 페이지 조건
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
@@ -25,9 +25,12 @@
 </head>
 <body>
 	<ul>
-		<li><a href="">공지관리</a></li>
-		<li><a href="">카테고리관리</a></li>
-		<li><a href="">멤버관리(목록보기, 레벨수정, 강제탈퇴)</a></li>
+		<li><a href="<%=request.getContextPath()%>/admin/noticeList.jsp">공지관리</a></li>
+		<li><a href="<%=request.getContextPath()%>/admin/categoryList.jsp">카테고리관리</a></li>
+		<li><a href="<%=request.getContextPath()%>/admin/memberList.jsp">멤버관리(목록보기, 레벨수정, 강제탈퇴)</a></li>
 	</ul>
+	<div>
+		<!-- adminMain contents -->
+	</div>
 </body>
 </html>

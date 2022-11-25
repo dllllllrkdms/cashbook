@@ -10,6 +10,10 @@
 <title>memberOne</title>
 </head>
 <body>
+	<!-- 로그인 정보 -->
+	<div>
+		<jsp:include page="/inc/menu.jsp"></jsp:include>
+	</div>
 	<table>
 		<tr>
 			<td>ID</td>
