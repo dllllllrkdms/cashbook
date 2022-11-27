@@ -4,8 +4,8 @@
 <%@ page import="vo.*"%>
 <%
 	// session(로그인) 유효성 검사
-	if(session.getAttribute("returnMember")!=null){
-		response.sendRedirect(request.getContextPath()+"/cashList.jsp");
+	if(session.getAttribute("loginMember")!=null){
+		response.sendRedirect(request.getContextPath()+"/cash/cashList.jsp");
 		return;
 	}
 	String msg = "";

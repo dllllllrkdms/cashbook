@@ -95,8 +95,10 @@ public class MemberDao { // 2. Model
 	public ArrayList<Member> selectMemberListByPage(int beginRow, int rowPerPage) throws Exception{ // 멤버 목록출력 
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT member_no memberNo, member_id memberId, member_level memberLevel, member_name memberName, updatedate, createdate FROM member";
+		String sql = "SELECT member_no memberNo, member_id memberId, member_level memberLevel, member_name memberName, updatedate, createdate FROM member LIMIT ?,?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, beginRow);
+		stmt.setInt(2, rowPerPage);		
 		ResultSet rs = stmt.executeQuery();
 		ArrayList<Member> memberList = new ArrayList<Member>();
 		while(rs.next()) {
@@ -138,7 +140,7 @@ public class MemberDao { // 2. Model
 	public int updateMemberLevel(Member paramMember) throws Exception { // 멤버 레벨 수정
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection(); // db 연결
-		String sql = "UPDATE member SET member_level = ? WHERE member_id=?";
+		String sql = "UPDATE member SET member_level = ?, updatedate=NOW() WHERE member_id=?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, paramMember.getMemberLevel());
 		stmt.setString(2, paramMember.getMemberId());

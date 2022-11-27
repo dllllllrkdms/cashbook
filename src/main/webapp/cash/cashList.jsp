@@ -84,7 +84,7 @@
 			<tr>
 			<%
 				for(int i=1; i<=totalTd; i++){
-					int date = i-beginBlank;
+					int date = i-beginBlank; // 10이하일때는 01 02 이런식으로 두자리가 들어와야함
 			%>
 					<td>
 			<%

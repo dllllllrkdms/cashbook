@@ -72,12 +72,12 @@ public class NoticeDao {
 		dbUtil.close(null, stmt, conn);
 		return row;
 	}
-	public int deleteNotice(Notice notice) throws Exception { // notice 삭제
+	public int deleteNotice(int noticeNo) throws Exception { // notice 삭제
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		String sql = "DELETE FROM notice WHERE notice_no=?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, notice.getNoticeNo());
+		stmt.setInt(1, noticeNo);
 		int row = stmt.executeUpdate();
 		dbUtil.close(null, stmt, conn);
 		return row;

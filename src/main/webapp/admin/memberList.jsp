@@ -65,8 +65,15 @@
 						<td><%=m.getUpdatedate()%></td>
 						<td><%=m.getCreatedate()%></td>
 						<td>
-							<input type="number" name="newMemberLevel">
-							<a href="<%=request.getContextPath()%>/admin/updateMemberLevel.jsp?member=<%=m%>">변경</a>
+							<form action="<%=request.getContextPath()%>/admin/updateMemberLevel.jsp" method="post">
+								<input type="hidden" name="memberNo" value="<%=m.getMemberNo()%>">
+								<input type="hidden" name="memberId" value="<%=m.getMemberId()%>">
+								<select name="newMemberLevel" >
+									<option value="0">0.일반회원</option>
+									<option value="1">1.관리자</option>
+								</select>
+								<button type="submit">변경</button>
+							</form>
 						</td>
 						<td><a href="<%=request.getContextPath()%>/admin/deleteMember.jsp?memberId=<%=m.getMemberId()%>">강제탈퇴</a></td>
 					</tr>
