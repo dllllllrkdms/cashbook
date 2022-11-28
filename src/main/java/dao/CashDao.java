@@ -36,8 +36,8 @@ public class CashDao {
 		HashMap<String, Object> hmCash=null;
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection(); // db연결
-		String sql = "SELECT c.cash_no cashNo, c.cash_date cashDate, c.cash_price cashPrice, c.cash_memo cashMemo, ct.category_name categoryName, ct.category_kind categoryKind "
-				+ "FROM cash c INNER JOIN category ct ON c.category_no = ct.category_no WHERE c.member_id = ? AND c.cash_date=? ORDER BY ct.category_kind ASC"; // c.cash_date가 같으면 ct.category_kind ASC정렬
+		String sql = "SELECT c.cash_no cashNo, c.cash_date cashDate, c.cash_price cashPrice, c.cash_memo cashMemo, ct.category_name categoryName, ct.category_kind categoryKind"
+				+ " FROM cash c INNER JOIN category ct ON c.category_no = ct.category_no WHERE c.member_id = ? AND c.cash_date=? ORDER BY ct.category_kind ASC"; // c.cash_date가 같으면 ct.category_kind ASC정렬
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, memberId);
 		stmt.setString(2, cashDate);
@@ -54,6 +54,28 @@ public class CashDao {
 		}
 		dbUtil.close(rs, stmt, conn);
 		return cashDateList;
+	}
+	public HashMap<String, Object> selectCashOne(String cashDate, int cashNo) throws Exception{ // updateCashListForm
+		HashMap<String, Object> hmCash = null;
+		DBUtil dbUtil = new DBUtil();
+		Connection conn=null;
+		PreparedStatement stmt = null;
+		String sql = "SELECT c.cash_no cashNo, c.cash_price cashPrice, c.cash_memo cashMemo, ct.category_name categoryName, ct.category_kind categoryKind"
+				+ " FROM cash c INNER JOIN category ct ON c.category_no = ct.category_no WHERE c.cash_date = ? AND c.cash_no = ?";
+		conn = dbUtil.getConnection();
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, cashDate);
+		stmt.setInt(2, cashNo);
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			hmCash =  new HashMap<String, Object>();
+			hmCash.put("cashNo", rs.getInt("cashNo"));
+			hmCash.put("cashPrice", rs.getLong("cashPrice"));
+			hmCash.put("cashMemo", rs.getString("cashMemo"));
+			hmCash.put("categoryName", rs.getString("categoryName"));
+			hmCash.put("categoryKind", rs.getString("categoryKind"));
+		}
+		return hmCash;
 	}
 	public int insertCashList(Cash cash) throws Exception{ // cashDate 추가하기
 		DBUtil dbUtil = new DBUtil();

@@ -9,24 +9,25 @@
 		return;
 	}
 	String cashDate = null; 
-	if(request.getParameter("cashDate")==null){ 
+	if(request.getParameter("cashDate")!=null||request.getParameter("cashDate").equals("")==false){ 
+		cashDate = request.getParameter("cashDate");
+	}else{
 		Calendar today = Calendar.getInstance(); // 오늘날짜 
 		int year = today.get(Calendar.YEAR);
 		int month = today.get(Calendar.MONTH); // 1월:0, 12월:11
 		int date = today.get(Calendar.DATE);
 		cashDate = year+"-"+(month+1)+"-"+date;
-	}else{
-		cashDate = request.getParameter("cashDate");
 	}
 	if(request.getParameter("cashNo")==null){
 		response.sendRedirect(request.getContextPath()+"/cash/cashDateList.jsp?cashDate="+cashDate);
 		return;
 	}
 	int cashNo = Integer.parseInt(request.getParameter("cashNo"));
-	
 	//System.out.println(cashDate);
 	Member loginMember = (Member)session.getAttribute("loginMember"); // 로그인한 세션 불러오기
 	String memberId = loginMember.getMemberId();
+	CashDao cashDao = new CashDao();
+	HashMap<String, Object> cashOne = cashDao.selectCashOne(cashDate, cashNo);
 	CategoryDao categoryDao = new CategoryDao();
 	ArrayList<Category> categoryList = categoryDao.selectCategoryList();
 %>
@@ -63,10 +64,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td><input type="number" name="cashPrice">원</td>
+					<td><input type="number" name="cashPrice" value="<%=cashOne.get("cashPrice")%>">원</td>
 				</tr>
 				<tr>
-					<td><textarea cols="50" rows="2" name="cashMemo"></textarea></td>
+					<td><textarea cols="50" rows="2" name="cashMemo"><%=cashOne.get("cashMemo")%></textarea></td>
 				</tr>
 			</table>
 			<button type="submit">등록</button>
