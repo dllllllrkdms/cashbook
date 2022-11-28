@@ -10,7 +10,7 @@
 		return;
 	}
 	if(request.getParameter("noticeMemo")==null||request.getParameter("noticeMemo").equals("")){
-		redirectUrl = "/admin/updateNoticeForm.jsp?noticeNo="+Integer.parseInt(request.getParameter("noticeNo"));
+		redirectUrl = "/admin/updateNoticeForm.jsp?noticeNo="+request.getParameter("noticeNo");
 		response.sendRedirect(request.getContextPath()+redirectUrl);
 		return;
 	}

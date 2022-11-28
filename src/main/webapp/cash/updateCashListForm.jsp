@@ -25,11 +25,10 @@
 	int cashNo = Integer.parseInt(request.getParameter("cashNo"));
 	
 	//System.out.println(cashDate);
-	Member loginMember = (Member)session.getAttribute("loginMember"); // 로그인된 세션 불러오기
+	Member loginMember = (Member)session.getAttribute("loginMember"); // 로그인한 세션 불러오기
 	String memberId = loginMember.getMemberId();
 	CategoryDao categoryDao = new CategoryDao();
 	ArrayList<Category> categoryList = categoryDao.selectCategoryList();
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -48,7 +47,7 @@
 			<input type="hidden" name="memberId" value="<%=memberId%>">
 			<table border="1">
 				<tr>
-					<td><input type="date" name="cashDate" value="<%=cashDate%>" readonly=readonly></td>
+					<td><input type="text" name="cashDate" value="<%=cashDate%>" readonly=readonly></td>
 				</tr>
 				<tr>
 					<td>

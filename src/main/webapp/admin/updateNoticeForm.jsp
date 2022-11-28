@@ -29,6 +29,10 @@
 	<div>
 		<jsp:include page="/inc/menu.jsp"></jsp:include>
 	</div>
+	<!-- notice contents -->
+	<div>
+		<jsp:include page="/inc/adminMenu.jsp"></jsp:include>
+	</div>
 	<div>
 		<form action="<%=request.getContextPath()%>/admin/updateNoticeAction.jsp" method="post">
 			<table>

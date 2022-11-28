@@ -4,9 +4,9 @@ import java.sql.*;
 import util.*;
 import vo.*;
 public class CashDao { 
-	// cashList
-	public ArrayList<HashMap<String, Object>> selectCashListByMonth(String memberId, int year, int month) throws Exception{
+	public ArrayList<HashMap<String, Object>> selectCashListByMonth(String memberId, int year, int month) throws Exception{ // cashList
 		ArrayList<HashMap<String, Object>> cashList = new ArrayList<HashMap<String, Object>>();
+		HashMap<String, Object> hmCash=null;
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection(); // db연결
 		String sql = "SELECT c.cash_no cashNo, c.cash_date cashDate, c.cash_price cashPrice, c.category_no categoryNo, c.cash_memo cashMemo, ct.category_name categoryName, ct.category_kind categoryKind "
@@ -17,7 +17,7 @@ public class CashDao {
 		stmt.setInt(3, month);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
-			HashMap<String, Object> hmCash = new HashMap<String, Object>(); // HashMap객체생성
+			hmCash = new HashMap<String, Object>(); // HashMap객체생성
 			hmCash.put("cashNo", rs.getInt("cashNo"));
 			hmCash.put("cashDate", rs.getString("cashDate"));
 			hmCash.put("cashPrice", rs.getLong("cashPrice"));
@@ -31,9 +31,9 @@ public class CashDao {
 		dbUtil.close(rs, stmt, conn);
 		return cashList;
 	}
-	// cashDateList 상세보기
-	public ArrayList<HashMap<String, Object>> selectCashListByDate(String memberId, String cashDate) throws Exception{
+	public ArrayList<HashMap<String, Object>> selectCashListByDate(String memberId, String cashDate) throws Exception{ // cashDateList 상세보기
 		ArrayList<HashMap<String, Object>> cashDateList = new ArrayList<HashMap<String, Object>>();
+		HashMap<String, Object> hmCash=null;
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection(); // db연결
 		String sql = "SELECT c.cash_no cashNo, c.cash_date cashDate, c.cash_price cashPrice, c.cash_memo cashMemo, ct.category_name categoryName, ct.category_kind categoryKind "
@@ -43,7 +43,7 @@ public class CashDao {
 		stmt.setString(2, cashDate);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
-			HashMap<String, Object> hmCash = new HashMap<String, Object>(); // HashMap객체생성
+			hmCash = new HashMap<String, Object>(); // HashMap객체생성
 			hmCash.put("cashNo", rs.getInt("cashNo"));
 			hmCash.put("cashDate", rs.getString("cashDate"));
 			hmCash.put("cashPrice", rs.getLong("cashPrice"));
@@ -55,11 +55,10 @@ public class CashDao {
 		dbUtil.close(rs, stmt, conn);
 		return cashDateList;
 	}
-	// cashDate 추가하기
-	public int insertCashList(Cash cash) throws Exception{
+	public int insertCashList(Cash cash) throws Exception{ // cashDate 추가하기
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "INSERT INTO cash(member_id, category_no, cash_date, cash_price, cash_memo, updatedate, createdate) VALUES(?,?,?,?,?,CURDATE(),CURDATE())";
+		String sql = "INSERT INTO cash(member_id, category_no, cash_date, cash_price, cash_memo, updatedate, createdate) VALUES(?,?,?,?,?,NOW(),NOW())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, cash.getMemberId());
 		stmt.setInt(2, cash.getCategoryNo());
@@ -70,11 +69,10 @@ public class CashDao {
 		dbUtil.close(null, stmt, conn);
 		return row;
 	}
-	// cashDateList 수정
-	public int updateCashList(Cash cash) throws Exception {
+	public int updateCashList(Cash cash) throws Exception { // cashDateList 수정
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "UPDATE cash SET category_no=?, cash_price=?, cash_date=?, cash_memo=?, updatedate=CURDATE(), createdate=CURDATE() WHERE member_id=? AND cash_no=?";
+		String sql = "UPDATE cash SET category_no=?, cash_price=?, cash_date=?, cash_memo=?, updatedate=NOW(), createdate=NOW() WHERE member_id=? AND cash_no=?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, cash.getCategoryNo());
 		stmt.setLong(2, cash.getCashPrice());
@@ -85,9 +83,8 @@ public class CashDao {
 		int row = stmt.executeUpdate();
 		dbUtil.close(null, stmt, conn);
 		return row;
-	}
-	// cashDateList 삭제 
-	public int deleteCashList(String memberId, int cashNo) throws Exception {
+	} 
+	public int deleteCashList(String memberId, int cashNo) throws Exception { // cashDateList 삭제
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
 		String sql = "DELETE FROM cash WHERE member_id=? AND cash_no=?";
@@ -95,7 +92,7 @@ public class CashDao {
 		stmt.setString(1, memberId);
 		stmt.setInt(2, cashNo);
 		int row = stmt.executeUpdate();
-		dbUtil.close(null, stmt, conn);
+		dbUtil.close(null, stmt, conn); // db자원 반납
 		return row;
 	}
 }

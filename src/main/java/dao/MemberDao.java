@@ -42,7 +42,7 @@ public class MemberDao { // 2. Model
 	public int insertMember(Member paramMember) throws Exception { // 회원가입
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "INSERT INTO member(member_id, member_pw, member_name, updatedate, createdate) VALUES(?,PASSWORD(?),?,curdate(),curdate())";
+		String sql = "INSERT INTO member(member_id, member_pw, member_name, updatedate, createdate) VALUES(?,PASSWORD(?),?,NOW(),NOW())";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, paramMember.getMemberId());
 		stmt.setString(2, paramMember.getMemberPw());
@@ -55,7 +55,7 @@ public class MemberDao { // 2. Model
 		Member resultMember = new Member();
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql="UPDATE member SET member_name=?, updatedate=CURDATE() WHERE member_id=? AND member_pw=PASSWORD(?)";
+		String sql="UPDATE member SET member_name=?, updatedate=NOW() WHERE member_id=? AND member_pw=PASSWORD(?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, paramMember.getMemberName());
 		stmt.setString(2, paramMember.getMemberId());
@@ -72,7 +72,7 @@ public class MemberDao { // 2. Model
 	public int updateMemberPw(String memberId, String memberPw, String newMemberPw) throws Exception { // 비밀번호 변경
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "UPDATE member SET member_pw=PASSWORD(?), updatedate=CURDATE() WHERE member_id=? AND member_pw=PASSWORD(?)";
+		String sql = "UPDATE member SET member_pw=PASSWORD(?), updatedate=NOW() WHERE member_id=? AND member_pw=PASSWORD(?)";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, newMemberPw);
 		stmt.setString(2, memberId);
@@ -92,13 +92,23 @@ public class MemberDao { // 2. Model
 		return row;
 	}
 	// ---관리자 기능---
-	public ArrayList<Member> selectMemberListByPage(int beginRow, int rowPerPage) throws Exception{ // 멤버 목록출력 
+	public ArrayList<Member> selectMemberListByPage(int beginRow, int rowPerPage, String search) throws Exception{ // 멤버 목록출력 (검색기능추가)
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection();
-		String sql = "SELECT member_no memberNo, member_id memberId, member_level memberLevel, member_name memberName, updatedate, createdate FROM member LIMIT ?,?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, beginRow);
-		stmt.setInt(2, rowPerPage);		
+		String sql = null;
+		PreparedStatement stmt = null;
+		if(search==null) {
+			sql = "SELECT member_no memberNo, member_id memberId, member_level memberLevel, member_name memberName, updatedate, createdate FROM member LIMIT ?,?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, beginRow);
+			stmt.setInt(2, rowPerPage);	
+		} else {
+			sql = "SELECT member_no memberNo, member_id memberId, member_level memberLevel, member_name memberName, updatedate, createdate FROM member WHERE member_id LIKE ? LIMIT ?,?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, "%"+search+"%");
+			stmt.setInt(2, beginRow);
+			stmt.setInt(3, rowPerPage);	
+		}		
 		ResultSet rs = stmt.executeQuery();
 		ArrayList<Member> memberList = new ArrayList<Member>();
 		while(rs.next()) {
@@ -137,7 +147,7 @@ public class MemberDao { // 2. Model
 		dbUtil.close(rs, stmt, conn); // db 연결 해제
 		return count;
 	}
-	public int updateMemberLevel(Member paramMember) throws Exception { // 멤버 레벨 수정
+	public int updateMemberLevelByAdmin(Member paramMember) throws Exception { // 멤버 레벨 수정
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = dbUtil.getConnection(); // db 연결
 		String sql = "UPDATE member SET member_level = ?, updatedate=NOW() WHERE member_id=?";

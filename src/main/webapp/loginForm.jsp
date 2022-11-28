@@ -30,7 +30,6 @@
 <body>
 	<!-- 공지(5개) 목록 페이징 -->
 	<div>
-		<h4>공지사항</h4> <a href="">더보기</a>
 		<table>
 			<tr>
 				<th>No</th>
@@ -43,14 +42,12 @@
 				<tr>
 					<td><%=n.getNoticeNo()%></td>	
 					<td><%=n.getNoticeMemo()%></td>	
-					<td><%=n.getCreatedate()%></td>	
+					<td><%=n.getCreatedate().substring(0,10)%></td>	
 			<%
 				}
 			%>
 		</table>
-		<div>
-			
-		</div>
+	<h1>로그인</h1>
 	</div>
 	<div>
 		<!-- 로그인 폼 -->

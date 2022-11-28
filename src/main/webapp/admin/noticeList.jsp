@@ -16,7 +16,7 @@
 	int rowPerPage = 10;
 	int beginRow = (currentPage-1)*rowPerPage;
 	NoticeDao noticeDao = new NoticeDao();
-	ArrayList<Notice> noticeList = noticeDao.selectNoticeListByPage(beginRow, rowPerPage);
+	ArrayList<Notice> noticeList = noticeDao.selectNoticeListByPage(beginRow, rowPerPage); // Model 호출 (공지목록)
 	int totalCount = noticeDao.totalCount(); // 페이징
 	int lastPage = totalCount/rowPerPage;
 	if(totalCount%rowPerPage!=0){ // 남은 글이 있으면 페이지+1
@@ -40,8 +40,13 @@
 	<div>
 		<jsp:include page="/inc/menu.jsp"></jsp:include>
 	</div>
+	<!-- 관리자메뉴 -->
+	<div>
+		<jsp:include page="/inc/adminMenu.jsp"></jsp:include>
+	</div>
 	<!-- notice contents -->
 	<div>
+		<!-- notice 추가 폼 -->
 		<table>
 			<tr>
 				<th>NO</th>

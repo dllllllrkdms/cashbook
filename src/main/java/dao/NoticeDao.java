@@ -14,7 +14,7 @@ public class NoticeDao {
 		if(rs.next()) {
 			count = rs.getInt("count");
 		}
-		dbUtil.close(rs, stmt, conn); // db 연결 해제
+		dbUtil.close(rs, stmt, conn); // db자원 반납
 		return count;
 	}
 	public ArrayList<Notice> selectNoticeListByPage(int beginRow, int rowPerPage) throws Exception{ // noticeList 출력
@@ -43,8 +43,9 @@ public class NoticeDao {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1,noticeNo);
 		ResultSet rs = stmt.executeQuery();
-		Notice notice = new Notice();
+		Notice notice = null; // 반환할 변수 초기화
 		if(rs.next()) {
+			notice=new Notice();
 			notice.setNoticeNo(noticeNo);
 			notice.setNoticeMemo(rs.getString("noticeMemo"));
 			notice.setCreatedate(rs.getString("createdate"));

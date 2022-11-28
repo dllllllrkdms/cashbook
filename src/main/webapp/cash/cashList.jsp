@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.text.*"%>
 <%@ page import="java.net.*"%>
 <%@ page import="java.util.*"%> <!-- Calendar, ArrayList -->
 <%@ page import="vo.*" %>
@@ -53,6 +54,11 @@
 	CashDao cashDao = new CashDao();
 	ArrayList<HashMap<String,Object>> cashList = cashDao.selectCashListByMonth(memberId, year, month+1);
 	ArrayList<HashMap<String,Object>> cashDateList = null;
+	// 총 수입/지출 
+	DecimalFormat df = new DecimalFormat("###,###"); // 3자리마다 반점찍기
+	long income = 0;
+	long expense = 0;
+
 %>
 <!DOCTYPE html>
 <html>
@@ -84,7 +90,7 @@
 			<tr>
 			<%
 				for(int i=1; i<=totalTd; i++){
-					int date = i-beginBlank; // 10이하일때는 01 02 이런식으로 두자리가 들어와야함
+					int date = i-beginBlank;
 			%>
 					<td>
 			<%
@@ -99,14 +105,20 @@
 						cashDateList = cashDao.selectCashListByDate(memberId, cashDate);
 						for(HashMap<String, Object> m : cashDateList){
 			%>
-								<!-- 형변환하여 사용 -->
-								<%=(String)m.get("categoryKind")%>
-								<%=(String)m.get("categoryName")%>
-								<%=(Long)m.get("cashPrice")%>원
-								<br>
+							<!-- 형변환하여 사용 -->
+							<%=(String)m.get("categoryKind")%>
+							<%=(String)m.get("categoryName")%>
+							<%=(Long)m.get("cashPrice")%>원
+							<br>
 			<%
-							}
+							// 총 수입/지출액 계산
+							if(m.get("categoryKind").equals("수입")){
+								income+=(long)m.get("cashPrice");
+							} else{
+								expense+=(long)m.get("cashPrice");
+							}		
 						}
+					}
 			%>
 					</td>
 			<%
@@ -118,6 +130,9 @@
 				}			
 			%>
 		</table>
+		<div>수입 :<%out.print(df.format(income));%>원</div>
+		<div>지출 :<%out.print(df.format(expense));%>원</div>
+		<div>총 잔액: <%out.print(df.format(income-expense));%>원</div>
 	</div>
 </body>
 </html>

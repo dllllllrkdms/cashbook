@@ -10,17 +10,19 @@
 		response.sendRedirect(request.getContextPath()+"/cash/cashList.jsp");
 		return;
 	}
+	int cashNo = Integer.parseInt(request.getParameter("cashNo"));
+	String cashDate = request.getParameter("cashDate");
 	if(request.getParameter("categoryNo")==null||request.getParameter("categoryNo").equals("")||request.getParameter("cashPrice")==null
 			||request.getParameter("cashPrice").equals("")||request.getParameter("cashMemo")==null||request.getParameter("cashMemo").equals("")){
-		response.sendRedirect(request.getContextPath()+"/cash/updateCashListForm.jsp?cashNo="+request.getParameter("cashNo")+"&cashDate"+request.getParameter("cashDate"));
+		response.sendRedirect(request.getContextPath()+"/cash/updateCashListForm.jsp?cashNo="+cashNo+"&cashDate"+cashDate);
 		return;
 	}
 	Cash cash = new Cash();
 	cash.setMemberId(request.getParameter("memberId"));
-	cash.setCashNo(Integer.parseInt(request.getParameter("cashNo")));
+	cash.setCashNo(cashNo);
 	cash.setCategoryNo(Integer.parseInt(request.getParameter("categoryNo")));
 	cash.setCashPrice(Long.parseLong(request.getParameter("cashPrice")));
-	cash.setCashDate(request.getParameter("cashDate"));
+	cash.setCashDate(cashDate);
 	cash.setCashMemo(request.getParameter("cashMemo"));
 	CashDao cashDao = new CashDao();
 	int row = cashDao.updateCashList(cash);

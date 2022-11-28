@@ -10,23 +10,22 @@
 	}
 	// 파라메타값 유효성검사
 	String cashDate = null;
-	if(request.getParameter("cashDate")==null||request.getParameter("cashDate").equals("")){ 
+	if(request.getParameter("cashDate")!=null||request.getParameter("cashDate").equals("")==false){ 
+		cashDate = request.getParameter("cashDate");
+	}else{ // 넘어온 값이 없으면 오늘날짜 설정 
 		Calendar today = Calendar.getInstance(); // 오늘날짜 
 		int year = today.get(Calendar.YEAR);
 		int month = today.get(Calendar.MONTH); // 1월:0, 12월:11
 		int date = today.get(Calendar.DATE);
 		cashDate = year+"-"+(month+1)+"-"+date;
-	}else{
-		cashDate = request.getParameter("cashDate");
-		// 10이하의 date가 01 02처럼 두자릿수로 나와야함
 	}
 	//System.out.println(cashDate+"<--cashDateList cashDate");
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	String memberId = loginMember.getMemberId();
 	CashDao cashDao = new CashDao();
-	ArrayList<HashMap<String, Object>> cashDateList = cashDao.selectCashListByDate(memberId, cashDate);
+	ArrayList<HashMap<String, Object>> cashDateList = cashDao.selectCashListByDate(memberId, cashDate); // Model호출
 	CategoryDao categoryDao = new CategoryDao();
-	ArrayList<Category> categoryList = categoryDao.selectCategoryList();
+	ArrayList<Category> categoryList = categoryDao.selectCategoryList(); // Model호출
 %>
 <!DOCTYPE html>
 <html>
@@ -44,7 +43,7 @@
 		<input type="hidden" name="memberId" value="<%=memberId%>">
 		<table>
 			<tr>
-				<td><input type="date" name="cashDate" value="<%=cashDate%>" readonly=readonly></td> <!-- 지금은 변경불가하게 -->
+				<td><input type="text" name="cashDate" value="<%=cashDate%>" readonly=readonly></td> <!-- 변경불가 -->
 			</tr>
 			<tr>
 				<td>
@@ -86,6 +85,6 @@
 			}
 		%>
 	</table>
-	<a href="<%=request.getContextPath()%>/cash/cashList.jsp">이전</a>
+	<a href="<%=request.getContextPath()%>/cash/cashList.jsp">이전</a> <!-- cashList.jsp로 돌아가기 -->
 </body>
 </html>
