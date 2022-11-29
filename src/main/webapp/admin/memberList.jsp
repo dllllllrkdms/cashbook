@@ -38,6 +38,7 @@
 <head>
 <meta charset="UTF-8">
 <title>memberList</title>
+
 </head>
 <body>
 	<!-- 로그인 정보 -->

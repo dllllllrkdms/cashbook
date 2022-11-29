@@ -26,74 +26,94 @@
 <head>
 <meta charset="UTF-8">
 <title>loginForm</title>
-<!-- Favicons -->
-<link href="resources/img/favicon.png" rel="icon">
-<link href="resources/img/apple-touch-icon.png" rel="apple-touch-icon">
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="resources/img/favicon/favicon.ico" />
 
-<!-- Google Fonts -->
-<link href="https://fonts.gstatic.com" rel="preconnect">
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+  rel="stylesheet">
 
-<!-- Vendor CSS Files -->
-<link href="resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="resources/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="resources/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-<link href="resources/vendor/quill/quill.snow.css" rel="stylesheet">
-<link href="resources/vendor/quill/quill.bubble.css" rel="stylesheet">
-<link href="resources/vendor/remixicon/remixicon.css" rel="stylesheet">
-<link href="resources/vendor/simple-datatables/style.css" rel="stylesheet">
+<!-- Core CSS -->
+<link rel="stylesheet" href="resources/vendor/css/core.css" />
+<link rel="stylesheet" href="resources/vendor/css/theme-default.css" />
+<link rel="stylesheet" href="resources/css/demo.css" />
 
-<!-- Template Main CSS File -->
-<link href="resources/css/sb-admin-2.css" rel="stylesheet">
-<link href="resources/css/style.css" rel="stylesheet">
+<!-- Page CSS -->
+
+<!-- Helpers -->
+<script src="../assets/vendor/js/helpers.js"></script>
+
+<!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+<!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+<script src="../assets/js/config.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="async" src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+
+function gtag() {
+  dataLayer.push(arguments);
+}
+gtag('js', new Date());
+gtag('config', 'GA_MEASUREMENT_ID');
+</script>
+<!-- Custom notification for demo -->
+ <!-- beautify ignore:end -->
+
 </head>
-<body class="bg-gradient-primary">
+<body>
 	<!-- 공지(5개) 목록 페이징 -->
-	<div class="container">
-		<div>
-			<table class="table">
+	<div>
+		<table class="table">
+			<tr>
+				<th>No</th>
+				<th>공지사항</th>
+				<th>날짜</th>
+			</tr>
+			<%
+				for(Notice n : noticeList){
+			%>
 				<tr>
-					<th>No</th>
-					<th>공지사항</th>
-					<th>날짜</th>
-				</tr>
-				<%
-					for(Notice n : noticeList){
-				%>
-					<tr>
-						<td><%=n.getNoticeNo()%></td>	
-						<td><%=n.getNoticeMemo()%></td>	
-						<td><%=n.getCreatedate().substring(0,10)%></td>	
-				<%
-					}
-				%>
-			</table>
-		</div>
-		<div class="row justify-content-center">
-			<div class="text-center">
-				<h1 class="h4 text-gray-900 mb-4">로그인</h1>
-			</div>
-			<div>
-				<!-- 로그인 폼 -->
-				<div><%=msg%></div>
-				<form action="<%=request.getContextPath()%>/loginAction.jsp" method="post" class="user">
-					<table>
-						<tr class="form-group">
-							<th>ID</th>
-							<td><input type="text" name="memberId" class="form-control form-control-user"></td>
-						</tr>
-						<tr class="form-group">
-							<th>PW</th>
-							<td><input type="password" name="memberPw" class="form-control form-control-user"></td>
-						</tr>
-						<tr class="form-group">
-							<td colspan="2"><button type="submit" class="btn btn-primary btn-user btn-block">로그인</button></td>
-						</tr>
-					</table>
-				</form>
-				<hr>
-				<div class="text-center">
-					<a href="<%=request.getContextPath()%>/insertMemberForm.jsp" class="small">회원가입</a>
+					<td><%=n.getNoticeNo()%></td>	
+					<td><%=n.getNoticeMemo()%></td>	
+					<td><%=n.getCreatedate().substring(0,10)%></td>	
+			<%
+				}
+			%>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-xl">
+			<div class="card mb-4">
+				<div class="card-header d-flex justify-content-between align-items-center">
+					<h1 class="mb-0">로그인</h1>
+					<div class="card-body">
+						<!-- 로그인 폼 -->
+						<div><%=msg%></div>
+						<form action="<%=request.getContextPath()%>/loginAction.jsp" method="post">
+							<table>
+								<tr class="mb-3">
+									<th>ID</th>
+									<td><input type="text" name="memberId"></td>
+								</tr>
+								<tr class="mb-3">
+									<th>PW</th>
+									<td><input type="password" name="memberPw"></td>
+								</tr>
+								<tr class="mb-3">
+									<td colspan="2"><button type="submit">로그인</button></td>
+								</tr>
+							</table>
+						</form>
+						<hr>
+						<div>
+							<a href="<%=request.getContextPath()%>/insertMemberForm.jsp">회원가입</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

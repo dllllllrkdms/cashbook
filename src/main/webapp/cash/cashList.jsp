@@ -134,5 +134,9 @@
 		<div>지출 :<%out.print(df.format(expense));%>원</div>
 		<div>총 잔액: <%out.print(df.format(income-expense));%>원</div>
 	</div>
+	<!-- footer -->
+	<div>
+		<jsp:include page="/inc/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

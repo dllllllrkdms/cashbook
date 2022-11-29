@@ -86,5 +86,9 @@
 		%>
 	</table>
 	<a href="<%=request.getContextPath()%>/cash/cashList.jsp">이전</a> <!-- cashList.jsp로 돌아가기 -->
+	<!-- footer -->
+	<div>
+		<jsp:include page="/inc/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>

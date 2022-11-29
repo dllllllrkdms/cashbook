@@ -74,5 +74,9 @@
 		</form>
 		<a href="<%=request.getContextPath()%>/cash/cashDateList.jsp?cashDate=<%=cashDate%>">이전</a>
 	</div>
+	<!-- footer -->
+	<div>
+		<jsp:include page="/inc/footer.jsp"></jsp:include>
+	</div>
 </body>
 </html>
