@@ -21,7 +21,7 @@
 <body>
 	<!-- 로그인 정보 -->
 	<div>
-		<jsp:include page="/inc/menu.jsp"></jsp:include>
+		<jsp:include page="/inc/userMenu.jsp"></jsp:include>
 	</div>
 	<!-- 관리자 메뉴 -->
 	<div> 

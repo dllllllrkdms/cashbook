@@ -1,19 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="vo.*"%>
-<%
-	Member loginMember = (Member)session.getAttribute("loginMember");
-	String memberName = loginMember.getMemberName();
-%>
-	<div id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-		<%=memberName%>님 반갑습니다.
-		<a href="<%=request.getContextPath()%>/member/memberOne.jsp">내 정보</a>
-		<a href="<%=request.getContextPath()%>/cash/cashList.jsp">가계부</a>
-		<a href="<%=request.getContextPath()%>/member/logout.jsp">로그아웃</a>
-		<%
-			if(loginMember.getMemberLevel()>0){
-		%>
-			<a href="<%=request.getContextPath()%>/admin/adminMain.jsp">관리자페이지</a>
-		<%		
-		}
-		%>
-	</div>
+
+	<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+		<div>
+			<a href="" class="app-brand-link">
+				<span class="app-brand-text demo menu-text fw-bolder ms-2">GOODEE</span>
+			</a>
+			<a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+				<i class="bx bx-chevron-left bx-sm align-middle"></i>
+			</a>
+		</div>
+		<div class="menu-inner-shadow"></div>
+		
+		<ul class="menu-inner py-1">
+			<!-- 가계부 -->
+			<li class="menu-item">
+				<a href="" class="menu-link">
+					<i class='bx bx-calendar' ></i>
+					<div>가계부</div>
+				</a>
+			</li>
+			<!-- 고객센터 -->
+			<li class="menu-item">
+				<a href="" class="menu-link">
+					<i class='bx bxs-user-voice' ></i>
+					<div>고객센터</div>
+				</a>
+			</li>
+		</ul>
+	</aside>

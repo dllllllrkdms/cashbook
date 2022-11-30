@@ -40,7 +40,7 @@
 <body>
 	<!-- 로그인 정보 출력 -->
 	<div>
-		<jsp:include page="/inc/menu.jsp"></jsp:include>
+		<jsp:include page="/inc/userMenu.jsp"></jsp:include>
 	</div>
 	<div>
 		<form action="<%=request.getContextPath()%>/cash/updateCashListAction.jsp" method="post">

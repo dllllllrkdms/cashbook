@@ -18,7 +18,7 @@
 <body>
 	<!-- 로그인 정보 출력 -->
 	<div>
-		<jsp:include page="/inc/menu.jsp"></jsp:include>
+		<jsp:include page="/inc/userMenu.jsp"></jsp:include>
 	</div>
 	<h1>고객센터</h1>
 	<div>
