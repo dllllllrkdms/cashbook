@@ -14,12 +14,15 @@
 	ArrayList<HashMap<String, Object>> helpList = helpDao.selectHelpList(memberId);
 %>
 <!DOCTYPE html>
-<html>
+<html lang="en" class="light-style layout-menu-fixed " dir="ltr" data-theme="theme-default" data-assets-path="./resources/" data-template="vertical-menu-template-free">
 <head>
 <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 <title>helpList</title>
+<meta name="description" content="Most Powerful &amp; Comprehensive Bootstrap 5 HTML Admin Dashboard Template built for developers!" />
+<meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
 <!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/img/favicon/favicon.ico" />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,78 +32,153 @@
   rel="stylesheet">
 
 <!-- Icons. Uncomment required icon fonts -->
-<link rel="stylesheet" href="../../assets/vendor/fonts/boxicons.css" />
-<!-- <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" /> -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/fonts/boxicons.css" />
+    
 
 <!-- Core CSS -->
-<link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-<link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" class="template-customizer-theme-css" />
-<link rel="stylesheet" href="../../assets/css/demo.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/core.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/theme-default.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/demo.css" />
 
 <!-- Vendors CSS -->
-<link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+<!-- Canonical SEO -->
+   <link rel="canonical" href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/">
+
+<!-- Page CSS -->
+<!-- Page -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/pages/page-auth.css">
+<!-- Core JS -->
+<!-- build:js assets/vendor/js/core.js -->
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/js/bootstrap.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<script src="<%=request.getContextPath()%>/resources/vendor/js/menu.js"></script>
+<!-- endbuild -->
+
+<!-- Vendors JS -->
+
+<!-- Main JS -->
+<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
+
+<!-- Page JS -->
 
 <!-- Helpers -->
-<script src="../../assets/vendor/js/helpers.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/js/helpers.js"></script>
 
 <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-<!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-<script src="../../assets/vendor/js/template-customizer.js"></script>
 <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-<script src="../../assets/js/config.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/config.js"></script>
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="async" src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+
+function gtag() {
+  dataLayer.push(arguments);
+}
+gtag('js', new Date());
+gtag('config', 'GA_MEASUREMENT_ID');
+</script>
+<!-- Custom notification for demo -->
+<!-- beautify ignore:end -->
 </head>
 <body>
-	<!-- 로그인 정보 출력 -->
-	<div>
-		<jsp:include page="/inc/userMenu.jsp"></jsp:include>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar ">
+	<div class="layout-container">
+  		<!-- Menu -->
+  		<div>	
+			<jsp:include page="/inc/menu.jsp"></jsp:include>
+		</div>
+		<!-- /Menu -->
+		
+		<!-- Layout container -->
+   		<div class="layout-page">
+   		 
+			<!--User-->
+			<div>
+				<jsp:include page="/inc/userMenu.jsp"></jsp:include>
+			</div>
+			<!-- /User -->
+			
+			<!-- Content wrapper -->
+			<div class="content-wrapper">
+			
+				<!-- Content -->
+				<div class="container-xxl flex-grow-1 container-p-y">
+		          <div class="card">
+		          	<div class="card-body">
+		          		<div class="card-body demo-vertical-spacing demo-only-element">
+							<div>
+								<a href="<%=request.getContextPath()%>/help/insertHelpForm.jsp">문의하기</a>
+							</div>
+							<div>
+								<table>
+									<tr>
+										<th>문의내용</th>
+										<th>문의날짜</th>
+										<th>답변내용</th>
+										<th>답변날짜</th>
+										<th>수정</th>
+										<th>삭제</th>
+									</tr>
+									<%
+										for(HashMap<String, Object> m : helpList){
+									%>
+											<tr>
+												<td><%=m.get("helpMemo")%></td>
+												<td><%=m.get("helpCreatedate")%></td>
+												<%
+													if(m.get("commentMemo")==null){ // 답변이 달리지 않은 문의글만 수정/삭제 가능
+												%>
+														<td>답변 전</td>
+														<td>답변 전</td>
+														<td><a href="<%=request.getContextPath()%>/help/updateHelpForm.jsp?helpNo=<%=m.get("helpNo")%>">수정</a></td>
+														<td><a href="<%=request.getContextPath()%>/help/deleteHelp.jsp?helpNo=<%=m.get("helpNo")%>">삭제</a></td>
+												<%
+													}else{
+												%>
+														<td><%=m.get("commentMemo")%></td>
+														<td><%=m.get("commentCreatedate")%></td>
+														<td>&nbsp;</td>
+														<td>&nbsp;</td>
+												<%
+													}
+												%>
+											</tr>
+									<%
+										}
+									%>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+			<!-- /Content -->
+			
+			<!-- Footer -->
+			<div>
+				<jsp:include page="/inc/footer.jsp"></jsp:include>
+			</div>
+			<!-- /Footer -->
+			
+		</div>
+		<!-- /Content wrapper -->
 	</div>
-	<h1>고객센터</h1>
-	<div>
-		<a href="<%=request.getContextPath()%>/help/insertHelpForm.jsp">문의하기</a>
-	</div>
-	<div>
-		<table>
-			<tr>
-				<th>문의내용</th>
-				<th>문의날짜</th>
-				<th>답변내용</th>
-				<th>답변날짜</th>
-				<th>수정</th>
-				<th>삭제</th>
-			</tr>
-			<%
-				for(HashMap<String, Object> m : helpList){
-			%>
-					<tr>
-						<td><%=m.get("helpMemo")%></td>
-						<td><%=m.get("helpCreatedate")%></td>
-						<%
-							if(m.get("commentMemo")==null){ // 답변이 달리지 않은 문의글만 수정/삭제 가능
-						%>
-								<td>답변 전</td>
-								<td>답변 전</td>
-								<td><a href="<%=request.getContextPath()%>/help/updateHelpForm.jsp?helpNo=<%=m.get("helpNo")%>">수정</a></td>
-								<td><a href="<%=request.getContextPath()%>/help/deleteHelp.jsp?helpNo=<%=m.get("helpNo")%>">삭제</a></td>
-						<%
-							}else{
-						%>
-								<td><%=m.get("commentMemo")%></td>
-								<td><%=m.get("commentCreatedate")%></td>
-								<td>&nbsp;</td>
-								<td>&nbsp;</td>
-						<%
-							}
-						%>
-					</tr>
-			<%
-				}
-			%>
-		</table>
-	</div>
-	<!-- footer -->
-	<div>
-		<jsp:include page="/inc/footer.jsp"></jsp:include>
-	</div>
+	<!-- /LayOut page -->
+
+    <!-- Overlay -->
+    <div class="layout-overlay layout-menu-toggle"></div>
+    
+    </div>
+    <!-- /Layout container -->
+</div>
+<!-- /LayOut wrapper -->
 </body>
 </html>

@@ -95,10 +95,15 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <!-- Custom notification for demo -->
 <!-- beautify ignore:end -->
 </head>
+<style>
+	.authentication-wrapper {
+		min-height: 60vh;
+	}
+</style>
 <body>
 <div class="container">
 	
-	<!-- 공지(5개) 목록 페이징 -->
+	<!-- 공지(5개) 목록 페이징 --> <!-- 공지보기 누르면 공지가 나오게 -->
 	<div>
 		<table class="table table-sm">
 			<thead>
@@ -128,19 +133,19 @@ gtag('config', 'GA_MEASUREMENT_ID');
 	<!-- login form -->
     <div class="card">
 		<div class="card-body">
-				<h2 class="card-header mb-2">로그인</h2>
+				<h2 class="card-header mb-2">sign in to cashbook</h2>
 					<div class="card-body demo-vertical-spacing demo-only-element">
 						<div><%=msg%></div>
 						<form action="<%=request.getContextPath()%>/loginAction.jsp" class="mb-3" method="post">
 							<div class="mb-3">
 								<label class="form-label" for="id">ID</label>
-								<input type="text" name="memberId" class="form-control" id="id" placeholder="UserID" aria-label="UserId" aria-describedby="memberId" autofocus/><!-- autofocus : 페이지가 로드될때 자동으로 포커스가 이동됨 -->
+								<input type="text" name="memberId" class="form-control" id="id" placeholder="email or username" aria-label="UserId" aria-describedby="memberId" autofocus/><!-- autofocus : 페이지가 로드될때 자동으로 포커스가 이동됨 -->
 							</div>
 							<div class="mb-3 form-password-toggle">
 								<label class="form-label" for="password">Password</label>
 								<div class="input-group input-group-merge">
-									<input type="password" name="memberPw" class="form-control" id="password" aria-describedby="password">
-									<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>							
+									<input type="password" name="memberPw" class="form-control" id="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password">
+									<!-- span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>	-->				
 								</div>
 							</div>
 							<div class="mb-3 mt-3">
@@ -148,7 +153,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 							</div>
 						</form>
 						<hr>
-						<p class="text-center">						
+						<p class="text-center">		
+							회원이 아니신가요?				
 							<a href="<%=request.getContextPath()%>/insertMemberForm.jsp">회원가입</a>
 						</p>
 					</div>

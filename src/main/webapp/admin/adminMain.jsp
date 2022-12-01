@@ -37,7 +37,6 @@
 <!-- Icons. Uncomment required icon fonts -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/fonts/boxicons.css" />
     
-
 <!-- Core CSS -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/core.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/theme-default.css" />
@@ -91,80 +90,100 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <!-- beautify ignore:end -->
 </head>
 <body>
-	<!-- 로그인 정보 -->
-	<div>
-		<jsp:include page="/inc/userMenu.jsp"></jsp:include>
-	</div>
-	<!-- admin content-->
-	<div class="content-wrapper">
-		<div class="container-xxl flex-grow-1 container-p-y">
-			<div class="row">
-				<!-- 최근공지5개 -->
-				<div class="col-md-6">
-					<div class="card mb-4">
-						<div class="card-header">
-							<h5 style="display:inline-block">notice</h5>
-							<span style="float:right">
-								<a href="<%=request.getContextPath()%>/admin/noticeList.jsp">
-									<i class='bx bx-dots-vertical-rounded'></i>
-								</a>
-							</span>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar ">
+	<div class="layout-container">
+  		<!-- Menu -->
+  		<div>	
+			<jsp:include page="/inc/menu.jsp"></jsp:include>
+		</div>
+		<!-- /Menu -->
+		
+		<!-- Layout container -->
+   		<div class="layout-page">
+			<!-- User -->
+			<div>
+				<jsp:include page="/inc/userMenu.jsp"></jsp:include>
+			</div>
+			<!-- /User -->
+			<!-- Content wrapper-->
+			<div class="content-wrapper">
+				<div class="container-xxl flex-grow-1 container-p-y">
+					<div class="row">
+						<!-- Content -->
+						<!-- 최근공지5개 -->
+						<div class="col-md-6">
+							<div class="card mb-4">
+								<div class="card-header">
+									<h5 style="display:inline-block">notice</h5>
+									<span style="float:right">
+										<a href="<%=request.getContextPath()%>/admin/noticeList.jsp">
+											<i class='bx bx-dots-vertical-rounded'></i>
+										</a>
+									</span>
+								</div>
+								<div class="card-body demo-vertical-spacing demo-only-element">
+									
+								</div>
+							</div>
 						</div>
-						<div class="card-body demo-vertical-spacing demo-only-element">
-							
+						<!-- 최근고객센터글 5개 -->
+						<div class="col-md-6">
+							<div class="card mb-4">
+								<div class="card-header">
+									<h5 style="display:inline-block">help</h5>
+									<span style="float:right">
+										<a href="<%=request.getContextPath()%>/admin/noticeList.jsp">
+											<i class='bx bx-dots-vertical-rounded'></i>
+										</a>
+									</span>
+								</div>
+								<div class="card-body demo-vertical-spacing demo-only-element">
+									
+								</div>
+							</div>
+						</div>
+						<!-- 최근 가입멤버 5명 -->
+						<div class="col-md-6">
+							<div class="card mb-4">
+								<div class="card-header">
+									<h5 style="display:inline-block">member</h5>
+									<span style="float:right">
+										<a href="<%=request.getContextPath()%>/admin/noticeList.jsp">
+											<i class='bx bx-dots-vertical-rounded'></i>
+										</a>
+									</span>
+								</div>
+								<div class="card-body demo-vertical-spacing demo-only-element">
+									
+								</div>
+							</div>
+						</div>
+						<!-- 최근생성카테고리 5개 -->
+						<div class="col-md-6">
+							<div class="card mb-4">
+								<div class="card-header">
+									<h5 style="display:inline-block">category</h5>
+									<span style="float:right">
+										<a href="<%=request.getContextPath()%>/admin/noticeList.jsp">
+											<i class='bx bx-dots-vertical-rounded'></i>
+										</a>
+									</span>
+								</div>
+								<div class="card-body demo-vertical-spacing demo-only-element">
+									
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<!-- 최근고객센터글 5개 -->
-				<div class="col-md-6">
-					<div class="card mb-4">
-						<div class="card-header">
-							<h5 style="display:inline-block">help</h5>
-							<span style="float:right">
-								<a href="<%=request.getContextPath()%>/admin/noticeList.jsp">
-									<i class='bx bx-dots-vertical-rounded'></i>
-								</a>
-							</span>
-						</div>
-						<div class="card-body demo-vertical-spacing demo-only-element">
-							
-						</div>
-					</div>
-				</div>
-				<!-- 최근 가입멤버 5명 -->
-				<div class="col-md-6">
-					<div class="card mb-4">
-						<div class="card-header">
-							<h5 style="display:inline-block">member</h5>
-							<span style="float:right">
-								<a href="<%=request.getContextPath()%>/admin/noticeList.jsp">
-									<i class='bx bx-dots-vertical-rounded'></i>
-								</a>
-							</span>
-						</div>
-						<div class="card-body demo-vertical-spacing demo-only-element">
-							
-						</div>
-					</div>
-				</div>
-				<!-- 최근생성카테고리 5개 -->
-				<div class="col-md-6">
-					<div class="card mb-4">
-						<div class="card-header">
-							<h5 style="display:inline-block">category</h5>
-							<span style="float:right">
-								<a href="<%=request.getContextPath()%>/admin/noticeList.jsp">
-									<i class='bx bx-dots-vertical-rounded'></i>
-								</a>
-							</span>
-						</div>
-						<div class="card-body demo-vertical-spacing demo-only-element">
-							
-						</div>
-					</div>
+					<!-- /Content -->
 				</div>
 			</div>
+			<!-- /Container wrapper -->
+		</div>
+		<!-- /Layout container -->
 		</div>
 	</div>
+	<!-- /Layout wrapper -->
 </body>
 </html>
