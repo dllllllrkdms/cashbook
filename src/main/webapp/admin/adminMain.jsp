@@ -93,6 +93,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar ">
 	<div class="layout-container">
+	
   		<!-- Menu -->
   		<div>	
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
@@ -101,15 +102,18 @@ gtag('config', 'GA_MEASUREMENT_ID');
 		
 		<!-- Layout container -->
    		<div class="layout-page">
+   		
 			<!-- User -->
 			<div>
 				<jsp:include page="/inc/userMenu.jsp"></jsp:include>
 			</div>
 			<!-- /User -->
+			
 			<!-- Content wrapper-->
 			<div class="content-wrapper">
 				<div class="container-xxl flex-grow-1 container-p-y">
 					<div class="row">
+					
 						<!-- Content -->
 						<!-- 최근공지5개 -->
 						<div class="col-md-6">
@@ -177,13 +181,24 @@ gtag('config', 'GA_MEASUREMENT_ID');
 						</div>
 					</div>
 					<!-- /Content -->
+					
+					<!-- Footer -->
+					<div>
+						<jsp:include page="/inc/footer.jsp"></jsp:include>
+					</div>
+					<!-- /Footer -->
+					
 				</div>
 			</div>
 			<!-- /Container wrapper -->
 		</div>
 		<!-- /Layout container -->
-		</div>
+		
+		<!-- Overlay -->
+    	<div class="layout-overlay layout-menu-toggle"></div>
+		
 	</div>
-	<!-- /Layout wrapper -->
+</div>
+<!-- /Layout wrapper -->
 </body>
 </html>

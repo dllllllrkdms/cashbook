@@ -14,7 +14,7 @@
 	ArrayList<HashMap<String, Object>> helpList = helpDao.selectHelpList(memberId);
 %>
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-menu-fixed " dir="ltr" data-theme="theme-default" data-assets-path="./resources/" data-template="vertical-menu-template-free">
+<html lang="en" class="light-style layout-menu-fixed " dir="ltr" data-theme="theme-default" data-assets-path="<%=request.getContextPath()%>/resources/" data-template="vertical-menu-template-free">
 <head>
 <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
@@ -111,22 +111,26 @@ gtag('config', 'GA_MEASUREMENT_ID');
 			
 				<!-- Content -->
 				<div class="container-xxl flex-grow-1 container-p-y">
-		          <div class="card">
-		          	<div class="card-body">
-		          		<div class="card-body demo-vertical-spacing demo-only-element">
-							<div>
-								<a href="<%=request.getContextPath()%>/help/insertHelpForm.jsp">문의하기</a>
-							</div>
-							<div>
-								<table>
-									<tr>
-										<th>문의내용</th>
-										<th>문의날짜</th>
-										<th>답변내용</th>
-										<th>답변날짜</th>
-										<th>수정</th>
-										<th>삭제</th>
-									</tr>
+					<h4 class="fw-bold py-3 mb-4">
+					  <span class="text-muted fw-light">고객센터 /</span> 내 문의내역
+					</h4>
+					<div class="card">
+						<div class="card-header">
+							<a style="float:right" class="btn btn-primary me-3" href="<%=request.getContextPath()%>/help/insertHelpForm.jsp">문의하기</a>
+						</div>
+							<div class="card-body">
+							<div class="table-responsive text-nowrap">
+								<table class="table">									
+									<thead>
+										<tr>
+											<th>문의내용</th>
+											<th>문의날짜</th>
+											<th>답변내용</th>
+											<th>답변날짜</th>
+											<th>수정/삭제</th>
+										</tr>
+									</thead>
+									<tbody>
 									<%
 										for(HashMap<String, Object> m : helpList){
 									%>
@@ -136,16 +140,22 @@ gtag('config', 'GA_MEASUREMENT_ID');
 												<%
 													if(m.get("commentMemo")==null){ // 답변이 달리지 않은 문의글만 수정/삭제 가능
 												%>
-														<td>답변 전</td>
-														<td>답변 전</td>
-														<td><a href="<%=request.getContextPath()%>/help/updateHelpForm.jsp?helpNo=<%=m.get("helpNo")%>">수정</a></td>
-														<td><a href="<%=request.getContextPath()%>/help/deleteHelp.jsp?helpNo=<%=m.get("helpNo")%>">삭제</a></td>
+														<td>&nbsp;</td>
+														<td>&nbsp;</td>
+														<td>
+															<div class="dropdown">
+																<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+																<div class="dropdown-menu">
+																	<a class="dropdown-item" href="<%=request.getContextPath()%>/help/updateHelpForm.jsp?helpNo=<%=m.get("helpNo")%>"><i class="bx bx-edit-alt me-1"></i> 수정</a>
+																	<a class="dropdown-item" href="<%=request.getContextPath()%>/help/deleteHelp.jsp?helpNo=<%=m.get("helpNo")%>"><i class="bx bx-trash me-1"></i> 삭제</a>
+																</div>
+												            </div>
+														</td>
 												<%
 													}else{
 												%>
 														<td><%=m.get("commentMemo")%></td>
 														<td><%=m.get("commentCreatedate")%></td>
-														<td>&nbsp;</td>
 														<td>&nbsp;</td>
 												<%
 													}
@@ -154,30 +164,30 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									<%
 										}
 									%>
+									</tbody>
 								</table>
-							</div>
+								</div>
 						</div>
 					</div>
+					<!-- /Content -->
+			
+				<!-- Footer -->
+				<div>
+					<jsp:include page="/inc/footer.jsp"></jsp:include>
 				</div>
-			</div>	
-			<!-- /Content -->
-			
-			<!-- Footer -->
-			<div>
-				<jsp:include page="/inc/footer.jsp"></jsp:include>
+				<!-- /Footer -->
+				
 			</div>
-			<!-- /Footer -->
-			
+			<!-- /Content wrapper -->
 		</div>
-		<!-- /Content wrapper -->
-	</div>
-	<!-- /LayOut page -->
-
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
-    
+		<!-- /LayOut container -->
+	
+	    <!-- Overlay -->
+	    <div class="layout-overlay layout-menu-toggle"></div>
+	    
+	    </div>
+	    <!-- /Layout container -->
     </div>
-    <!-- /Layout container -->
 </div>
 <!-- /LayOut wrapper -->
 </body>

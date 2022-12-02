@@ -52,16 +52,15 @@
 	// 전체 td의 개수 
 	int totalTd = beginBlank + lastDate + endBlank;
 	CashDao cashDao = new CashDao();
-	ArrayList<HashMap<String,Object>> cashList = cashDao.selectCashListByMonth(memberId, year, month+1);
 	ArrayList<HashMap<String,Object>> cashDateList = null;
 	// 총 수입/지출 
-	DecimalFormat df = new DecimalFormat("###,###"); // 3자리마다 반점찍기
+	DecimalFormat df = new DecimalFormat("###,###"); // 3자리마다 반점찍는 포맷설정
 	long income = 0;
 	long expense = 0;
 
 %>
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-menu-fixed " dir="ltr" data-theme="theme-default" data-assets-path="./resources/" data-template="vertical-menu-template-free">
+<html lang="en" class="light-style layout-menu-fixed " dir="ltr" data-theme="theme-default" data-assets-path="<%=request.getContextPath()%>/resources/" data-template="vertical-menu-template-free">
 <head>
 <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
@@ -136,9 +135,10 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <style>
 	.cellCalendar{
 		display: table-cell;
-		white-space: nowrap;
+		white-space: nowrap; /*td칸을 넘어가는 내용은 보이지 않음(짤려서 출력)*/
 		overflow: hidden auto;
 		height: 100px;
+		vertical-align:top;
 	}
 </style>
 </head>
@@ -197,7 +197,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 										for(int i=1; i<=totalTd; i++){
 											int date = i-beginBlank;
 									%>
-											<td style="vertical-align:top;" class="col-4 cellCalendar">
+											<td class="col-4 cellCalendar">
 									<%
 											if(date>0&&date<=lastDate){
 												String cashDate = year+"-"+(month+1)+"-"+date;
@@ -210,7 +210,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 												cashDateList = cashDao.selectCashListByDate(memberId, cashDate);
 												for(HashMap<String, Object> m : cashDateList){
 									%>
-													<!-- 형변환하여 사용 -->
+													<!-- Object타입을 형변환하여 사용 -->
 													<%=(String)m.get("categoryKind")%>
 													<%=(String)m.get("categoryName")%>
 													<%=(Long)m.get("cashPrice")%>원
@@ -238,20 +238,22 @@ gtag('config', 'GA_MEASUREMENT_ID');
 								</table>
 							</div>
 						<div>
-							수입 : <%out.print(df.format(income));%>원
-							지출 : <%out.print(df.format(expense));%>원
+							수입 : <%=df.format(income)%>원
+							지출 : <%=df.format(expense)%>원
 						</div>
-						<div>총 잔액: <%out.print(df.format(income-expense));%>원</div>
+						<div>총 잔액: <%=df.format(income-expense)%>원</div>
 						</div>
 					</div>
 				</div>
 			</div>	
 			<!-- /Content -->
+			
 			<!-- Footer -->
 			<div>
 				<jsp:include page="/inc/footer.jsp"></jsp:include>
 			</div>
 			<!-- /Footer -->
+			
 		</div>
 		<!-- /Content wrapper -->
 	</div>

@@ -21,7 +21,7 @@
 			<!-- 고객센터 -->
 			<li class="menu-item">
 				<a href="<%=request.getContextPath()%>/help/helpList.jsp" class="menu-link">
-					<i class="menu-icon tf-icons bx bxs-user-voice" ></i>
+					<i class="menu-icon tf-icons bx bx-support"></i>
 					<div>고객센터</div>
 				</a>
 			</li>

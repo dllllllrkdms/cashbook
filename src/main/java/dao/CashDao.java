@@ -4,7 +4,7 @@ import java.sql.*;
 import util.*;
 import vo.*;
 public class CashDao { 
-	public ArrayList<HashMap<String, Object>> selectCashListByMonth(String memberId, int year, int month) throws Exception{ // cashList
+	public ArrayList<HashMap<String, Object>> selectCashListByMonth(String memberId, int year, int month) throws Exception{ // cashList 목록출력(사용되지 않음)
 		ArrayList<HashMap<String, Object>> cashList = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> hmCash=null;
 		DBUtil dbUtil = new DBUtil();
@@ -31,6 +31,11 @@ public class CashDao {
 		dbUtil.close(rs, stmt, conn);
 		return cashList;
 	}
+	public ArrayList<Long> incomeExpenseByMonth(String memberId, int year, int month){
+		ArrayList<Long> list = new ArrayList<Long>();
+		
+		return list;
+	}
 	public ArrayList<HashMap<String, Object>> selectCashListByDate(String memberId, String cashDate) throws Exception{ // cashDateList 상세보기
 		ArrayList<HashMap<String, Object>> cashDateList = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> hmCash=null;
@@ -55,7 +60,7 @@ public class CashDao {
 		dbUtil.close(rs, stmt, conn);
 		return cashDateList;
 	}
-	public HashMap<String, Object> selectCashOne(String cashDate, int cashNo) throws Exception{ // updateCashListForm
+	public HashMap<String, Object> selectCashOne(String cashDate, int cashNo) throws Exception{ // cash 하나 출력 <-updateCashListForm 
 		HashMap<String, Object> hmCash = null;
 		DBUtil dbUtil = new DBUtil();
 		Connection conn=null;

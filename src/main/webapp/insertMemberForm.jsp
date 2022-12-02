@@ -90,49 +90,51 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </head>
 <body>
 <div class="authentication-wrapper authentication-basic container-p-y">
-		<div class="authentication-inner">
-			<!-- login form -->
-		    <div class="card">
-				<div class="card-body">
-					<h2 class="card-header mb-2">sign in to cashbook</h2>
-						<div class="card-body demo-vertical-spacing demo-only-element">
-							<div><%=msg%></div>
-							<form action="<%=request.getContextPath()%>/insertMemberAction.jsp" class="mb-3" method="post">
-								<div class="mb-3">
-									<label class="form-label" for="username">USERNAME</label>
-									<input type="text" name="memberName" class="form-control" id="username" placeholder="이름을 입력하세요" aria-label="username" aria-describedby="memberName" autofocus/><!-- autofocus : 페이지가 로드될때 자동으로 포커스가 이동됨 -->
+	<div class="authentication-inner">
+		
+		<!-- login form -->
+	    <div class="card">
+			<div class="card-body">
+				<h2 class="card-header mb-2">sign in to cashbook</h2>
+					<div class="card-body demo-vertical-spacing demo-only-element">
+						<div><%=msg%></div>
+						<form action="<%=request.getContextPath()%>/insertMemberAction.jsp" class="mb-3" method="post">
+							<div class="mb-3">
+								<label class="form-label" for="username">USERNAME</label>
+								<input type="text" name="memberName" class="form-control" id="username" placeholder="이름을 입력하세요" aria-label="username" aria-describedby="memberName" autofocus/><!-- autofocus : 페이지가 로드될때 자동으로 포커스가 이동됨 -->
+							</div>
+							<div class="mb-3">
+								<label class="form-label" for="id">ID</label> <!-- 중복검사 -->
+								<input type="text" name="memberId" class="form-control" id="id" placeholder="ID를 입력하세요" aria-label="userId" aria-describedby="memberId" autofocus/><!-- autofocus : 페이지가 로드될때 자동으로 포커스가 이동됨 -->
+							</div>
+							<div class="mb-3 form-password-toggle"> <!-- form-password-toggle X -->
+								<label class="form-label" for="password">Password</label>
+								<div class="input-group input-group-merge">
+									<input type="password" name="memberPw" class="form-control" id="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password">
+									<!-- span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>	-->				
 								</div>
-								<div class="mb-3">
-									<label class="form-label" for="id">ID</label> <!-- 중복검사 -->
-									<input type="text" name="memberId" class="form-control" id="id" placeholder="ID를 입력하세요" aria-label="userId" aria-describedby="memberId" autofocus/><!-- autofocus : 페이지가 로드될때 자동으로 포커스가 이동됨 -->
+							</div>
+							<div class="mb-3 form-password-toggle"> <!-- form-password-toggle X -->
+								<label class="form-label" for="checkPw">Password</label>
+								<div class="input-group input-group-merge">
+									<input type="password" name="checkPw" class="form-control" id="checkPw" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password">
+									<!-- span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>	-->				
 								</div>
-								<div class="mb-3 form-password-toggle"> <!-- form-password-toggle X -->
-									<label class="form-label" for="password">Password</label>
-									<div class="input-group input-group-merge">
-										<input type="password" name="memberPw" class="form-control" id="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password">
-										<!-- span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>	-->				
-									</div>
-								</div>
-								<div class="mb-3 form-password-toggle"> <!-- form-password-toggle X -->
-									<label class="form-label" for="checkPw">Password</label>
-									<div class="input-group input-group-merge">
-										<input type="password" name="checkPw" class="form-control" id="checkPw" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password">
-										<!-- span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>	-->				
-									</div>
-								</div>
-								<div class="mb-3 mt-3">
-									<button type="submit" class="btn btn-primary d-grid w-100">회원가입</button>
-								</div>
-							</form>
-							<hr>
-							<p class="text-center">	
-								이미 회원이신가요?					
-								<a href="<%=request.getContextPath()%>/loginForm.jsp">로그인</a>
-							</p>
-					</div>
+							</div>
+							<div class="mb-3 mt-3">
+								<button type="submit" class="btn btn-primary d-grid w-100">회원가입</button>
+							</div>
+						</form>
+						<hr>
+						<p class="text-center">	
+							이미 회원이신가요?					
+							<a href="<%=request.getContextPath()%>/loginForm.jsp">로그인</a>
+						</p>
 					</div>
 				</div>
 			</div>
+			<!-- /Login form -->
 		</div>
+	</div>
 </body>
 </html>

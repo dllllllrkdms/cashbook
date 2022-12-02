@@ -2,6 +2,10 @@
 <%@ page import="vo.*"%>
 <%
 	Member loginMember = (Member)session.getAttribute("loginMember");
+	if(loginMember==null){
+		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
+		return;
+	}
 %>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed " dir="ltr" data-theme="theme-default" data-assets-path="./resources/" data-template="vertical-menu-template-free">
@@ -95,48 +99,60 @@ gtag('config', 'GA_MEASUREMENT_ID');
 				<jsp:include page="/inc/userMenu.jsp"></jsp:include>
 			</div>
 			<!-- /User -->
+			
 			<!-- Content wrapper-->
-				<div class="content-wrapper">
-					<!-- Content -->
-					<div class="container-xxl flex-grow-1 container-p-y">
-						<h4 class="fw-bold py-3 mb-4">
-						  <span class="text-muted fw-light">User Profile /</span> Profile
-						</h4>
-						<div class="row">
-							<div class="col-md-12">
-								<ul class="nav nav-pills flex-column flex-md-row mb-3">
-									<li class="nav-item"><a class="nav-link" href="javascript:void(0);"><i class='bx bx-user'></i> Profile</a></li>
-									<li class="nav-item"><a class="nav-link" href="javascript:void(0);"><i class='bx bx-user'></i> Profile</a></li>
-								</ul>
-								<div class="card mb-4">
-									<h5 class="card-header">Profile Details</h5>
-				
-									<!-- Profile -->
-									<div class="card-body">
-											
-									</div>
-								</div>
-								<table>
-									<tr>
-										<td>ID</td>
-										<td><%=loginMember.getMemberId()%></td>
-									</tr>
-									<tr>
-										<td>이름</td>
-										<td><%=loginMember.getMemberName()%></td>
-									</tr>
-								</table>
-								<a href="<%=request.getContextPath()%>/member/updateMemberForm.jsp">회원정보수정</a>
-								<a href="<%=request.getContextPath()%>/member/updateMemberPwForm.jsp">비밀번호 변경</a>
-								<a href="<%=request.getContextPath()%>/member/deleteMemberForm.jsp">회원 탈퇴</a>
+			<div class="content-wrapper">
+			
+				<!-- Content -->
+				<div class="container-xxl flex-grow-1 container-p-y">
+					<h4 class="fw-bold py-3 mb-4">
+					  <span class="text-muted fw-light">User Profile /</span> Profile
+					</h4>
+					<!-- Navbar pills -->
+					<div class="row">
+						<div class="col-md-12">
+							<ul class="nav nav-pills flex-column flex-md-row mb-3">
+								<li class="nav-item"><a class="nav-link" href="javascript:void(0);"><i class='bx bx-user'></i>Profile</a></li>
+							</ul>
+						</div>
 					</div>
+					<!-- /Navbar pills -->
+					<!-- User Profile -->
+					<div class="row">
+						<div class="card mb-4">
+							<!-- Profile -->
+							<div class="card-body">
+								<div class="row">
+      								<small class="text-muted text-uppercase">About</small>
+									<ul class="list-unstyled mb-4 mt-3">
+									  <li class="d-flex align-items-center mb-3"><i class="bx bx-user"></i><span class="fw-semibold mx-2"><%=loginMember.getMemberName()%></span></li>
+									  <li class="d-flex align-items-center mb-3">@<span class="fw-semibold mx-2"><%=loginMember.getMemberId()%></span></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<a href="<%=request.getContextPath()%>/member/updateMemberForm.jsp">회원정보수정</a>
+					<a href="<%=request.getContextPath()%>/member/updateMemberPwForm.jsp">비밀번호 변경</a>
+					<a href="<%=request.getContextPath()%>/member/deleteMemberForm.jsp">회원 탈퇴</a>
 				</div>
+				<!-- /Content -->
+				
+				<!-- Footer -->
+				<div>
+					<jsp:include page="/inc/footer.jsp"></jsp:include>
+				</div>
+				<!-- /Footer -->
+				
 			</div>
-			<!-- /Content -->
-		</div>
-		<!-- /Content wrapper -->
+			<!-- /Content wrapper -->
+			
 		</div>
 		<!-- /Layout container -->
+		
+		<!-- Overlay -->
+    	<div class="layout-overlay layout-menu-toggle"></div>
+    
 	</div>
 </div>
 <!-- /Layout wrapper -->

@@ -97,12 +97,10 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </head>
 <style>
 	.authentication-wrapper {
-		min-height: 60vh;
+		min-height: 70vh;
 	}
 </style>
 <body>
-<div class="container">
-	
 	<!-- 공지(5개) 목록 페이징 --> <!-- 공지보기 누르면 공지가 나오게 -->
 	<div>
 		<table class="table table-sm">
@@ -128,12 +126,14 @@ gtag('config', 'GA_MEASUREMENT_ID');
 			</tbody>
 		</table>
 	</div>
+	<!-- wrapper -->
 	<div class="authentication-wrapper authentication-basic container-p-y">
 		<div class="authentication-inner">
-	<!-- login form -->
-    <div class="card">
-		<div class="card-body">
-				<h2 class="card-header mb-2">sign in to cashbook</h2>
+				
+			<!-- Login form -->
+		    <div class="card">
+				<div class="card-body">
+					<h2 class="card-header mb-2">sign in to cashbook</h2>
 					<div class="card-body demo-vertical-spacing demo-only-element">
 						<div><%=msg%></div>
 						<form action="<%=request.getContextPath()%>/loginAction.jsp" class="mb-3" method="post">
@@ -158,10 +158,21 @@ gtag('config', 'GA_MEASUREMENT_ID');
 							<a href="<%=request.getContextPath()%>/insertMemberForm.jsp">회원가입</a>
 						</p>
 					</div>
-					</div>
 				</div>
 			</div>
+			<!-- /Login form -->
+			
 		</div>
 	</div>
+	<!-- /wrapper -->
+	
+	<!-- Footer -->
+	<div>
+		<jsp:include page="/inc/footer.jsp"></jsp:include>
+	</div>
+	<!-- /Footer -->
+	
+	<!-- Overlay -->
+	<div class="layout-overlay layout-menu-toggle"></div>
 </body>
 </html>
