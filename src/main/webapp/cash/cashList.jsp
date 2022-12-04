@@ -180,7 +180,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 							</div>
 							<div>
 								<table class="table table-bordered">
-									<thead>
+									<thead class="text-center">
 									<tr>
 										<th>일</th>
 										<th>월</th>

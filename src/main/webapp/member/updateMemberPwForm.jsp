@@ -107,44 +107,43 @@ gtag('config', 'GA_MEASUREMENT_ID');
 			<!-- Content wrapper -->
 			<div class="content-wrapper">
 				<!-- Content -->
-				<div class="container-xxl flex-grow-1 container-p-y col-xxl-4 mt-5">
+				<div class="container-xxl flex-grow-1 container-p-y mt-5">
 						
 		          	<!-- Form -->
-		          	<div class="card mb-4 mt-5">
+		          	<div class="card mb-4">
 		          		<div class="card-body">
 		          			<h5 class="card-header">비밀번호 변경</h5>
 	          				<div class="card-body">
 								<form action="<%=request.getContextPath()%>/member/updateMemberPwAction.jsp" method="post">
 									<input type="hidden" name="memberId" value="<%=memberId%>">
 									<div class="row">
-										<div class="mb-3 form-password-toggle">
+										<div class="mb-3 col-md-6 form-password-toggle">
 											<label class="form-label" for="memberPw">현재 비밀번호</label>
 											<div class="input-group input-group-merge">
 												<input type="password" class="form-control" id="memberPw" name="memberPw" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
-												 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+												<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
 											</div>
 										</div>
 									</div>
 									<div class="row">
-										<div class="mb-3 form-password-toggle">
+										<div class="mb-3 col-md-6 form-password-toggle">
 											<label class="form-label" for="newMemberPw">새 비밀번호</label>
 											<div class="input-group input-group-merge">
 												<input type="password" class="form-control" id="newMemberPw" name="newMemberPw" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
-												 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+												<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
 											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="mb-3 form-password-toggle">
+										<div class="mb-3 col-md-6 form-password-toggle">
 											<label class="form-label" for="checkPw">비밀번호 확인</label>
 											<div class="input-group input-group-merge">
 												<input type="password" class="form-control" id="checkPw" name="checkPw" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
-												 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+												<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
 											</div>
 										</div>
 									</div>
-									<div class="mb-3 mt-4">
-										<button type="submit" class="btn btn-primary me-2 d-grid w-100">비밀번호 변경</button>
+									<div class="col-12 mb-3 mt-4">
+										<button type="submit" class="btn btn-primary me-2">비밀번호 변경</button>
+										<button type="reset" class="btn btn-outline-secondary me-2">취소</button>
 									</div>
 								</form>
 							</div>

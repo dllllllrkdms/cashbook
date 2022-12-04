@@ -116,7 +116,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					</h4>
 					<div class="card">
 						<div class="card-header">
-							<a style="float:right" class="btn btn-primary me-3" href="<%=request.getContextPath()%>/help/insertHelpForm.jsp">문의하기</a>
+							<span class="float-end"><a class="btn-sm btn-primary me-3" href="<%=request.getContextPath()%>/help/insertHelpForm.jsp">문의하기</a></span>
 						</div>
 							<div class="card-body">
 							<div class="table-responsive text-nowrap">

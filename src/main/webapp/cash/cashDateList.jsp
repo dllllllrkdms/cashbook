@@ -10,14 +10,14 @@
 	}
 	// 파라메타값 유효성검사
 	String cashDate = null;
-	if(request.getParameter("cashDate")!=null||request.getParameter("cashDate").equals("")==false){ 
-		cashDate = request.getParameter("cashDate");
-	}else{ // 넘어온 값이 없으면 오늘날짜 설정 
+	if(request.getParameter("cashDate")==null||request.getParameter("cashDate").equals("")){ 
 		Calendar today = Calendar.getInstance(); // 오늘날짜 
 		int year = today.get(Calendar.YEAR);
 		int month = today.get(Calendar.MONTH); // 1월:0, 12월:11
 		int date = today.get(Calendar.DATE);
 		cashDate = year+"-"+(month+1)+"-"+date;
+	}else{ // 넘어온 값이 없으면 오늘날짜 설정 
+		cashDate = request.getParameter("cashDate");
 	}
 	//System.out.println(cashDate+"<--cashDateList cashDate");
 	Member loginMember = (Member)session.getAttribute("loginMember");
@@ -100,63 +100,140 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </script>
 <!-- Custom notification for demo -->
 <!-- beautify ignore:end -->
+<style>
+	.table{
+		table-layout:
+	}
+</style>
 </head>
 <body>
-	<!-- 로그인 정보 출력 -->
-	<div>
-		<jsp:include page="/inc/userMenu.jsp"></jsp:include>
-	</div>
-	<!-- insertCashDateListForm -->
-	<form action="<%=request.getContextPath()%>/cash/insertCashListAction.jsp" method="post">
-		<input type="hidden" name="memberId" value="<%=memberId%>">
-		<table>
-			<tr>
-				<td><input type="text" name="cashDate" value="<%=cashDate%>" readonly=readonly></td> <!-- 변경불가 -->
-			</tr>
-			<tr>
-				<td>
-					<select name="categoryNo">
-					<%
-						for(Category c : categoryList){
-					%>
-							<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind()%><%=c.getCategoryName()%></option>
-					<%
-						}
-					%>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="number" name="cashPrice">원</td>
-			</tr>
-			<tr>
-				<td><textarea cols="50" rows="2" name="cashMemo"></textarea></td>
-			</tr>
-		</table>
-		<button type="submit">등록</button>
-	</form>
-	<!-- cashDateList 출력 -->
-	<table border="1">
-		<%		
-			for(HashMap<String, Object> m : cashDateList) {
-				int cashNo = (int)m.get("cashNo");
-		%>
-				<tr>
-					<td><%=(String)m.get("categoryKind")%></td>
-					<td><%=(String)m.get("categoryName")%></td>
-					<td><%=(Long)m.get("cashPrice")%>원</td>
-					<td><%=(String)m.get("cashMemo")%></td>
-					<td><a href="<%=request.getContextPath()%>/cash/updateCashListForm.jsp?cashNo=<%=cashNo%>&cashDate=<%=cashDate%>">수정</a></td>
-					<td><a href="<%=request.getContextPath()%>/cash/deleteCashListAction.jsp?cashNo=<%=cashNo%>&cashDate=<%=cashDate%>">삭제</a></td>
-				</tr>
-		<%
-			}
-		%>
-	</table>
-	<a href="<%=request.getContextPath()%>/cash/cashList.jsp">이전</a> <!-- cashList.jsp로 돌아가기 -->
-	<!-- footer -->
-	<div>
-		<jsp:include page="/inc/footer.jsp"></jsp:include>
-	</div>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar ">
+	<div class="layout-container">
+  		<!-- Menu -->
+  		<div>	
+			<jsp:include page="/inc/menu.jsp"></jsp:include>
+		</div>
+		<!-- /Menu -->
+		
+		<!-- Layout container -->
+   		<div class="layout-page">
+   		 
+			<!--User-->
+			<div>
+				<jsp:include page="/inc/userMenu.jsp"></jsp:include>
+			</div>
+			<!-- /User -->
+			
+			<!-- Content wrapper -->
+			<div class="content-wrapper">
+			
+				<!-- Content -->
+				<div class="container-xxl flex-grow-1 container-p-y">
+					
+					<div class="card mb-4">
+						<div class="card-body mx-xxl-2 my-xxl-2">
+							<div class="card-body">
+								
+								<div class="accordion mt-3" id="accordionCash">
+									<div class="accordion-item">
+								        <h2 class="accordion-header">
+								          <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#insertCashForm" aria-expanded="false" aria-controls="insertCashForm">
+								            <i class='bx bxs-pencil'></i>
+								          </button>
+								        </h2>
+								
+								        <div id="insertCashForm" class="accordion-collapse collapse" data-bs-parent="#accordionCash">
+								        	<div class="accordion-body">
+								           		<!-- insertCashForm -->
+												<form action="<%=request.getContextPath()%>/cash/insertCashListAction.jsp" method="post">
+													<input type="hidden" name="memberId" value="<%=memberId%>">
+													<div class="mb-3 col-md-2">
+														<input class="form-control" type="text" name="cashDate" value="<%=cashDate%>" readonly=readonly> <!-- 변경불가 -->
+													</div>
+													<div class="row mb-3">
+														<div class="col-md-3">
+															<select class="form-select" name="categoryNo">
+																<%
+																	for(Category c : categoryList){
+																%>
+																		<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind()%><%=c.getCategoryName()%></option>
+																<%
+																	}
+																%>
+															</select>
+														</div> 
+														<div class="col-md-3">
+															<input class="form-control" type="number" name="cashPrice">
+														</div>
+														<span class="col-form-label col-sm-2">원</span>
+													</div>	
+													<div class="col-sm-9">
+														<textarea cols="50" rows="4" name="cashMemo" class="form-control"></textarea>
+													</div>
+													<div class="mt-3 mb-3">
+														<button type="submit" class="btn btn-primary">등록</button>
+														<button type="reset" class="btn btn-outline-secondary">취소</button>
+													</div>
+												</form>
+												<!-- /insertCashForm -->
+											</div>
+								        </div>
+									</div>
+								</div>
+								
+								<hr class="m-0">
+								<!-- cashDateList 출력 -->
+								<table class="table table-sm">
+									<tbody class="table-border-bottom-0">		
+									<%	
+										for(HashMap<String, Object> m : cashDateList) {
+											int cashNo = (int)m.get("cashNo");
+									%>
+											<tr>
+												<td style="width:50px"><%=(String)m.get("categoryKind")%></td>
+												<td style="width:50px"><%=(String)m.get("categoryName")%></td>
+												<td style="width:100px"><%=(Long)m.get("cashPrice")%>원</td>
+												<td><%=(String)m.get("cashMemo")%></td>
+												<td style="width:150px">
+													<div class="btn-group">
+														<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+														<div class="dropdown-menu">
+															<a class="dropdown-item" href="<%=request.getContextPath()%>/cash/updateCashListForm.jsp?cashNo=<%=cashNo%>&cashDate=<%=cashDate%>"><i class="bx bx-edit-alt me-1"></i> 수정</a>
+															<a class="dropdown-item" href="<%=request.getContextPath()%>/cash/deleteCashListAction.jsp?cashNo=<%=cashNo%>&cashDate=<%=cashDate%>"><i class="bx bx-trash me-1"></i> 삭제</a>
+														</div>
+													</div>
+												</td>
+											</tr>
+									<%
+										}
+									%>
+									</tbody>
+								</table>
+								<!-- /cashDateList -->
+							</div>	
+							
+						</div>
+					</div>		
+				</div>
+				<!-- /Content -->
+					
+					<!-- Footer -->
+					<div>
+						<jsp:include page="/inc/footer.jsp"></jsp:include>
+					</div>
+					<!-- /Footer -->
+	
+				</div>
+			<!-- /Content wrapper -->
+	
+	    <!-- Overlay -->
+	    <div class="layout-overlay layout-menu-toggle"></div>
+	    
+	    </div>
+	    <!-- /Layout container -->
+    </div>
+</div>
+<!-- /LayOut wrapper -->
 </body>
 </html>

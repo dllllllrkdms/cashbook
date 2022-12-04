@@ -102,9 +102,9 @@ gtag('config', 'GA_MEASUREMENT_ID');
 			
 			<!-- Content wrapper-->
 			<div class="content-wrapper">
-			
 				<!-- Content -->
 				<div class="container-xxl flex-grow-1 container-p-y">
+				
 					<h4 class="fw-bold py-3 mb-4">
 					  <span class="text-muted fw-light">User Profile /</span> Profile
 					</h4>
@@ -118,17 +118,15 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					</div>
 					<!-- /Navbar pills -->
 					<!-- User Profile -->
-					<div class="row">
-						<div class="card mb-4">
-							<!-- Profile -->
-							<div class="card-body">
-								<div class="row">
-      								<small class="text-muted text-uppercase">About</small>
-									<ul class="list-unstyled mb-4 mt-3">
-									  <li class="d-flex align-items-center mb-3"><i class="bx bx-user"></i><span class="fw-semibold mx-2"><%=loginMember.getMemberName()%></span></li>
-									  <li class="d-flex align-items-center mb-3">@<span class="fw-semibold mx-2"><%=loginMember.getMemberId()%></span></li>
-									</ul>
-								</div>
+					<div class="card mb-4">
+						<!-- Profile -->
+						<div class="card-body">
+							<div class="row">
+   								<small class="text-muted text-uppercase">About</small>
+								<ul class="list-unstyled mb-4 mt-3">
+								  <li class="d-flex align-items-center mb-3"><i class="bx bx-user"></i><span class="fw-semibold mx-2"><%=loginMember.getMemberName()%></span></li>
+								  <li class="d-flex align-items-center mb-3">@<span class="fw-semibold mx-2"><%=loginMember.getMemberId()%></span></li>
+								</ul>
 							</div>
 						</div>
 					</div>
