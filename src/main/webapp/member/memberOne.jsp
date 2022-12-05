@@ -106,17 +106,15 @@ gtag('config', 'GA_MEASUREMENT_ID');
 				<div class="container-xxl flex-grow-1 container-p-y">
 				
 					<h4 class="fw-bold py-3 mb-4">
-					  <span class="text-muted fw-light">User Profile /</span> Profile
+					  <span class="text-muted fw-light">계정 관리 /</span> 내 프로필
 					</h4>
+					
 					<!-- Navbar pills -->
-					<div class="row">
-						<div class="col-md-12">
-							<ul class="nav nav-pills flex-column flex-md-row mb-3">
-								<li class="nav-item"><a class="nav-link" href="javascript:void(0);"><i class='bx bx-user'></i>Profile</a></li>
-							</ul>
-						</div>
+					<div>
+						<jsp:include page="/inc/memberMenu.jsp"></jsp:include>
 					</div>
 					<!-- /Navbar pills -->
+					
 					<!-- User Profile -->
 					<div class="card mb-4">
 						<!-- Profile -->
@@ -124,15 +122,13 @@ gtag('config', 'GA_MEASUREMENT_ID');
 							<div class="row">
    								<small class="text-muted text-uppercase">About</small>
 								<ul class="list-unstyled mb-4 mt-3">
-								  <li class="d-flex align-items-center mb-3"><i class="bx bx-user"></i><span class="fw-semibold mx-2"><%=loginMember.getMemberName()%></span></li>
-								  <li class="d-flex align-items-center mb-3">@<span class="fw-semibold mx-2"><%=loginMember.getMemberId()%></span></li>
+								  <li class="d-flex align-items-center mb-3"><i class="bx bx-user"></i><span class="fw-semibold mx-2">이름: </span><span><%=loginMember.getMemberName()%></span></li>
+								  <li class="d-flex align-items-center mb-3">@<span class="fw-semibold mx-2">ID: </span><span><%=loginMember.getMemberId()%></span></li>
 								</ul>
 							</div>
 						</div>
 					</div>
-					<a href="<%=request.getContextPath()%>/member/updateMemberForm.jsp">회원정보수정</a>
-					<a href="<%=request.getContextPath()%>/member/updateMemberPwForm.jsp">비밀번호 변경</a>
-					<a href="<%=request.getContextPath()%>/member/deleteMemberForm.jsp">회원 탈퇴</a>
+					<a class="nav-link" href="<%=request.getContextPath()%>/member/deleteMemberForm.jsp"><span class="fw-semibold mx-2">회원 탈퇴<i class='bx bx-chevron-right'></i></span></a>
 				</div>
 				<!-- /Content -->
 				

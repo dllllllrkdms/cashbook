@@ -132,25 +132,29 @@ gtag('config', 'GA_MEASUREMENT_ID');
 				<div class="container-xxl flex-grow-1 container-p-y">
 					
 					<div class="card mb-4">
-						<div class="card-body mx-xxl-2 my-xxl-2">
+						<div class="card-body mx-xxl-2">
 							<div class="card-body">
 								
-								<div class="accordion mt-3" id="accordionCash">
-									<div class="accordion-item">
-								        <h2 class="accordion-header">
-								          <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#insertCashForm" aria-expanded="false" aria-controls="insertCashForm">
-								            <i class='bx bxs-pencil'></i>
-								          </button>
-								        </h2>
+									<div class="col-md-2">
+										<h4 class="card-header">
+											<%=cashDate%>
+										</h4>
+									</div>
+								
+									<div class="accordion accordion-without-arrow" id="accordionCash">
+										<div class="accordion-item">
+									        <h2 class="accordion-header col-md-2">
+												<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#insertCashForm" aria-expanded="false" aria-controls="insertCashForm"> <!-- aria-expanded="false" 아코디언을 닫아놓음 -->
+													<i class='bx bxs-pencil'></i><span class="fs-5"> add</span>
+												</button>
+									        </h2>
 								
 								        <div id="insertCashForm" class="accordion-collapse collapse" data-bs-parent="#accordionCash">
 								        	<div class="accordion-body">
 								           		<!-- insertCashForm -->
 												<form action="<%=request.getContextPath()%>/cash/insertCashListAction.jsp" method="post">
 													<input type="hidden" name="memberId" value="<%=memberId%>">
-													<div class="mb-3 col-md-2">
-														<input class="form-control" type="text" name="cashDate" value="<%=cashDate%>" readonly=readonly> <!-- 변경불가 -->
-													</div>
+													<input type="hidden" name="cashDate" value="<%=cashDate%>">
 													<div class="row mb-3">
 														<div class="col-md-3">
 															<select class="form-select" name="categoryNo">
@@ -177,12 +181,12 @@ gtag('config', 'GA_MEASUREMENT_ID');
 													</div>
 												</form>
 												<!-- /insertCashForm -->
+												<hr class="m-0">
 											</div>
 								        </div>
 									</div>
 								</div>
 								
-								<hr class="m-0">
 								<!-- cashDateList 출력 -->
 								<table class="table table-sm">
 									<tbody class="table-border-bottom-0">		

@@ -112,19 +112,16 @@ gtag('config', 'GA_MEASUREMENT_ID');
 			<div class="content-wrapper">
 				<!-- Content -->
 	          	<div class="container-xxl flex-grow-1 container-p-y">
-		
+	          	
+					<h4 class="fw-bold py-3 mb-4">
+					  <span class="text-muted fw-light">계정 관리 /</span> 회원정보 수정
+					</h4>
+						
 					<!-- Navbar pills -->
-					<div class="row">
-					  <div class="col-md-12">
-					    <ul class="nav nav-pills flex-column flex-sm-row mb-4">
-					      <li class="nav-item"><a class="nav-link active" href="javascript:void(0);"><i class='bx bx-user'></i> Profile</a></li>
-					      <li class="nav-item"><a class="nav-link" href=""><i class='bx bx-group'></i> Teams</a></li>
-					      <li class="nav-item"><a class="nav-link" href=""><i class='bx bx-grid-alt'></i> Projects</a></li>
-					      <li class="nav-item"><a class="nav-link" href=""><i class='bx bx-link-alt'></i> Connections</a></li>
-					    </ul>
-					  </div>
+					<div>
+						<jsp:include page="/inc/memberMenu.jsp"></jsp:include>
 					</div>
-					<!--/ Navbar pills -->
+					<!-- /Navbar pills -->
 					
 					<!-- Account -->
 					<div class="card mb-4">

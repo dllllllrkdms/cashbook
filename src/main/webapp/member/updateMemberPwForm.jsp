@@ -107,8 +107,18 @@ gtag('config', 'GA_MEASUREMENT_ID');
 			<!-- Content wrapper -->
 			<div class="content-wrapper">
 				<!-- Content -->
-				<div class="container-xxl flex-grow-1 container-p-y mt-5">
-						
+				<div class="container-xxl flex-grow-1 container-p-y">
+					
+					<h4 class="fw-bold py-3 mb-4">
+					  <span class="text-muted fw-light">계정 관리 /</span> 비밀번호 변경
+					</h4>
+				
+					<!-- Navbar pills -->
+					<div>
+						<jsp:include page="/inc/memberMenu.jsp"></jsp:include>
+					</div>
+					<!-- /Navbar pills -->
+					
 		          	<!-- Form -->
 		          	<div class="card mb-4">
 		          		<div class="card-body">
