@@ -119,7 +119,6 @@ gtag('config', 'GA_MEASUREMENT_ID');
 							<span class="float-end"><a class="btn-sm btn-primary me-3" href="<%=request.getContextPath()%>/help/insertHelpForm.jsp">문의하기</a></span>
 						</div>
 							<div class="card-body">
-							<div class="table-responsive text-nowrap">
 								<table class="table">									
 									<thead>
 										<tr>
@@ -166,29 +165,28 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									%>
 									</tbody>
 								</table>
-								</div>
+							</div>
 						</div>
 					</div>
 					<!-- /Content -->
-			
-				<!-- Footer -->
-				<div>
-					<jsp:include page="/inc/footer.jsp"></jsp:include>
+						
+						<!-- Footer -->
+					<div>
+						<jsp:include page="/inc/footer.jsp"></jsp:include>
+					</div>
+					<!-- /Footer -->
+					
 				</div>
-				<!-- /Footer -->
-				
+				<!-- /Content wrapper -->
 			</div>
-			<!-- /Content wrapper -->
-		</div>
-		<!-- /LayOut container -->
-	
-	    <!-- Overlay -->
-	    <div class="layout-overlay layout-menu-toggle"></div>
-	    
-	    </div>
-	    <!-- /Layout container -->
-    </div>
+			<!-- /Layout container -->
+		
+		<!-- Overlay -->
+    	<div class="layout-overlay layout-menu-toggle"></div>
+    	
+		
+	</div>
 </div>
-<!-- /LayOut wrapper -->
+<!-- /Layout wrapper -->
 </body>
 </html>

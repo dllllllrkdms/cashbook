@@ -100,11 +100,6 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </script>
 <!-- Custom notification for demo -->
 <!-- beautify ignore:end -->
-<style>
-	.table{
-		table-layout:
-	}
-</style>
 </head>
 <body>
 <!-- Layout wrapper -->

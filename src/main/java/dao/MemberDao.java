@@ -87,111 +87,198 @@ public class MemberDao { // 2. Model
 		}
 		return row;
 	}
-	public Member updateMember(Member paramMember) throws Exception { // 회원정보수정
-		Member resultMember = new Member();
+	public Member updateMember(Member paramMember) { // 회원정보수정
+		Member resultMember = null;
 		DBUtil dbUtil = new DBUtil();
-		Connection conn = dbUtil.getConnection();
-		String sql="UPDATE member SET member_name=?, updatedate=NOW() WHERE member_id=? AND member_pw=PASSWORD(?)";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, paramMember.getMemberName());
-		stmt.setString(2, paramMember.getMemberId());
-		stmt.setString(3, paramMember.getMemberPw());
-		int row = stmt.executeUpdate();
-		if(row==1) {
-			//System.out.println("회원정보 수정 성공");
-			resultMember.setMemberId(paramMember.getMemberId());
-			resultMember.setMemberName(paramMember.getMemberName());
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = dbUtil.getConnection();
+			String sql="UPDATE member SET member_name=?, updatedate=NOW() WHERE member_id=? AND member_pw=PASSWORD(?)";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, paramMember.getMemberName());
+			stmt.setString(2, paramMember.getMemberId());
+			stmt.setString(3, paramMember.getMemberPw());
+			int row = stmt.executeUpdate();
+			if(row==1) {
+				//System.out.println("회원정보 수정 성공");
+				resultMember = new Member();
+				resultMember.setMemberId(paramMember.getMemberId());
+				resultMember.setMemberName(paramMember.getMemberName());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.close(null, stmt, conn);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		dbUtil.close(null, stmt, conn);
 		return resultMember;
 	}
-	public int updateMemberPw(String memberId, String memberPw, String newMemberPw) throws Exception { // 비밀번호 변경
+	public int updateMemberPw(String memberId, String memberPw, String newMemberPw) { // 비밀번호 변경
+		int row = 0; // 반환할 변수 초기화
 		DBUtil dbUtil = new DBUtil();
-		Connection conn = dbUtil.getConnection();
-		String sql = "UPDATE member SET member_pw=PASSWORD(?), updatedate=NOW() WHERE member_id=? AND member_pw=PASSWORD(?)";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, newMemberPw);
-		stmt.setString(2, memberId);
-		stmt.setString(3, memberPw);
-		int row = stmt.executeUpdate();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = dbUtil.getConnection();
+			String sql = "UPDATE member SET member_pw=PASSWORD(?), updatedate=NOW() WHERE member_id=? AND member_pw=PASSWORD(?)";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, newMemberPw);
+			stmt.setString(2, memberId);
+			stmt.setString(3, memberPw);
+			row = stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.close(null, stmt, conn);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return row;
 	}
-	public int deleteMember(Member member) throws Exception { // 회원탈퇴
+	public int deleteMember(Member member) { // 회원탈퇴
+		int row = 0; // 반환할 변수 초기화
 		DBUtil dbUtil = new DBUtil();
-		Connection conn = dbUtil.getConnection(); // db 연결
-		String sql = "DELETE FROM member WHERE member_id=? AND member_pw=PASSWORD(?)";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, member.getMemberId());
-		stmt.setString(2, member.getMemberPw());
-		int row = stmt.executeUpdate();
-		dbUtil.close(null, stmt, conn);
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = dbUtil.getConnection(); // db 연결
+			String sql = "DELETE FROM member WHERE member_id=? AND member_pw=PASSWORD(?)";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, member.getMemberId());
+			stmt.setString(2, member.getMemberPw());
+			row = stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.close(null, stmt, conn);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
+		}
 		return row;
 	}
 	// ---관리자 기능---
-	public ArrayList<Member> selectMemberListByPage(int beginRow, int rowPerPage, String search) throws Exception{ // 멤버 목록출력 (검색기능추가)
+	public ArrayList<Member> selectMemberListByPage(int beginRow, int rowPerPage, String search) { // 멤버 목록출력 (검색기능추가)
+		ArrayList<Member> memberList = null;
 		DBUtil dbUtil = new DBUtil();
-		Connection conn = dbUtil.getConnection();
-		String sql = null;
+		Connection conn = null;
 		PreparedStatement stmt = null;
-		if(search==null) {
-			sql = "SELECT member_no memberNo, member_id memberId, member_level memberLevel, member_name memberName, updatedate, createdate FROM member LIMIT ?,?";
-			stmt = conn.prepareStatement(sql);
-			stmt.setInt(1, beginRow);
-			stmt.setInt(2, rowPerPage);	
-		} else {
-			sql = "SELECT member_no memberNo, member_id memberId, member_level memberLevel, member_name memberName, updatedate, createdate FROM member WHERE member_id LIKE ? LIMIT ?,?";
-			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, "%"+search+"%");
-			stmt.setInt(2, beginRow);
-			stmt.setInt(3, rowPerPage);	
-		}		
-		ResultSet rs = stmt.executeQuery();
-		ArrayList<Member> memberList = new ArrayList<Member>();
-		while(rs.next()) {
-			Member member = new Member();
-			member.setMemberNo(rs.getInt("memberNo"));
-			member.setMemberId(rs.getString("memberId"));
-			member.setMemberLevel(rs.getInt("memberLevel"));
-			member.setMemberName(rs.getString("memberName"));
-			member.setUpdatedate(rs.getString("updatedate"));
-			member.setCreatedate(rs.getString("createdate"));
-			memberList.add(member);
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			String sql = null;
+			stmt = null;
+			if(search==null) {
+				sql = "SELECT member_no memberNo, member_id memberId, member_level memberLevel, member_name memberName, updatedate, createdate FROM member LIMIT ?,?";
+				stmt = conn.prepareStatement(sql);
+				stmt.setInt(1, beginRow);
+				stmt.setInt(2, rowPerPage);	
+			} else {
+				sql = "SELECT member_no memberNo, member_id memberId, member_level memberLevel, member_name memberName, updatedate, createdate FROM member WHERE member_id LIKE ? LIMIT ?,?";
+				stmt = conn.prepareStatement(sql);
+				stmt.setString(1, "%"+search+"%");
+				stmt.setInt(2, beginRow);
+				stmt.setInt(3, rowPerPage);	
+			}		
+			rs = stmt.executeQuery();
+			memberList = new ArrayList<Member>();
+			while(rs.next()) {
+				Member member = new Member();
+				member.setMemberNo(rs.getInt("memberNo"));
+				member.setMemberId(rs.getString("memberId"));
+				member.setMemberLevel(rs.getInt("memberLevel"));
+				member.setMemberName(rs.getString("memberName"));
+				member.setUpdatedate(rs.getString("updatedate"));
+				member.setCreatedate(rs.getString("createdate"));
+				memberList.add(member);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.close(rs, stmt, conn);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		dbUtil.close(rs, stmt, conn);
 		return memberList;
 	}
-	public int deleteMemberByAdmin(String memberId) throws Exception { // 멤버 강제 탈퇴
+	public int deleteMemberByAdmin(String memberId) { // 멤버 강제 탈퇴
+		int row = 0; // 반환할 변수 초기화
 		DBUtil dbUtil = new DBUtil();
-		Connection conn = dbUtil.getConnection(); // db 연결
-		String sql = "DELETE FROM member WHERE member_id=?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setString(1, memberId);
-		int row = stmt.executeUpdate();
-		dbUtil.close(null, stmt, conn); // 연결 해제
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = dbUtil.getConnection(); // db 연결
+			String sql = "DELETE FROM member WHERE member_id=?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			row = stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.close(null, stmt, conn); // db자원 반납
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return row;
 	}
-	public int totalCount() throws Exception { // 멤버 수
-		DBUtil dbUtil = new DBUtil();
-		Connection conn = dbUtil.getConnection(); // db 연결
-		String sql = "SELECT COUNT(*) count FROM member";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		ResultSet rs = stmt.executeQuery();
+	public int totalCount() { // 멤버 수
 		int count = 0; // 리턴할 변수 초기화
-		if(rs.next()) {
-			count=rs.getInt("count");
-		}
-		dbUtil.close(rs, stmt, conn); // db 연결 해제
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection(); // db 연결
+			String sql = "SELECT COUNT(*) count FROM member";
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				count=rs.getInt("count");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.close(rs, stmt, conn); // db자원 반납
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
 		return count;
 	}
-	public int updateMemberLevelByAdmin(Member paramMember) throws Exception { // 멤버 레벨 수정
+	public int updateMemberLevelByAdmin(Member paramMember) { // 멤버 레벨 수정
+		int row = 0;
 		DBUtil dbUtil = new DBUtil();
-		Connection conn = dbUtil.getConnection(); // db 연결
-		String sql = "UPDATE member SET member_level = ?, updatedate=NOW() WHERE member_id=?";
-		PreparedStatement stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, paramMember.getMemberLevel());
-		stmt.setString(2, paramMember.getMemberId());
-		int row = stmt.executeUpdate();
-		dbUtil.close(null, stmt, conn);
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = dbUtil.getConnection(); // db 연결
+			String sql = "UPDATE member SET member_level = ?, updatedate=NOW() WHERE member_id=?";
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, paramMember.getMemberLevel());
+			stmt.setString(2, paramMember.getMemberId());
+			row = stmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.close(null, stmt, conn);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 		return row;
 	}
 }

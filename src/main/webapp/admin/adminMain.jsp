@@ -119,8 +119,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 						<div class="col-md-6">
 							<div class="card mb-4">
 								<div class="card-header">
-									<h5 style="display:inline-block">notice</h5>
-									<span style="float:right">
+									<h5 class="d-inline-block">notice</h5>
+									<span class="float-end">
 										<a href="<%=request.getContextPath()%>/admin/noticeList.jsp">
 											<i class='bx bx-dots-vertical-rounded'></i>
 										</a>
@@ -135,9 +135,9 @@ gtag('config', 'GA_MEASUREMENT_ID');
 						<div class="col-md-6">
 							<div class="card mb-4">
 								<div class="card-header">
-									<h5 style="display:inline-block">help</h5>
-									<span style="float:right">
-										<a href="<%=request.getContextPath()%>/admin/noticeList.jsp">
+									<h5 class="d-inline-block">help</h5>
+									<span class="float-end">
+										<a href="<%=request.getContextPath()%>/admin/helpList.jsp">
 											<i class='bx bx-dots-vertical-rounded'></i>
 										</a>
 									</span>
@@ -151,9 +151,9 @@ gtag('config', 'GA_MEASUREMENT_ID');
 						<div class="col-md-6">
 							<div class="card mb-4">
 								<div class="card-header">
-									<h5 style="display:inline-block">member</h5>
-									<span style="float:right">
-										<a href="<%=request.getContextPath()%>/admin/noticeList.jsp">
+									<h5 class="d-inline-block">member</h5>
+									<span class="float-end">
+										<a href="<%=request.getContextPath()%>/admin/memberList.jsp">
 											<i class='bx bx-dots-vertical-rounded'></i>
 										</a>
 									</span>
@@ -167,9 +167,9 @@ gtag('config', 'GA_MEASUREMENT_ID');
 						<div class="col-md-6">
 							<div class="card mb-4">
 								<div class="card-header">
-									<h5 style="display:inline-block">category</h5>
-									<span style="float:right">
-										<a href="<%=request.getContextPath()%>/admin/noticeList.jsp">
+									<h5 class="d-inline-block">category</h5>
+									<span class="float-end">
+										<a href="<%=request.getContextPath()%>/admin/categoryList.jsp">
 											<i class='bx bx-dots-vertical-rounded'></i>
 										</a>
 									</span>
