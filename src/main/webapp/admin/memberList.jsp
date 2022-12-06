@@ -34,100 +34,210 @@
 	}
 %>
 <!DOCTYPE html>
-<html>
+<html lang="en" class="light-style layout-menu-fixed " dir="ltr" data-theme="theme-default" data-assets-path="<%=request.getContextPath()%>/resources/" data-template="vertical-menu-template-free">
 <head>
 <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 <title>memberList</title>
+<meta name="description" content="Most Powerful &amp; Comprehensive Bootstrap 5 HTML Admin Dashboard Template built for developers!" />
+<meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/img/favicon/favicon.ico" />
 
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+  href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+  rel="stylesheet">
+
+<!-- Icons. Uncomment required icon fonts -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/fonts/boxicons.css" />
+    
+
+<!-- Core CSS -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/core.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/theme-default.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/demo.css" />
+
+<!-- Vendors CSS -->
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+<!-- Canonical SEO -->
+   <link rel="canonical" href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/">
+
+<!-- Page CSS -->
+<!-- Page -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/pages/page-auth.css">
+<!-- Core JS -->
+<!-- build:js assets/vendor/js/core.js -->
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/js/bootstrap.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+<script src="<%=request.getContextPath()%>/resources/vendor/js/menu.js"></script>
+<!-- endbuild -->
+
+<!-- Vendors JS -->
+
+<!-- Main JS -->
+<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
+
+<!-- Page JS -->
+
+<!-- Helpers -->
+<script src="<%=request.getContextPath()%>/resources/vendor/js/helpers.js"></script>
+
+<!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+<!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+<script src="<%=request.getContextPath()%>/resources/js/config.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="async" src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+
+function gtag() {
+  dataLayer.push(arguments);
+}
+gtag('js', new Date());
+gtag('config', 'GA_MEASUREMENT_ID');
+</script>
+<!-- Custom notification for demo -->
+<!-- beautify ignore:end -->
 </head>
 <body>
-	<!-- 로그인 정보 -->
-	<div>
-		<jsp:include page="/inc/userMenu.jsp"></jsp:include>
-	</div>
-	<!-- 관리자메뉴 -->
-	<div>
-		<jsp:include page="/inc/adminMenu.jsp"></jsp:include>
-	</div>
-	<!-- memberList contents -->
-	<h1>멤버 목록</h1>
-	<!-- 검색창 -->
-	<div>
-		<form action="" method="post">
-			<input type="text" name="search" placeholder="id 검색" value="<%=search%>">
-			<button type="submit">검색</button>
-		</form>
-	</div>
-	<div>
-		<table>
-			<tr>
-				<th>멤버번호</th>
-				<th>아이디</th>
-				<th>레벨</th>
-				<th>이름</th>
-				<th>마지막 수정일자</th>
-				<th>생성일자</th>
-				<th>레벨수정</th>
-				<th>강제탈퇴</th>
-			</tr>
-			<%
-				for(Member m : memberList){
-			%>
-					<tr>
-						<td><%=m.getMemberNo()%></td>
-						<td><%=m.getMemberId()%></td>
-						<td><%=m.getMemberLevel()%></td>
-						<td><%=m.getMemberName()%></td>
-						<td><%=m.getUpdatedate()%></td>
-						<td><%=m.getCreatedate()%></td>
-						<% // 본인의 레벨 수정은 불가하게
-							if(loginMember.getMemberId().equals(m.getMemberId())){
-						%>
-								<td><%=m.getMemberLevel()%></td>
-						<%
-							} else{
-						%>
-								<td>
-									<form action="<%=request.getContextPath()%>/admin/updateMemberLevel.jsp" method="post">
-										<input type="hidden" name="memberNo" value="<%=m.getMemberNo()%>">
-										<input type="hidden" name="memberId" value="<%=m.getMemberId()%>">
-										<select name="newMemberLevel" >
-											<option value="0">0.일반회원</option>
-											<option value="1">1.관리자</option>
-										</select>
-										<button type="submit">변경</button>
-									</form>
-								</td>
-						<%
-							}
-						%>
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar ">
+	<div class="layout-container">
+	
+  		<!-- Menu -->
+  		<div>	
+			<jsp:include page="/inc/menu.jsp"></jsp:include>
+		</div>
+		<!-- /Menu -->
+		
+		<!-- Layout container -->
+   		<div class="layout-page">
+   		
+			<!-- User -->
+			<div>
+				<jsp:include page="/inc/userMenu.jsp"></jsp:include>
+			</div>
+			<!-- /User -->
+			
+			<!-- Content wrapper-->
+			<div class="content-wrapper">
+				<div class="container-xxl flex-grow-1 container-p-y">
+					<h4 class="fw-bold py-3 mb-4">
+					  <span class="text-muted fw-light">Admin /</span> member
+					</h4>
+					<!-- Content -->
+					<div class="card">
+		          		<div class="card-body">
+					
+					
+									<div>
+										<form action="" method="post">
+											<input type="text" name="search" placeholder="id 검색" value="<%=search%>">
+											<button type="submit">검색</button>
+										</form>
+									</div>
+									<div>
+										<table class="table">
+											<tr>
+												<th>멤버번호</th>
+												<th>아이디</th>
+												<th>레벨</th>
+												<th>이름</th>
+												<th>생성일자</th>
+												<th>레벨수정</th>
+												<th>강제탈퇴</th>
+											</tr>
+											<%
+												for(Member m : memberList){
+											%>
+													<tr>
+														<td><%=m.getMemberNo()%></td>
+														<td><%=m.getMemberId()%></td>
+														<td><%=m.getMemberLevel()%></td>
+														<td><%=m.getMemberName()%></td>
+														<td><%=m.getCreatedate()%></td>
+														<% // 본인의 레벨 수정은 불가하게
+															if(loginMember.getMemberId().equals(m.getMemberId())){
+														%>
+																<td><%=m.getMemberLevel()%></td>
+														<%
+															} else{
+														%>
+																<td>
+																	<form action="<%=request.getContextPath()%>/admin/updateMemberLevel.jsp" method="post">
+																		<input type="hidden" name="memberNo" value="<%=m.getMemberNo()%>">
+																		<input type="hidden" name="memberId" value="<%=m.getMemberId()%>">
+																		<select name="newMemberLevel" >
+																			<option value="0">0.일반회원</option>
+																			<option value="1">1.관리자</option>
+																		</select>
+																		<button type="submit">변경</button>
+																	</form>
+																</td>
+														<%
+															}
+														%>
+														
+														<td><a href="<%=request.getContextPath()%>/admin/deleteMember.jsp?memberId=<%=m.getMemberId()%>">탈퇴</a></td>
+													</tr>
+											<%
+												}
+											%>
+										</table>
+									</div>
+						</div>
+					</div>
+					<!-- /Content -->
+	
+	
+						<!-- memberList 페이징 -->
+						<div>
+							<a href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=1&search=<%=search%>">처음</a>
+							<%
+								if(currentPage>1){
+							%>
+									<a href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage-1%>&search=<%=search%>">이전</a>
+							<% 
+								}
+							%>
+							<%=currentPage%>
+							<%
+								if(currentPage<lastPage){
+							%>
+									<a href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage+1%>&search=<%=search%>">다음</a>
+							<% 
+								}
+							%>
+							<a href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=lastPage%>&search=<%=search%>">마지막</a>
+						</div>
 						
-						<td><a href="<%=request.getContextPath()%>/admin/deleteMember.jsp?memberId=<%=m.getMemberId()%>">탈퇴</a></td>
-					</tr>
-			<%
-				}
-			%>
-		</table>
+	
+					<!-- Footer -->
+					<div>
+						<jsp:include page="/inc/footer.jsp"></jsp:include>
+					</div>
+					<!-- /Footer -->
+				
+				</div>	
+			</div>
+			<!-- /Content wrapper -->
+		</div>
+		<!-- /Layout container -->
+		
+		<!-- Overlay -->
+    	<div class="layout-overlay layout-menu-toggle"></div>
+		
 	</div>
-	<!-- memberList 페이징 -->
-	<div>
-		<a href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=1&search=<%=search%>">처음</a>
-		<%
-			if(currentPage>1){
-		%>
-				<a href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage-1%>&search=<%=search%>">이전</a>
-		<% 
-			}
-		%>
-		<%=currentPage%>
-		<%
-			if(currentPage<lastPage){
-		%>
-				<a href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage+1%>&search=<%=search%>">다음</a>
-		<% 
-			}
-		%>
-		<a href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=lastPage%>&search=<%=search%>">마지막</a>
-	</div>
+</div>
+<!-- /Layout wrapper -->
+	
 </body>
 </html>

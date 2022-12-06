@@ -21,7 +21,7 @@
 <meta name="description" content="Most Powerful &amp; Comprehensive Bootstrap 5 HTML Admin Dashboard Template built for developers!" />
 <meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
 <!-- Favicon -->
-<link rel="icon" type="image/x-icon" href="/cashbook/resources/img/favicon/favicon.ico" />
+<link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/img/favicon/favicon.ico" />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -31,46 +31,46 @@
   rel="stylesheet">
 
 <!-- Icons. Uncomment required icon fonts -->
-<link rel="stylesheet" href="/cashbook/resources/vendor/fonts/boxicons.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/fonts/boxicons.css" />
     
 
 <!-- Core CSS -->
-<link rel="stylesheet" href="/cashbook/resources/vendor/css/core.css" />
-<link rel="stylesheet" href="/cashbook/resources/vendor/css/theme-default.css" />
-<link rel="stylesheet" href="/cashbook/resources/css/demo.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/core.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/theme-default.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/demo.css" />
 
 <!-- Vendors CSS -->
-    <link rel="stylesheet" href="/cashbook/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
 <!-- Canonical SEO -->
    <link rel="canonical" href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/">
 
 <!-- Page CSS -->
 <!-- Page -->
-<link rel="stylesheet" href="/cashbook/resources/vendor/css/pages/page-auth.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/pages/page-auth.css">
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
-<script src="/cashbook/resources/vendor/libs/jquery/jquery.js"></script>
-<script src="/cashbook/resources/vendor/libs/popper/popper.js"></script>
-<script src="/cashbook/resources/vendor/js/bootstrap.js"></script>
-<script src="/cashbook/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/js/bootstrap.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-<script src="/cashbook/resources/vendor/js/menu.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/js/menu.js"></script>
 <!-- endbuild -->
 
 <!-- Vendors JS -->
 
 <!-- Main JS -->
-<script src="/cashbook/resources/js/main.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 
 <!-- Page JS -->
 
 <!-- Helpers -->
-<script src="/cashbook/resources/vendor/js/helpers.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/js/helpers.js"></script>
 
 <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
 <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-<script src="/cashbook/resources/js/config.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/config.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async="async" src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
@@ -114,21 +114,55 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					</h4>
 					<!-- Content -->
 					<div class="card">
-						<div class="card-header">
-							<span class="float-end"><a class="btn-sm btn-primary me-3" href="<%=request.getContextPath()%>/admin/insertCategoryForm.jsp">추가</a></span>
-						</div>
+						<div class="card-body">
 						
-		          		<div class="card-body">
-						<!-- categoryList contents -->
+							<div class="accordion accordion-without-arrow" id="accordionCategory">
+								<div class="accordion-item ">
+									<h2 class="accordion-header col-md-2">
+										<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#insertCategoryForm" aria-expanded="false" aria-controls="insertCategoryForm">
+											<i class='bx bxs-pencil'></i><span class="fs-5"> add</span>
+										</button>
+									</h2>
+									<!-- insertCategoryForm -->
+									<div id="insertCategoryForm" class="accordion-collapse collapse" data-bs-parent="#accordionCategory">
+										<div class="accordion-body">
+											<form action="<%=request.getContextPath()%>/admin/insertCategoryAction.jsp" method="post">
+												<div class="row">
+													<div class="col-mt-2 col-md-3">
+														<label class="form-check-label form-label" for="categoryKind"> 카테고리 종류</label>
+														<br>
+														<div class="form-check form-check-inline">
+															<input class="form-check-input" type="radio" name="categoryKind" value="수입" id="categoryKind">수입
+														</div>
+														<div class="form-check form-check-inline">
+															<input class="form-check-input" type="radio" name="categoryKind" value="지출" id="categoryKind">지출
+														</div>
+													</div>
+													<div class="col-mt-2 col-md-3">
+														<label class="form-label" for="categoryName">카테고리 이름</label>
+														<input class="form-control" type="text" name="categoryName" id="categoryName">
+													</div>
+												</div>
+												<div class="mt-3 mb-3">
+													<button type="submit" class="btn btn-primary">등록</button>
+													<button type="reset" class="btn btn-outline-secondary">취소</button>
+												</div>
+											</form>
+										</div>
+									</div>	
+								</div>
+							</div>
+			          		
+							<!-- CategoryList -->
 							<table class="table">
 								<thead>
 									<tr>
-										<th>No</th>
-										<th>종류</th>
+										<th style="width:70px">no</th>
+										<th style="width:100px">종류</th>
 										<th>이름</th>
-										<th>최근수정일자</th>
-										<th>생성일자</th>
-										<th>수정/삭제</th>
+										<th style="width:200px">최근수정일자</th>
+										<th style="width:200px">생성일자</th>
+										<th style="width:150px">수정/삭제</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -146,7 +180,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 														<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
 														<div class="dropdown-menu">
 															<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/updateCategoryForm.jsp?categoryNo=<%=c.getCategoryNo()%>"><i class="bx bx-edit-alt me-1"></i> 수정</a>
-															<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/updateCategoryForm.jsp?categoryNo=<%=c.getCategoryNo()%>"><i class="bx bx-trash me-1"></i> 삭제</a>
+															<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/deleteCategory.jsp?categoryNo=<%=c.getCategoryNo()%>"><i class="bx bx-trash me-1"></i> 삭제</a>
 														</div>
 												    </div>
 												</td>
@@ -157,6 +191,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 								</tbody>
 							</table>
 						</div>
+						<!-- /CategoryList -->
 					</div>
 				</div>
 				<!-- /Content -->

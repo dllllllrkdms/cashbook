@@ -191,7 +191,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									%>
 											<tr>
 												<td style="width:50px"><%=(String)m.get("categoryKind")%></td>
-												<td style="width:50px"><%=(String)m.get("categoryName")%></td>
+												<td style="width:100px"><%=(String)m.get("categoryName")%></td>
 												<td style="width:100px"><%=(Long)m.get("cashPrice")%>원</td>
 												<td><%=(String)m.get("cashMemo")%></td>
 												<td style="width:150px">
@@ -217,20 +217,20 @@ gtag('config', 'GA_MEASUREMENT_ID');
 				</div>
 				<!-- /Content -->
 					
-					<!-- Footer -->
-					<div>
-						<jsp:include page="/inc/footer.jsp"></jsp:include>
-					</div>
-					<!-- /Footer -->
-	
+				<!-- Footer -->
+				<div>
+					<jsp:include page="/inc/footer.jsp"></jsp:include>
 				</div>
-			<!-- /Content wrapper -->
+				<!-- /Footer -->
 	
+			</div>
+			<!-- /Content wrapper -->
+		
+		</div>
+    	<!-- /Layout container -->
 	    <!-- Overlay -->
 	    <div class="layout-overlay layout-menu-toggle"></div>
 	    
-	    </div>
-	    <!-- /Layout container -->
     </div>
 </div>
 <!-- /LayOut wrapper -->
