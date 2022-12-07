@@ -132,64 +132,79 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					<!-- Content -->
 					<div class="card">
 		          		<div class="card-body">
-				
-								<!-- notice 추가 폼 -->
-								<table class="table">
-									<tr>
-										<th style="width: 100px">no</th>
-										<th>공지내용</th>
-										<th style="width: 200px">공지날짜</th>
-										<th style="width: 150px">수정/삭제</th>
-									</tr>
+			
+							<!-- notice 추가 폼 -->
+							<table class="table">
+								<tr>
+									<th style="width: 100px">no</th>
+									<th>공지내용</th>
+									<th style="width: 200px">공지날짜</th>
+									<th style="width: 150px">수정/삭제</th>
+								</tr>
+								<%
+									for(Notice n : noticeList){
+								%>
+										<tr>
+											<td><%=n.getNoticeNo()%></td>
+											<td><%=n.getNoticeMemo()%></td>
+											<td><%=n.getCreatedate()%></td>
+											<td>
+												<div class="dropdown">
+													<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+													<div class="dropdown-menu">
+														<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/updateNoticeForm.jsp?noticeNo=<%=(int)n.getNoticeNo()%>"><i class="bx bx-edit-alt me-1"></i> 수정</a>
+														<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/deleteNotice.jsp?noticeNo=<%=(int)n.getNoticeNo()%>"><i class="bx bx-trash me-1"></i> 삭제</a>
+													</div>
+											    </div>
+											</td>
+										</tr>
+								<%
+									}
+								%>
+							</table>			
+						</div>
+							
+						<div class="card-footer">
+							<!-- noticeList 페이징 -->
+							<nav aria-label="Page navigation">
+					            <ul class="pagination justify-content-center">
+									<li class="page-item prev">
+										<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=1"><i class="tf-icon bx bx-chevrons-left"></i></a>
+									</li>
 									<%
-										for(Notice n : noticeList){
+										if(currentPage>1){
 									%>
-											<tr>
-												<td><%=n.getNoticeNo()%></td>
-												<td><%=n.getNoticeMemo()%></td>
-												<td><%=n.getCreatedate()%></td>
-												<td>
-													<div class="dropdown">
-														<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-														<div class="dropdown-menu">
-															<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/updateNoticeForm.jsp?noticeNo=<%=(int)n.getNoticeNo()%>"><i class="bx bx-edit-alt me-1"></i> 수정</a>
-															<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/deleteNotice.jsp?noticeNo=<%=(int)n.getNoticeNo()%>"><i class="bx bx-trash me-1"></i> 삭제</a>
-														</div>
-												    </div>
-												</td>
-											</tr>
-									<%
+											<li class="page-item">
+												<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage-1%>"><i class='bx bx-chevron-left'></i></a>
+											</li>
+									<% 
 										}
 									%>
-								</table>
-									
+									<li class="page-item active">
+										<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage%>"><%=currentPage%></a>
+									</li>
+									<%
+										if(currentPage<lastPage){
+									%>
+											<li class="page-item">
+												<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage+1%>"><i class='bx bx-chevron-right' ></i></a>
+											</li>
+									<% 
+										}
+									%>
+									<li class="page-item next">
+										<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=lastPage%>"><i class="tf-icon bx bx-chevrons-right"></i></a>
+									</li>
+					            </ul>
+					        </nav>
+							<!-- /noticeList 페이징 -->
 						</div>
+					
+						
 					</div>
 					<!-- /Content -->
 					
 		
-							<!-- 페이징 -->
-							<div>
-								<a href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=1">처음으로</a>
-								<%
-									if(currentPage>1){
-								%>
-										<a href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage-1%>">이전</a>
-								<%
-									}
-								%>
-								<%=currentPage%>
-								<%
-									if(currentPage<lastPage){
-								%>
-										<a href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage+1%>">다음</a>
-								<%	
-									}
-								%>
-								<a href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=lastPage%>">마지막</a>
-							</div>
-						
-						
 					<!-- Footer -->
 					<div>
 						<jsp:include page="/inc/footer.jsp"></jsp:include>

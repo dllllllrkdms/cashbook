@@ -8,8 +8,8 @@
 	String categoryKind = request.getParameter("categoryKind");
 	String categoryName = request.getParameter("categoryName");
 	String msg=null;
-	String redirectUrl = "/admin/insertCategoryForm.jsp";
-	if(categoryKind==null||categoryName==null){
+	String redirectUrl = "/admin/categoryList.jsp";
+	if(categoryKind==null||categoryKind.equals("")||categoryName==null||categoryName.equals("")){ // 파라메타값 유효성 검사
 		msg=URLEncoder.encode("다시 입력해주세요","UTF-8");
 		redirectUrl += "?msg="+msg;
 		response.sendRedirect(request.getContextPath()+redirectUrl);

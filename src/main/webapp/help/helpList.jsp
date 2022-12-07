@@ -122,7 +122,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 								<table class="table">									
 									<thead>
 										<tr>
-											<th>문의내용</th>
+											<th class="text-overflow-ellipsis">문의내용</th>
 											<th>문의날짜</th>
 											<th>답변내용</th>
 											<th>답변날짜</th>

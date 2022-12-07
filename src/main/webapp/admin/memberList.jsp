@@ -136,89 +136,107 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					<!-- Content -->
 					<div class="card">
 		          		<div class="card-body">
-					
-					
-									<div>
-										<form action="" method="post">
-											<input type="text" name="search" placeholder="id 검색" value="<%=search%>">
-											<button type="submit">검색</button>
-										</form>
+			
+							<div class="row mx-2 mb-3">
+								<form action="" method="post">
+									<div class="col-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-start gap-2">
+										<div class="col-md-4">
+											<input type="search" class="form-control" name="search" placeholder="검색어를 입력하세요" value="<%=search%>">
+										</div>
+										<button class="btn btn-primary" type="submit">검색</button>
 									</div>
-									<div>
-										<table class="table">
+								</form>
+							</div>
+							<div>
+								<table class="table">
+									<tr>
+										<th>멤버번호</th>
+										<th>아이디</th>
+										<th>레벨</th>
+										<th>이름</th>
+										<th>생성일자</th>
+										<th>레벨수정</th>
+										<th>강제탈퇴</th>
+									</tr>
+									<%
+										for(Member m : memberList){
+									%>
 											<tr>
-												<th>멤버번호</th>
-												<th>아이디</th>
-												<th>레벨</th>
-												<th>이름</th>
-												<th>생성일자</th>
-												<th>레벨수정</th>
-												<th>강제탈퇴</th>
+												<td><%=m.getMemberNo()%></td>
+												<td><%=m.getMemberId()%></td>
+												<td><%=m.getMemberLevel()%></td>
+												<td><%=m.getMemberName()%></td>
+												<td><%=m.getCreatedate()%></td>
+												<% // 본인의 레벨 수정은 불가하게
+													if(loginMember.getMemberId().equals(m.getMemberId())){
+												%>
+														<td>-</td>
+												<%
+													} else{
+												%>
+														<td>
+															<form action="<%=request.getContextPath()%>/admin/updateMemberLevel.jsp" method="post">
+																<input type="hidden" name="memberNo" value="<%=m.getMemberNo()%>">
+																<input type="hidden" name="memberId" value="<%=m.getMemberId()%>">
+																<select name="newMemberLevel" >
+																	<option value="0">0.일반회원</option>
+																	<option value="1">1.관리자</option>
+																</select>
+																<button type="submit">변경</button>
+															</form>
+														</td>
+												<%
+													}
+												%>
+												
+												<td><a href="<%=request.getContextPath()%>/admin/deleteMember.jsp?memberId=<%=m.getMemberId()%>">탈퇴</a></td>
 											</tr>
-											<%
-												for(Member m : memberList){
-											%>
-													<tr>
-														<td><%=m.getMemberNo()%></td>
-														<td><%=m.getMemberId()%></td>
-														<td><%=m.getMemberLevel()%></td>
-														<td><%=m.getMemberName()%></td>
-														<td><%=m.getCreatedate()%></td>
-														<% // 본인의 레벨 수정은 불가하게
-															if(loginMember.getMemberId().equals(m.getMemberId())){
-														%>
-																<td><%=m.getMemberLevel()%></td>
-														<%
-															} else{
-														%>
-																<td>
-																	<form action="<%=request.getContextPath()%>/admin/updateMemberLevel.jsp" method="post">
-																		<input type="hidden" name="memberNo" value="<%=m.getMemberNo()%>">
-																		<input type="hidden" name="memberId" value="<%=m.getMemberId()%>">
-																		<select name="newMemberLevel" >
-																			<option value="0">0.일반회원</option>
-																			<option value="1">1.관리자</option>
-																		</select>
-																		<button type="submit">변경</button>
-																	</form>
-																</td>
-														<%
-															}
-														%>
-														
-														<td><a href="<%=request.getContextPath()%>/admin/deleteMember.jsp?memberId=<%=m.getMemberId()%>">탈퇴</a></td>
-													</tr>
-											<%
-												}
-											%>
-										</table>
-									</div>
+									<%
+										}
+									%>
+								</table>
+							</div>
 						</div>
+					
+						<div class="card-footer">
+							<!-- memberList 페이징 -->
+							<nav aria-label="Page navigation">
+					            <ul class="pagination justify-content-center">
+									<li class="page-item prev">
+										<a class="page-link" href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=1&search=<%=search%>"><i class="tf-icon bx bx-chevrons-left"></i></a>
+									</li>
+									<%
+										if(currentPage>1){
+									%>
+											<li class="page-item">
+												<a class="page-link" href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage-1%>&search=<%=search%>"><i class='bx bx-chevron-left'></i></a>
+											</li>
+									<% 
+										}
+									%>
+									<li class="page-item active">
+										<a class="page-link" href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage%>&search=<%=search%>"><%=currentPage%></a>
+									</li>
+									<%
+										if(currentPage<lastPage){
+									%>
+											<li class="page-item">
+												<a class="page-link" href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage+1%>&search=<%=search%>"><i class='bx bx-chevron-right' ></i></a>
+											</li>
+									<% 
+										}
+									%>
+									
+									<li class="page-item next">
+										<a class="page-link" href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=lastPage%>&search=<%=search%>"><i class="tf-icon bx bx-chevrons-right"></i></a>
+									</li>
+					            </ul>
+					        </nav>
+							<!-- /memberList 페이징 -->
+						</div>
+					
 					</div>
 					<!-- /Content -->
-	
-	
-						<!-- memberList 페이징 -->
-						<div>
-							<a href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=1&search=<%=search%>">처음</a>
-							<%
-								if(currentPage>1){
-							%>
-									<a href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage-1%>&search=<%=search%>">이전</a>
-							<% 
-								}
-							%>
-							<%=currentPage%>
-							<%
-								if(currentPage<lastPage){
-							%>
-									<a href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=currentPage+1%>&search=<%=search%>">다음</a>
-							<% 
-								}
-							%>
-							<a href="<%=request.getContextPath()%>/admin/memberList.jsp?currentPage=<%=lastPage%>&search=<%=search%>">마지막</a>
-						</div>
-						
 	
 					<!-- Footer -->
 					<div>
