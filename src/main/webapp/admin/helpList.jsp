@@ -104,6 +104,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </script>
 <!-- Custom notification for demo -->
 <!-- beautify ignore:end -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"> <!-- Custom css -->
 </head>
 <body>
 <!-- Layout wrapper -->
@@ -138,12 +139,12 @@ gtag('config', 'GA_MEASUREMENT_ID');
 							<table class="table">
 								<thead>
 									<tr>
-										<th style="width: 100px">no</th>
-										<th>문의내용</th>
-										<th style="width: 200px">문의날짜</th>
-										<th>답변내용</th>
-										<th style="width: 200px">답변날짜</th>
-										<th style="width: 150px">추가/수정/삭제</th>
+										<th style="width: 8%">no</th>
+										<th style="width: 35%">문의내용</th>
+										<th style="width: 17%">문의날짜</th>
+										<th style="width: 35%">답변내용</th>
+										<th style="width: 17%">답변날짜</th>
+										<th style="width: 10%">&nbsp;</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -152,19 +153,19 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									%>
 											<tr>
 												<td><%=m.get("helpNo")%></td>
-												<td><%=m.get("helpMemo")%></td>
-												<td><%=m.get("helpCreatedate")%></td>
+												<td class="multiline-ellipsis"><%=m.get("helpMemo")%></td>
+												<td class="multiline-ellipsis"><%=m.get("helpCreatedate")%></td>
 												<%
 													if(m.get("commentMemo")==null){ // 답변이 달리지 않은 문의는 답변추가
 												%>
 														<td>&nbsp;</td>
 														<td>&nbsp;</td>
-														<td><a href="<%=request.getContextPath()%>/admin/insertCommentForm.jsp?helpNo=<%=m.get("helpNo")%>">답변추가</a></td>
+														<td class="multiline-ellipsis"><a href="<%=request.getContextPath()%>/admin/insertCommentForm.jsp?helpNo=<%=m.get("helpNo")%>">답변추가</a></td>
 												<%
 													}else{ // 답변이 달린 문의글은 수정/삭제
 												%>
-														<td><%=m.get("commentMemo")%></td>
-														<td><%=m.get("commentCreatedate")%></td>
+														<td class="multiline-ellipsis"><%=m.get("commentMemo")%></td>
+														<td class="multiline-ellipsis"><%=m.get("commentCreatedate")%></td>
 														<td>
 															<div class="dropdown">
 																<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>

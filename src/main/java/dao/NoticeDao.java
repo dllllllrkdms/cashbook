@@ -89,7 +89,7 @@ public class NoticeDao {
 		}
 		return notice;
 	}
-	public int insertNotice(Notice notice) { // notice 입력
+	public int insertNotice(String noticeMemo) { // notice 입력
 		int row = 0; // 반환할 변수 초기화
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = null;
@@ -98,13 +98,13 @@ public class NoticeDao {
 			conn = dbUtil.getConnection();
 			String sql = "INSERT INTO notice(notice_memo, updatedate, createdate) VALUES(?,NOW(),NOW())";
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, notice.getNoticeMemo());
+			stmt.setString(1, noticeMemo);
 			row = stmt.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.printStackTrace(); // 예외 메세지 출력
 		} finally {
 			try {
-				dbUtil.close(null, stmt, conn);
+				dbUtil.close(null, stmt, conn); // db자원 반납
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -4,7 +4,7 @@
 <%@ page import="vo.*"%>
 <%
 	// Controller
-	request.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8"); // 인코딩
 	String helpNo = request.getParameter("helpNo");
 	String commentMemo = request.getParameter("commentMemo");
 	String memberId = request.getParameter("memberId");

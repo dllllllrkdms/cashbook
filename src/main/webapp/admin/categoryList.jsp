@@ -118,11 +118,11 @@ gtag('config', 'GA_MEASUREMENT_ID');
 						
 							<div class="accordion accordion-without-arrow" id="accordionCategory">
 								<div class="accordion-item">
-										<div class="accordion-header col-xl-2 mb-3 m-4">
-											<button type="button" class="collapsed btn btn-primary" data-bs-toggle="collapse" data-bs-target="#insertCategoryForm" aria-expanded="false" aria-controls="insertCategoryForm">
-												<i class="bx bx-plus me-2"></i><span class="fs-5">add</span>
-											</button>
-										</div>
+									<div class="accordion-header col-xl-2 mb-3 m-4">
+										<button type="button" class="collapsed btn btn-primary" data-bs-toggle="collapse" data-bs-target="#insertCategoryForm" aria-expanded="false" aria-controls="insertCategoryForm">
+											<i class="bx bx-plus me-2"></i><span class="fs-5">add</span>
+										</button>
+									</div>
 									<!-- insertCategoryForm -->
 									<div id="insertCategoryForm" class="accordion-collapse collapse" data-bs-parent="#accordionCategory">
 										<div class="accordion-body">

@@ -131,8 +131,12 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					</h4>
 					<!-- Content -->
 					<div class="card">
+						
 		          		<div class="card-body">
-			
+							<div class="col-xl-2 mb-3 m-4">
+								<a href="<%=request.getContextPath()%>/admin/insertNoticeForm.jsp" class="btn btn-primary"><i class="bx bx-plus me-2"></i><span class="fs-5">add</span></a>
+							</div>
+							
 							<!-- notice 추가 폼 -->
 							<table class="table">
 								<tr>
