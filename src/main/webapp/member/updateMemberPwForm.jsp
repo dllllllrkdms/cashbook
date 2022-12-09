@@ -127,27 +127,27 @@ gtag('config', 'GA_MEASUREMENT_ID');
 								<form action="<%=request.getContextPath()%>/member/updateMemberPwAction.jsp" method="post">
 									<input type="hidden" name="memberId" value="<%=memberId%>">
 									<div class="row">
-										<div class="mb-3 col-md-6 form-password-toggle">
+										<div class="mb-3 col-md-6 form-password-toggle"> <!-- form-password-toggle X -->
 											<label class="form-label" for="memberPw">현재 비밀번호</label>
 											<div class="input-group input-group-merge">
 												<input type="password" class="form-control" id="memberPw" name="memberPw" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
-												<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+												<!-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> -->
 											</div>
 										</div>
 									</div>
 									<div class="row">
-										<div class="mb-3 col-md-6 form-password-toggle">
+										<div class="mb-3 col-md-6 form-password-toggle"> <!-- form-password-toggle X -->
 											<label class="form-label" for="newMemberPw">새 비밀번호</label>
 											<div class="input-group input-group-merge">
 												<input type="password" class="form-control" id="newMemberPw" name="newMemberPw" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
-												<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+												<!-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> -->
 											</div>
 										</div>
-										<div class="mb-3 col-md-6 form-password-toggle">
+										<div class="mb-3 col-md-6 form-password-toggle"> <!-- form-password-toggle X -->
 											<label class="form-label" for="checkPw">비밀번호 확인</label>
 											<div class="input-group input-group-merge">
 												<input type="password" class="form-control" id="checkPw" name="checkPw" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
-												<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+												<!-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> -->
 											</div>
 										</div>
 									</div>

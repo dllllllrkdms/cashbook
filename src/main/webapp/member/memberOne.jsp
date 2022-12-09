@@ -123,7 +123,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
    								<small class="text-muted text-uppercase">About</small>
 								<ul class="list-unstyled mb-4 mt-3">
 								  <li class="d-flex align-items-center mb-3"><i class="bx bx-user"></i><span class="fw-semibold mx-2">이름: </span><span><%=loginMember.getMemberName()%></span></li>
-								  <li class="d-flex align-items-center mb-3">@<span class="fw-semibold mx-2">ID: </span><span><%=loginMember.getMemberId()%></span></li>
+								  <li class="d-flex align-items-center mb-3"><i class='bx bx-at'></i><span class="fw-semibold mx-2">ID: </span><span><%=loginMember.getMemberId()%></span></li>
 								</ul>
 							</div>
 						</div>

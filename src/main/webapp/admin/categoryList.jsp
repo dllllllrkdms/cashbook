@@ -10,7 +10,7 @@
 		return;
 	}
 	CategoryDao categoryDao = new CategoryDao();
-	ArrayList<Category> categoryList = categoryDao.selectCategoryListByAdmin();
+	ArrayList<Category> categoryList = categoryDao.selectCategoryList();
 %>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed " dir="ltr" data-theme="theme-default" data-assets-path="<%=request.getContextPath()%>/resources/" data-template="vertical-menu-template-free">
@@ -115,83 +115,84 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					<!-- Content -->
 					<div class="card">
 						<div class="card-body">
-						
-							<div class="accordion accordion-without-arrow" id="accordionCategory">
-								<div class="accordion-item">
-									<div class="accordion-header col-xl-2 mb-3 m-4">
-										<button type="button" class="collapsed btn btn-primary" data-bs-toggle="collapse" data-bs-target="#insertCategoryForm" aria-expanded="false" aria-controls="insertCategoryForm">
-											<i class="bx bx-plus me-2"></i><span class="fs-5">add</span>
-										</button>
+							<div class="card-body">
+								<div class="mx-3">
+									<p class="demo-inline-spacing">
+										<button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse" data-bs-target="#insertCategoryForm" aria-expanded="false" aria-controls="insertCategoryForm">
+								            <i class="bx bx-plus me-2"></i><span class="fs-5">add</span>
+								        </button>
+							        </p>
+						        </div>
+								<!-- insertCategoryForm -->
+								<div id="insertCategoryForm" class="accordion-collapse collapse" data-bs-parent="#insertCategoryForm">
+									<div class="accordion-body">
+										<form action="<%=request.getContextPath()%>/admin/insertCategoryAction.jsp" method="post">
+											<div class="row">
+												<div class="col-mt-2 col-md-3">
+													<label class="form-check-label form-label" for="categoryKind"> 카테고리 종류</label>
+													<br>
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="categoryKind" value="수입" id="categoryKind">수입
+													</div>
+													<div class="form-check form-check-inline">
+														<input class="form-check-input" type="radio" name="categoryKind" value="지출" id="categoryKind">지출
+													</div>
+												</div>
+												<div class="col-mt-2 col-md-3 mb-3">
+													<label class="form-label" for="categoryName">카테고리 이름</label>
+													<input class="form-control" type="text" name="categoryName" id="categoryName">
+												</div>
+											</div>
+											<div class="mb-3">
+												<button type="submit" class="btn btn-primary">등록</button>
+												<button type="reset" class="btn btn-outline-secondary">취소</button>
+											</div>
+										</form>
+										<hr class="m-0">
 									</div>
-									<!-- insertCategoryForm -->
-									<div id="insertCategoryForm" class="accordion-collapse collapse" data-bs-parent="#accordionCategory">
-										<div class="accordion-body">
-											<form action="<%=request.getContextPath()%>/admin/insertCategoryAction.jsp" method="post">
-												<div class="row">
-													<div class="col-mt-2 col-md-3">
-														<label class="form-check-label form-label" for="categoryKind"> 카테고리 종류</label>
-														<br>
-														<div class="form-check form-check-inline">
-															<input class="form-check-input" type="radio" name="categoryKind" value="수입" id="categoryKind">수입
-														</div>
-														<div class="form-check form-check-inline">
-															<input class="form-check-input" type="radio" name="categoryKind" value="지출" id="categoryKind">지출
-														</div>
-													</div>
-													<div class="col-mt-2 col-md-3">
-														<label class="form-label" for="categoryName">카테고리 이름</label>
-														<input class="form-control" type="text" name="categoryName" id="categoryName">
-													</div>
-												</div>
-												<div class="mt-3 mb-3">
-													<button type="submit" class="btn btn-primary">등록</button>
-													<button type="reset" class="btn btn-outline-secondary">취소</button>
-												</div>
-											</form>
-										</div>
-									</div>	
-								</div>
+								</div>	
+				          		<!-- /insertCategoryForm -->
+				          		
+								<!-- CategoryList -->
+								<table class="table">
+									<thead>
+										<tr>
+											<th>no</th>
+											<th>종류</th>
+											<th>이름</th>
+											<th style="width:200px">최근수정일자</th>
+											<th style="width:200px">생성일자</th>
+											<th style="width:150px">수정/삭제</th>
+										</tr>
+									</thead>
+									<tbody>
+										<%
+											for(Category c : categoryList){
+										%>
+												<tr>
+													<td><%=c.getCategoryNo()%></td>
+													<td><%=c.getCategoryKind()%></td>
+													<td><%=c.getCategoryName()%></td>
+													<td><%=c.getUpdatedate()%></td>
+													<td><%=c.getCreatedate()%></td>
+													<td>
+														<div class="dropdown">
+															<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+															<div class="dropdown-menu">
+																<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/updateCategoryForm.jsp?categoryNo=<%=c.getCategoryNo()%>"><i class="bx bx-edit-alt me-1"></i> 수정</a>
+																<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/deleteCategory.jsp?categoryNo=<%=c.getCategoryNo()%>"><i class="bx bx-trash me-1"></i> 삭제</a>
+															</div>
+													    </div>
+													</td>
+												</tr>
+										<%
+											}
+										%>	
+									</tbody>
+								</table>
 							</div>
-			          		
-							<!-- CategoryList -->
-							<table class="table">
-								<thead>
-									<tr>
-										<th style="width:70px">no</th>
-										<th style="width:100px">종류</th>
-										<th>이름</th>
-										<th style="width:200px">최근수정일자</th>
-										<th style="width:200px">생성일자</th>
-										<th style="width:150px">수정/삭제</th>
-									</tr>
-								</thead>
-								<tbody>
-									<%
-										for(Category c : categoryList){
-									%>
-											<tr>
-												<td><%=c.getCategoryNo()%></td>
-												<td><%=c.getCategoryKind()%></td>
-												<td><%=c.getCategoryName()%></td>
-												<td><%=c.getUpdatedate()%></td>
-												<td><%=c.getCreatedate()%></td>
-												<td>
-													<div class="dropdown">
-														<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-														<div class="dropdown-menu">
-															<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/updateCategoryForm.jsp?categoryNo=<%=c.getCategoryNo()%>"><i class="bx bx-edit-alt me-1"></i> 수정</a>
-															<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/deleteCategory.jsp?categoryNo=<%=c.getCategoryNo()%>"><i class="bx bx-trash me-1"></i> 삭제</a>
-														</div>
-												    </div>
-												</td>
-											</tr>
-									<%
-										}
-									%>	
-								</tbody>
-							</table>
+							<!-- /CategoryList -->
 						</div>
-						<!-- /CategoryList -->
 					</div>
 				</div>
 				<!-- /Content -->

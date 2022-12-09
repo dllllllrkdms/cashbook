@@ -175,20 +175,28 @@ gtag('config', 'GA_MEASUREMENT_ID');
 													} else{
 												%>
 														<td>
-															<form action="<%=request.getContextPath()%>/admin/updateMemberLevel.jsp" method="post">
-																<input type="hidden" name="memberNo" value="<%=m.getMemberNo()%>">
-																<input type="hidden" name="memberId" value="<%=m.getMemberId()%>">
-																<select name="newMemberLevel" >
-																	<option value="0">0.일반회원</option>
-																	<option value="1">1.관리자</option>
-																</select>
-																<button type="submit">변경</button>
-															</form>
+         													<div class="btn-group">
+																<button type="button" class="btn btn-icon btn-outline-primary hide-arrow dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													            	<i class='bx bx-check'></i>
+													            </button>
+																 <div class="dropdown-menu dropdown-menu-end w-px-300">
+																	<form class="p-4" action="<%=request.getContextPath()%>/admin/updateMemberLevel.jsp" method="post">
+																		<input type="hidden" name="memberNo" value="<%=m.getMemberNo()%>">
+																		<input type="hidden" name="memberId" value="<%=m.getMemberId()%>">
+																		<div class="mb-3">
+																			<select name="newMemberLevel" class="form-select">
+																				<option value="0">0. 일반회원</option>
+																				<option value="1">1. 관리자</option>
+																			</select>
+																		</div>
+																		<button type="submit" class="btn btn-primary">변경</button>
+																	</form>
+																</div>
+															</div>
 														</td>
 												<%
 													}
 												%>
-												
 												<td><a href="<%=request.getContextPath()%>/admin/deleteMember.jsp?memberId=<%=m.getMemberId()%>">탈퇴</a></td>
 											</tr>
 									<%
@@ -234,17 +242,16 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					        </nav>
 							<!-- /memberList 페이징 -->
 						</div>
-					
-					</div>
-					<!-- /Content -->
-	
-					<!-- Footer -->
-					<div>
-						<jsp:include page="/inc/footer.jsp"></jsp:include>
-					</div>
-					<!-- /Footer -->
+					</div>	
+				</div>
+				<!-- /Content -->
+
+				<!-- Footer -->
+				<div>
+					<jsp:include page="/inc/footer.jsp"></jsp:include>
+				</div>
+				<!-- /Footer -->
 				
-				</div>	
 			</div>
 			<!-- /Content wrapper -->
 		</div>

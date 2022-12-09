@@ -100,6 +100,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </script>
 <!-- Custom notification for demo -->
 <!-- beautify ignore:end -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"> <!-- Custom css -->
 </head>
 <body>
 <!-- Layout wrapper -->
@@ -127,61 +128,59 @@ gtag('config', 'GA_MEASUREMENT_ID');
 				<div class="container-xxl flex-grow-1 container-p-y">
 					
 					<div class="card mb-4">
-						<div class="card-body mx-xxl-2">
+						<div class="card-body">
 							<div class="card-body">
-								
-									<div class="col-md-2">
-										<h4 class="card-header">
-											<%=cashDate%>
-										</h4>
-									</div>
-								
-									<div class="accordion accordion-without-arrow" id="accordionCash">
-										<div class="accordion-item">
-									        <h2 class="accordion-header col-md-2">
-												<button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#insertCashForm" aria-expanded="false" aria-controls="insertCashForm"> <!-- aria-expanded="false" 아코디언을 닫아놓음 -->
-													<i class='bx bxs-pencil'></i><span class="fs-5"> add</span>
-												</button>
-									        </h2>
-								
-								        <div id="insertCashForm" class="accordion-collapse collapse" data-bs-parent="#accordionCash">
-								        	<div class="accordion-body">
-								           		<!-- insertCashForm -->
-												<form action="<%=request.getContextPath()%>/cash/insertCashListAction.jsp" method="post">
-													<input type="hidden" name="memberId" value="<%=memberId%>">
-													<input type="hidden" name="cashDate" value="<%=cashDate%>">
-													<div class="row mb-3">
-														<div class="col-md-3">
-															<select class="form-select" name="categoryNo">
-																<%
-																	for(Category c : categoryList){
-																%>
-																		<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind()%><%=c.getCategoryName()%></option>
-																<%
-																	}
-																%>
-															</select>
-														</div> 
-														<div class="col-md-3">
-															<input class="form-control" type="number" name="cashPrice">
-														</div>
-														<span class="col-form-label col-sm-2">원</span>
-													</div>	
-													<div class="col-sm-9">
-														<textarea cols="50" rows="4" name="cashMemo" class="form-control"></textarea>
-													</div>
-													<div class="mt-3 mb-3">
-														<button type="submit" class="btn btn-primary">등록</button>
-														<button type="reset" class="btn btn-outline-secondary">취소</button>
-													</div>
-												</form>
-												<!-- /insertCashForm -->
-												<hr class="m-0">
-											</div>
-								        </div>
-									</div>
+							
+								<div class="col-md-2">
+									<h4 class="card-header">
+										<%=cashDate%>
+									</h4>
 								</div>
-								
+								<div class="mx-3">
+									<p class="demo-inline-spacing">
+										<button class="btn btn-primary me-1" type="button" data-bs-toggle="collapse" data-bs-target="#insertCashForm" aria-expanded="false" aria-controls="insertCashForm">
+								            <i class="bx bx-plus me-2"></i><span class="fs-5">add</span>
+								        </button>
+							        </p>
+						        </div>
+							        
+						        <div id="insertCashForm" class="accordion-collapse collapse" data-bs-parent="#accordionCash">
+						        	<div class="accordion-body">
+						           		<!-- insertCashForm -->
+										<form action="<%=request.getContextPath()%>/cash/insertCashListAction.jsp" method="post">
+											<input type="hidden" name="memberId" value="<%=memberId%>">
+											<input type="hidden" name="cashDate" value="<%=cashDate%>">
+											<div class="row mb-3">
+												<div class="col-md-3">
+													<select class="form-select" name="categoryNo">
+														<%
+															for(Category c : categoryList){
+														%>
+																<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind()%><%=c.getCategoryName()%></option>
+														<%
+															}
+														%>
+													</select>
+												</div> 
+												<div class="col-md-3">
+													<input class="form-control" type="number" name="cashPrice">
+												</div>
+												<span class="col-form-label col-sm-2">원</span>
+											</div>	
+											<div class="col-sm-9">
+												<textarea cols="50" rows="5" name="cashMemo" class="form-control"></textarea>
+											</div>
+											<div class="mt-3 mb-3">
+												<button type="submit" class="btn btn-primary">등록</button>
+												<button type="reset" class="btn btn-outline-secondary">취소</button>
+											</div>
+										</form>
+										<!-- /insertCashForm -->
+										<hr class="m-0">
+									</div>
+						        </div>
+						
+						
 								<!-- cashDateList 출력 -->
 								<table class="table table-sm">
 									<tbody class="table-border-bottom-0">		

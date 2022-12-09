@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
+<%@ page import="dao.*"%>
 <%@ page import="vo.*"%>
 <%
 	// Controller
@@ -8,7 +10,18 @@
 		return;
 	}
 	// Model 호출
-	// 최근공지 5개, 최근추가된멤버5명
+	// 최근 추가된 공지 5개
+	NoticeDao noticeDao = new NoticeDao();
+	ArrayList<Notice> noticeList = noticeDao.selectNoticeListByPage(0,5);
+	// 최근 추가된 고객센터 문의글 5개 
+	HelpDao helpDao = new HelpDao();
+	ArrayList<HashMap<String, Object>> helpList = helpDao.selectHelpList(0, 5);
+	// 최근 추가된 멤버 5명
+	MemberDao memberDao = new MemberDao();
+	ArrayList<Member> memberList = memberDao.selectMemberListByPage(0, 5, null);
+	// 최근 추가된 카테고리 5개
+	CategoryDao categoryDao = new CategoryDao();
+	ArrayList<Category> categoryList = categoryDao.selectCategoryList(0,5);
 	// View
 	// admin 기능  
 	//1)카테고리 CRUD
@@ -88,7 +101,19 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </script>
 <!-- Custom notification for demo -->
 <!-- beautify ignore:end -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"> <!-- Custom css -->
 </head>
+<style>
+	a:link:not(i){
+		color:#566a7f;
+	}
+	a:hover{
+		text-decoration: underline;
+	}
+	a:visited{
+		color:#566a7f;
+	}
+</style>
 <body>
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar ">
@@ -122,12 +147,24 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									<h5 class="d-inline-block">notice</h5>
 									<span class="float-end">
 										<a href="<%=request.getContextPath()%>/admin/noticeList.jsp">
-											<i class='bx bx-dots-vertical-rounded'></i>
+											<i class='bx bx-plus'></i> 더보기
 										</a>
 									</span>
 								</div>
 								<div class="card-body demo-vertical-spacing demo-only-element">
-									
+									<%
+										for(Notice n : noticeList){
+									%>
+											<div style="width:inherit">
+												<div class="multiline-ellipsis">
+													•
+													<a href="<%=request.getContextPath()%>/admin/updateNoticeForm.jsp?noticeNo=<%=n.getNoticeNo()%>"><%=n.getNoticeMemo()%></a>
+													<br>
+												</div>
+											</div>
+									<%
+										}
+									%>
 								</div>
 							</div>
 						</div>
@@ -138,12 +175,25 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									<h5 class="d-inline-block">help</h5>
 									<span class="float-end">
 										<a href="<%=request.getContextPath()%>/admin/helpList.jsp">
-											<i class='bx bx-dots-vertical-rounded'></i>
+											<i class='bx bx-plus'></i> 더보기
 										</a>
 									</span>
 								</div>
 								<div class="card-body demo-vertical-spacing demo-only-element">
-									
+									<%
+										for(HashMap<String, Object> h : helpList){
+											//System.out.println(h.get("commentNo")+"<--admin");
+									%>
+											<div style="width:inherit">
+												<div class="multiline-ellipsis">
+													•
+													<a href="<%=request.getContextPath()%>/admin/updateCommentForm.jsp?helpNo=<%=h.get("helpNo")%>&commentNo=<%=h.get("commentNo")%>"><%=h.get("helpMemo")%></a>
+													<br>
+												</div>
+											</div>
+									<%
+										}
+									%>
 								</div>
 							</div>
 						</div>
@@ -154,12 +204,25 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									<h5 class="d-inline-block">member</h5>
 									<span class="float-end">
 										<a href="<%=request.getContextPath()%>/admin/memberList.jsp">
-											<i class='bx bx-dots-vertical-rounded'></i>
+											<i class='bx bx-plus'></i> 더보기
 										</a>
 									</span>
 								</div>
 								<div class="card-body demo-vertical-spacing demo-only-element">
-									
+									<%
+										for(Member m : memberList){
+									%>
+											<div style="width:inherit">
+												<div class="multiline-ellipsis">
+													•
+													<%=m.getMemberId()%>
+													<%=m.getMemberName()%>
+													<br>
+												</div>
+											</div>
+									<%
+										}
+									%>
 								</div>
 							</div>
 						</div>
@@ -170,25 +233,39 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									<h5 class="d-inline-block">category</h5>
 									<span class="float-end">
 										<a href="<%=request.getContextPath()%>/admin/categoryList.jsp">
-											<i class='bx bx-dots-vertical-rounded'></i>
+												<i class='bx bx-plus'></i> 더보기
 										</a>
 									</span>
 								</div>
 								<div class="card-body demo-vertical-spacing demo-only-element">
-									
+									<%
+										for(Category c : categoryList){
+									%>
+											<div style="width:inherit">
+												<div class="multiline-ellipsis">
+													•
+													<a href="<%=request.getContextPath()%>/admin/updateCategoryForm.jsp?categoryNo=<%=c.getCategoryNo()%>">
+														<%=c.getCategoryKind()%> <%=c.getCategoryName()%>
+													</a>
+													<br>
+												</div>
+											</div>
+									<%
+										}
+									%>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- /Content -->
-					
-					<!-- Footer -->
-					<div>
-						<jsp:include page="/inc/footer.jsp"></jsp:include>
-					</div>
-					<!-- /Footer -->
-					
 				</div>
+				<!-- /Content -->
+					
+				<!-- Footer -->
+				<div>
+					<jsp:include page="/inc/footer.jsp"></jsp:include>
+				</div>
+				<!-- /Footer -->
+				
 			</div>
 			<!-- /Container wrapper -->
 		</div>

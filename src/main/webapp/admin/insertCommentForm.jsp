@@ -123,23 +123,24 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					<div class="card">
 		          		<div class="card-body">
 		          			<div class="card-body">
+		          			
 			          			<!-- 문의 글 -->
 			          			<div class="form-label">문의내용</div>
-								<div class="mb-4"><%=help.getHelpMemo()%></div>
-								<div class="row">
-									<div class="form-label">작성자</div>
-									<div class="col-md-2">
-										<input type="text" class="form-control" readonly=readonly value="<%=help.getMemberId()%>">
-									</div>
+								<div class="mb-3"><%=help.getHelpMemo()%></div>
+								<div class="form-label">작성자</div>
+								<div class="col-md-2 mb-3">
+									<input type="text" class="form-control" readonly=readonly value="<%=help.getMemberId()%>">
 								</div>
+								
 								<hr>
+								
 								<form action="<%=request.getContextPath()%>/admin/insertCommentAction.jsp" method="post">
 									<input type="hidden" name="memberId" value="<%=loginMemberId%>">
 									<input type="hidden" name="helpNo" value="<%=helpNo%>">								
 									<!-- 답변 --> 
 									<div class="mb-3">
 										<label class="form-label" for="commentMemo">답변</label>
-										<textarea class="form-control" rows="3" name="commentMemo" id="commentMemo" style="resize: none"></textarea>
+										<textarea class="form-control" rows="5" name="commentMemo" id="commentMemo"></textarea>
 									</div>
 									<div class="mb-3">
 										<button type="submit" class="btn btn-primary">등록</button>
@@ -148,17 +149,16 @@ gtag('config', 'GA_MEASUREMENT_ID');
 								</form>
 							</div>
 						</div>
-						
-					</div>
-					<!-- /Content -->
-						
-					<!-- Footer -->
-					<div>
-						<jsp:include page="/inc/footer.jsp"></jsp:include>
-					</div>
-					<!-- /Footer -->
-	
-				</div>	
+					</div>	
+				</div>
+				<!-- /Content -->
+					
+				<!-- Footer -->
+				<div>
+					<jsp:include page="/inc/footer.jsp"></jsp:include>
+				</div>
+				<!-- /Footer -->
+		
 			</div>
 			<!-- /Content wrapper -->
 		</div>

@@ -116,6 +116,9 @@ gtag('config', 'GA_MEASUREMENT_ID');
 			
 				<!-- Content -->
 				<div class="container-xxl flex-grow-1 container-p-y">
+					<h4 class="fw-bold py-3 mb-4">
+					  <span class="text-muted fw-light">Admin /</span> notice
+					</h4>
 					<div class="card mb-4">
 						<div class="card-body mx-xxl-2">
 							<div class="card-body">
@@ -130,7 +133,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 										<div class="row">
 											<div class="mb-3">
 												<label class="form-label" for="noticeMemo">공지내용</label>
-												<textarea class="form-control" name="noticeMemo" id="noticeMemo" rows="2" style="resize:none"><%=notice.getNoticeMemo()%></textarea>
+												<textarea class="form-control" name="noticeMemo" id="noticeMemo" rows="5"><%=notice.getNoticeMemo()%></textarea>
 											</div>
 										</div>
 										<div class="row">

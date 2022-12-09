@@ -104,6 +104,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </script>
 <!-- Custom notification for demo -->
 <!-- beautify ignore:end -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"> <!-- Custom css -->
 </head>
 <body>
 <!-- Layout wrapper -->
@@ -132,44 +133,41 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					
 					<div class="card mb-4">
 						<div class="card-body mx-xxl-2 my-xxl-2">
+							
 							<div class="card-body">
-							
-							
-		<form action="<%=request.getContextPath()%>/cash/updateCashListAction.jsp" method="post">
-			<input type="hidden" name="cashNo" value="<%=cashNo%>">
-			<input type="hidden" name="memberId" value="<%=memberId%>">
-			<div class="mb-3 col-md-2">
-				<input class="form-control" type="text" name="cashDate" value="<%=cashDate%>" readonly=readonly> <!-- 변경불가 -->
-			</div>
-			<div class="row mb-3">
-				<div class="col-md-3">
-					<select class="form-select" name="categoryNo">
-						<%
-							for(Category c : categoryList){
-						%>
-								<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind()%> <%=c.getCategoryName()%></option>								
-						<%
-							}
-						%>
-					</select>
-				</div>
-				<div class="col-md-3">
-					<input class="form-control" type="number" name="cashPrice" value="<%=cashOne.get("cashPrice")%>">
-				</div>
-				<span class="col-form-label col-sm-2">원</span>
-			</div>
-			
-			<div class="col-sm-9">
-				<textarea cols="50" rows="4" name="cashMemo" class="form-control"><%=cashOne.get("cashMemo") %></textarea>
-			</div>
-		
-			<div class="mt-3 mb-3">
-				<button type="submit" class="btn btn-primary">등록</button>
-				<button type="reset" class="btn btn-outline-secondary">취소</button>
-			</div>
-		</form>
-	</div>	
-							
+								<form action="<%=request.getContextPath()%>/cash/updateCashListAction.jsp" method="post">
+									<input type="hidden" name="cashNo" value="<%=cashNo%>">
+									<input type="hidden" name="memberId" value="<%=memberId%>">
+									<div class="mb-3 col-md-2">
+										<input class="form-control" type="text" name="cashDate" value="<%=cashDate%>" readonly=readonly> <!-- 변경불가 -->
+									</div>
+									<div class="row mb-3">
+										<div class="col-md-3">
+											<select class="form-select" name="categoryNo">
+												<%
+													for(Category c : categoryList){
+												%>
+														<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind()%> <%=c.getCategoryName()%></option>								
+												<%
+													}
+												%>
+											</select>
+										</div>
+										<div class="col-md-3">
+											<input class="form-control" type="number" name="cashPrice" value="<%=cashOne.get("cashPrice")%>">
+										</div>
+										<span class="col-form-label col-sm-2">원</span>
+									</div>
+									<div class="col-sm-9">
+										<textarea cols="50" rows="4" name="cashMemo" class="form-control"><%=cashOne.get("cashMemo") %></textarea>
+									</div>
+									<div class="mt-3 mb-3">
+										<button type="submit" class="btn btn-primary">등록</button>
+										<button type="reset" class="btn btn-outline-secondary">취소</button>
+									</div>
+								</form>
+							</div>	
+													
 						</div>
 					</div>		
 				</div>

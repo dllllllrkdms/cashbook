@@ -3,6 +3,7 @@
 <%@ page import="dao.*"%>
 <%
 	// Controller
+	request.setCharacterEncoding("UTF-8"); // 인코딩
 	String noticeMemo = request.getParameter("noticeMemo");
 	String redirectUrl = "/admin/insertNoticeForm.jsp";
 	if(noticeMemo==null||noticeMemo.equals("")){

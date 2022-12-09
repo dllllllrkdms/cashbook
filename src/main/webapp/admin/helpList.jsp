@@ -223,17 +223,16 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					        </nav>
 							<!-- /helpList 페이징 -->
 						</div>
-						
 					</div>
-					<!-- /Content -->
-						
-					<!-- Footer -->
-					<div>
-						<jsp:include page="/inc/footer.jsp"></jsp:include>
-					</div>
-					<!-- /Footer -->
-				
-				</div>	
+				</div>
+				<!-- /Content -->
+					
+				<!-- Footer -->
+				<div>
+					<jsp:include page="/inc/footer.jsp"></jsp:include>
+				</div>
+				<!-- /Footer -->
+					
 			</div>
 			<!-- /Content wrapper -->
 		</div>

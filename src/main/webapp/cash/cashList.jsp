@@ -60,7 +60,7 @@
 
 %>
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-menu-fixed " dir="ltr" data-theme="theme-default" data-assets-path="<%=request.getContextPath()%>/resources/" data-template="vertical-menu-template-free">
+<html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="<%=request.getContextPath()%>/resources/" data-template="vertical-menu-template">
 <head>
 <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
@@ -102,7 +102,9 @@
 <script src="<%=request.getContextPath()%>/resources/vendor/js/bootstrap.js"></script>
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
+
 <script src="<%=request.getContextPath()%>/resources/vendor/js/menu.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/menu.js"></script>
 <!-- endbuild -->
 
 <!-- Vendors JS -->

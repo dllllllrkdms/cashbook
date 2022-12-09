@@ -86,6 +86,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </script>
 <!-- Custom notification for demo -->
 <!-- beautify ignore:end -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"> <!-- Custom css -->
 </head>
 <body>
 <!-- Layout wrapper -->
@@ -119,52 +120,54 @@ gtag('config', 'GA_MEASUREMENT_ID');
 							<span class="float-end"><a class="btn-sm btn-primary me-3" href="<%=request.getContextPath()%>/help/insertHelpForm.jsp">문의하기</a></span>
 						</div>
 							<div class="card-body">
-								<table class="table">									
-									<thead>
-										<tr>
-											<th class="text-overflow-ellipsis">문의내용</th>
-											<th>문의날짜</th>
-											<th>답변내용</th>
-											<th>답변날짜</th>
-											<th>수정/삭제</th>
-										</tr>
-									</thead>
-									<tbody>
-									<%
-										for(HashMap<String, Object> m : helpList){
-									%>
+								<div class="card-body">
+									<table class="table">									
+										<thead>
 											<tr>
-												<td><%=m.get("helpMemo")%></td>
-												<td><%=m.get("helpCreatedate")%></td>
-												<%
-													if(m.get("commentMemo")==null){ // 답변이 달리지 않은 문의글만 수정/삭제 가능
-												%>
-														<td>&nbsp;</td>
-														<td>&nbsp;</td>
-														<td>
-															<div class="dropdown">
-																<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-																<div class="dropdown-menu">
-																	<a class="dropdown-item" href="<%=request.getContextPath()%>/help/updateHelpForm.jsp?helpNo=<%=m.get("helpNo")%>"><i class="bx bx-edit-alt me-1"></i> 수정</a>
-																	<a class="dropdown-item" href="<%=request.getContextPath()%>/help/deleteHelp.jsp?helpNo=<%=m.get("helpNo")%>"><i class="bx bx-trash me-1"></i> 삭제</a>
-																</div>
-												            </div>
-														</td>
-												<%
-													}else{
-												%>
-														<td><%=m.get("commentMemo")%></td>
-														<td><%=m.get("commentCreatedate")%></td>
-														<td>&nbsp;</td>
-												<%
-													}
-												%>
+												<th style="width: 35%">문의내용</th>
+												<th style="width: 17%">문의날짜</th>
+												<th style="width: 35%">답변내용</th>
+												<th style="width: 17%">답변날짜</th>
+												<th style="width: 10%">&nbsp;</th>
 											</tr>
-									<%
-										}
-									%>
-									</tbody>
-								</table>
+										</thead>
+										<tbody>
+										<%
+											for(HashMap<String, Object> m : helpList){
+										%>
+												<tr>
+													<td class="multiline-ellipsis"><%=m.get("helpMemo")%></td>
+													<td class="multiline-ellipsis"><%=m.get("helpCreatedate")%></td>
+													<%
+														if(m.get("commentMemo")==null){ // 답변이 달리지 않은 문의글만 수정/삭제 가능
+													%>
+															<td>&nbsp;</td>
+															<td>&nbsp;</td>
+															<td>
+																<div class="dropdown">
+																	<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+																	<div class="dropdown-menu">
+																		<a class="dropdown-item" href="<%=request.getContextPath()%>/help/updateHelpForm.jsp?helpNo=<%=m.get("helpNo")%>"><i class="bx bx-edit-alt me-1"></i> 수정</a>
+																		<a class="dropdown-item" href="<%=request.getContextPath()%>/help/deleteHelp.jsp?helpNo=<%=m.get("helpNo")%>"><i class="bx bx-trash me-1"></i> 삭제</a>
+																	</div>
+													            </div>
+															</td>
+													<%
+														}else{
+													%>
+															<td class="multiline-ellipsis"><%=m.get("commentMemo")%></td>
+															<td class="multiline-ellipsis"><%=m.get("commentCreatedate")%></td>
+															<td>&nbsp;</td>
+													<%
+														}
+													%>
+												</tr>
+										<%
+											}
+										%>
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -182,8 +185,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 			<!-- /Layout container -->
 		
 		<!-- Overlay -->
-    	<div class="layout-overlay layout-menu-toggle"></div>
-    	
+    	<div class="layout-overlay layout-menu-toggle"></div>  	
 		
 	</div>
 </div>

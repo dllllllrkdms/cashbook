@@ -102,6 +102,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </script>
 <!-- Custom notification for demo -->
 <!-- beautify ignore:end -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"> <!-- Custom css -->
 </head>
 <body>
 <!-- Layout wrapper -->
@@ -140,17 +141,17 @@ gtag('config', 'GA_MEASUREMENT_ID');
 							<!-- notice 추가 폼 -->
 							<table class="table">
 								<tr>
-									<th style="width: 100px">no</th>
-									<th>공지내용</th>
-									<th style="width: 200px">공지날짜</th>
-									<th style="width: 150px">수정/삭제</th>
+									<th style="width: 8%">no</th>
+									<th style="width: 65%">공지내용</th>
+									<th style="width: 17%">공지날짜</th>
+									<th style="width: 10%">&nbsp;</th>
 								</tr>
 								<%
 									for(Notice n : noticeList){
 								%>
 										<tr>
 											<td><%=n.getNoticeNo()%></td>
-											<td><%=n.getNoticeMemo()%></td>
+											<td class="multiline-ellipsis"><%=n.getNoticeMemo()%></td>
 											<td><%=n.getCreatedate()%></td>
 											<td>
 												<div class="dropdown">
@@ -204,18 +205,17 @@ gtag('config', 'GA_MEASUREMENT_ID');
 							<!-- /noticeList 페이징 -->
 						</div>
 					
-						
-					</div>
-					<!-- /Content -->
-					
-		
-					<!-- Footer -->
-					<div>
-						<jsp:include page="/inc/footer.jsp"></jsp:include>
-					</div>
-					<!-- /Footer -->
+					</div>	
+				</div>
+				<!-- /Content -->
 				
-				</div>	
+	
+				<!-- Footer -->
+				<div>
+					<jsp:include page="/inc/footer.jsp"></jsp:include>
+				</div>
+				<!-- /Footer -->
+				
 			</div>
 			<!-- /Content wrapper -->
 		</div>

@@ -102,13 +102,13 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </style>
 <body>
 	<!-- 공지(5개) 목록 페이징 --> <!-- 공지보기 누르면 공지가 나오게 -->
-	<div>
+	<div class="mx-5">
 		<table class="table table-sm">
 			<thead>
 				<tr>
-					<th>No</th>
-					<th>공지사항</th>
-					<th>날짜</th>
+					<th style="width: 8%">No</th>
+					<th style="width: 75%">공지사항</th>
+					<th style="width: 17%">날짜</th>
 				</tr>
 			</thead>
 			<tbody >
