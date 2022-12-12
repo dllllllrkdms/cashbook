@@ -60,10 +60,10 @@
 
 %>
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="<%=request.getContextPath()%>/resources/" data-template="vertical-menu-template">
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="<%=request.getContextPath()%>/resources/" data-template="vertical-menu-template-free">
 <head>
 <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 <title>cashList</title>
 <meta name="description" content="Most Powerful &amp; Comprehensive Bootstrap 5 HTML Admin Dashboard Template built for developers!" />
 <meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
@@ -82,13 +82,13 @@
     
 
 <!-- Core CSS -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/core.css" />
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/theme-default.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/core.css" class="template-customizer-core-css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/theme-default.css" class="template-customizer-theme-css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/demo.css" />
 
 <!-- Vendors CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/libs/apex-charts/apex-charts.css" />
 <!-- Canonical SEO -->
    <link rel="canonical" href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/">
 
@@ -108,12 +108,12 @@
 <!-- endbuild -->
 
 <!-- Vendors JS -->
-
+ <script src="<%=request.getContextPath()%>/resources/vendor/libs/apex-charts/apexcharts.js"></script>
 <!-- Main JS -->
 <script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 
 <!-- Page JS -->
-
+ <script src="<%=request.getContextPath()%>/resources/js/dashboards-analytics.js"></script>
 <!-- Helpers -->
 <script src="<%=request.getContextPath()%>/resources/vendor/js/helpers.js"></script>
 
@@ -137,7 +137,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <style>
 	.cellCalendar{
 		display: table-cell;
-		white-space: nowrap; /*td칸을 넘어가는 내용은 보이지 않음(짤려서 출력)*/
+		white-space: nowrap; /*칸을 넘어가는 내용은 보이지 않음(짤려서 출력)*/
 		overflow: hidden auto;
 		height: 100px;
 		vertical-align:top;
@@ -156,13 +156,13 @@ gtag('config', 'GA_MEASUREMENT_ID');
 		
 		<!-- Layout container -->
    		<div class="layout-page">
-   		 
+  		
 			<!--User-->
 			<div>
 				<jsp:include page="/inc/userMenu.jsp"></jsp:include>
 			</div>
-			<!-- /User -->
-		
+			<!-- /User -->                 
+			
 			<!-- Content wrapper -->
 			<div class="content-wrapper">
 		
@@ -215,15 +215,9 @@ gtag('config', 'GA_MEASUREMENT_ID');
 													<!-- Object타입을 형변환하여 사용 -->
 													<%=(String)m.get("categoryKind")%>
 													<%=(String)m.get("categoryName")%>
-													<%=(Long)m.get("cashPrice")%>원
+													<%=df.format((Long)m.get("cashPrice"))%>원
 													<br>
 									<%
-													// 총 수입/지출액 계산
-													if(m.get("categoryKind").equals("수입")){
-														income+=(long)m.get("cashPrice");
-													} else{
-														expense+=(long)m.get("cashPrice");
-													}		
 												}
 											}
 									%>
@@ -239,15 +233,10 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									</tbody>
 								</table>
 							</div>
-						<div>
-							수입 : <%=df.format(income)%>원
-							지출 : <%=df.format(expense)%>원
-						</div>
-						<div>총 잔액: <%=df.format(income-expense)%>원</div>
 						</div>
 					</div>
-				</div>
-			</div>	
+				</div>	
+			</div>
 			<!-- /Content -->
 			
 			<!-- Footer -->
@@ -258,15 +247,17 @@ gtag('config', 'GA_MEASUREMENT_ID');
 			
 		</div>
 		<!-- /Content wrapper -->
-	</div>
-	<!-- /LayOut page -->
-
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
-   
+		
+	
+	  <!-- Overlay -->
+	  <div class="layout-overlay layout-menu-toggle"></div>
+	
+	  </div>
+	  <!-- /Layout container -->
     </div>
-    <!-- /Layout container -->
 </div>
 <!-- /LayOut wrapper -->
+<!-- Place this tag in your head or just before your close body tag. -->
+ <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>

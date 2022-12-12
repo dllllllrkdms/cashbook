@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="vo.*"%>
 <%
-	Member loginMember = (Member)session.getAttribute("loginMember");
-	String memberName = loginMember.getMemberName();
-	int memberLevel = loginMember.getMemberLevel();
+	Member login = (Member)session.getAttribute("loginMember");
+	String memberName = login.getMemberName();
+	int memberLevel = login.getMemberLevel();
 	String levelStr = "";
 	if(memberLevel>0){
 		levelStr="관리자";
@@ -16,12 +16,13 @@
           <i class="bx bx-menu bx-sm"></i> <!-- 작은화면에서 메뉴보이기 -->
         </a>
     </div>
+			    
 	<div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 		<!-- User -->
 		<ul class="navbar-nav flex-row align-items-center ms-auto">
 			<li class="nav-item navbar-dropdown dropdown-user dropdown">
 	            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-	              	<i class="bx bx-user me-2"></i>
+	              	<i class="bx bx-user me-2 "></i>
 					<%=memberName%><span>님 반갑습니다.</span>
 	            </a>
 				<ul class="dropdown-menu dropdown-menu-end">
@@ -47,7 +48,7 @@
 						</a>
 					</li>
 					<%
-						if(loginMember.getMemberLevel()>0){
+						if(memberLevel>0){
 					%>
 						<li>
 							<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/adminMain.jsp">
@@ -71,3 +72,4 @@
 	</div>
 </nav>
 <!-- /Navbar -->
+			

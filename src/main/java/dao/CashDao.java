@@ -190,4 +190,50 @@ public class CashDao {
 		}
 		return row;
 	}
+	public ArrayList<HashMap<String, Object>> selectCashSumByYear(String memberId, String categoryKind){ // 연도별 카테고리종류 합계 보기
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			conn = dbUtil.getConnection();
+			String sql = "SELECT ct.category_kind categoryKind, SUM(cash_price) price, EXTRACT(year FROM cash_date) year FROM cash c INNER JOIN category ct ON c.category_no=ct.category_no"
+					+ " WHERE member_id=? AND ct.category_kind=? GROUP BY EXTRACT(year FROM cash_date) ORDER BY EXTRACT(year FROM cash_date) ASC";
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			stmt.setString(2, categoryKind);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				HashMap<String, Object> m = new HashMap<String, Object>();
+				m.put("categoryKind", rs.getString("categoryKind"));
+				m.put("price", rs.getLong("price"));
+				m.put("year", rs.getInt("year"));
+				list.add(m);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.close(rs, stmt, conn); // db자원 반납
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+		}
+		return list;
+	}
+	public ArrayList<HashMap<String, Object>> selectCashSumByMonth(String memberId, String category){
+		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+		DBUtil dbUtil = new DBUtil();
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = dbUtil.getConnection();
+			String sql = "";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		ResultSet rs = null;
+		return list;
+	}
 }
