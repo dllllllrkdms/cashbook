@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.text.*"%>
+<%@ page import="java.text.*"%> <!-- DecimalFormat -->
 <%@ page import="java.net.*"%>
 <%@ page import="java.util.*"%> <!-- Calendar, ArrayList -->
 <%@ page import="vo.*" %>
@@ -53,11 +53,8 @@
 	int totalTd = beginBlank + lastDate + endBlank;
 	CashDao cashDao = new CashDao();
 	ArrayList<HashMap<String,Object>> cashDateList = null;
-	// 총 수입/지출 
+	
 	DecimalFormat df = new DecimalFormat("###,###"); // 3자리마다 반점찍는 포맷설정
-	long income = 0;
-	long expense = 0;
-
 %>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="<%=request.getContextPath()%>/resources/" data-template="vertical-menu-template-free">
@@ -65,21 +62,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 <title>cashList</title>
-<meta name="description" content="Most Powerful &amp; Comprehensive Bootstrap 5 HTML Admin Dashboard Template built for developers!" />
-<meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
 <!-- Favicon -->
 <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/img/favicon/favicon.ico" />
+<!-- Icons. Uncomment required icon fonts -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/fonts/boxicons.css" />
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-  href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-  rel="stylesheet">
-
-<!-- Icons. Uncomment required icon fonts -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/fonts/boxicons.css" />
-    
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
 <!-- Core CSS -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/core.css" class="template-customizer-core-css" />
@@ -87,42 +78,15 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/demo.css" />
 
 <!-- Vendors CSS -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/libs/apex-charts/apex-charts.css" />
-<!-- Canonical SEO -->
-   <link rel="canonical" href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/">
+<link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+<link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
-<!-- Page CSS -->
-<!-- Page -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/pages/page-auth.css">
-<!-- Core JS -->
-<!-- build:js assets/vendor/js/core.js -->
-<script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>
-<script src="<%=request.getContextPath()%>/resources/vendor/js/bootstrap.js"></script>
-<script src="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
-
-<script src="<%=request.getContextPath()%>/resources/vendor/js/menu.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/menu.js"></script>
-<!-- endbuild -->
-
-<!-- Vendors JS -->
- <script src="<%=request.getContextPath()%>/resources/vendor/libs/apex-charts/apexcharts.js"></script>
-<!-- Main JS -->
-<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
-
-<!-- Page JS -->
- <script src="<%=request.getContextPath()%>/resources/js/dashboards-analytics.js"></script>
-<!-- Helpers -->
-<script src="<%=request.getContextPath()%>/resources/vendor/js/helpers.js"></script>
-
-<!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-<!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
 <script src="<%=request.getContextPath()%>/resources/js/config.js"></script>
 
+<!-- Helpers -->
+<script src="<%=request.getContextPath()%>/resources/vendor/js/helpers.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async="async" src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID" async ></script>
 <script>
 window.dataLayer = window.dataLayer || [];
 
@@ -257,7 +221,26 @@ gtag('config', 'GA_MEASUREMENT_ID');
     </div>
 </div>
 <!-- /LayOut wrapper -->
-<!-- Place this tag in your head or just before your close body tag. -->
- <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+
+<!-- build:js assets/vendor/js/core.js -->
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/js/bootstrap.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+
+<script src="<%=request.getContextPath()%>/resources/vendor/js/menu.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/menu.js"></script>
+<!-- endbuild -->
+
+<!-- Vendors JS -->
+ <script src="<%=request.getContextPath()%>/resources/vendor/libs/apex-charts/apexcharts.js"></script>
+<!-- Main JS -->
+<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
+
+<!-- Page JS -->
+ <script src="<%=request.getContextPath()%>/resources/js/dashboards-analytics.js"></script>
 </body>
 </html>

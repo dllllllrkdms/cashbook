@@ -18,6 +18,18 @@
 					<div data-i18="Analytics">가계부</div>
 				</a>
 			</li>
+			<li class="menu-item">
+				<a href="<%=request.getContextPath()%>/cash/statsByYear.jsp" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-calendar" ></i>
+					<div data-i18="Analytics">연도별 통계보기</div>
+				</a>
+			</li>
+			<li class="menu-item">
+				<a href="<%=request.getContextPath()%>/cash/statsByMonth.jsp" class="menu-link">
+					<i class="menu-icon tf-icons bx bx-calendar" ></i>
+					<div data-i18="Analytics">월별 통계보기</div>
+				</a>
+			</li>
 			<!-- 고객센터 -->
 			<li class="menu-item">
 				<a href="<%=request.getContextPath()%>/help/helpList.jsp" class="menu-link">

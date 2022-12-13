@@ -26,9 +26,7 @@
 <head>
 <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-<title>loginForm</title>
-<meta name="description" content="Most Powerful &amp; Comprehensive Bootstrap 5 HTML Admin Dashboard Template built for developers!" />
-<meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
+<title>insertMemberForm</title>
 <!-- Favicon -->
 <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/img/favicon/favicon.ico" />
 
@@ -49,30 +47,14 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/demo.css" />
 
 <!-- Vendors CSS -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
 <!-- Canonical SEO -->
-   <link rel="canonical" href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/">
+<link rel="canonical" href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/">
 
 <!-- Page CSS -->
 <!-- Page -->
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/css/pages/page-auth.css">
-<!-- Core JS -->
-<!-- build:js assets/vendor/js/core.js -->
-<script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>
-<script src="<%=request.getContextPath()%>/resources/vendor/js/bootstrap.js"></script>
-<script src="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
-<script src="<%=request.getContextPath()%>/resources/vendor/js/menu.js"></script>
-<!-- endbuild -->
-
-<!-- Vendors JS -->
-
-<!-- Main JS -->
-<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
-
-<!-- Page JS -->
 
 <!-- Helpers -->
 <script src="<%=request.getContextPath()%>/resources/vendor/js/helpers.js"></script>

@@ -1,18 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.text.*"%> <!-- DecimalFormat -->
+<%@ page import="java.util.*"%>
+<%@ page import="dao.*"%>
 <%@ page import="vo.*"%>
 <%
+	// C
 	Member loginMember = (Member)session.getAttribute("loginMember");
-	if(loginMember==null){
+	if(loginMember==null){ // 로그인 유효성 검사
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
+	String memberId = loginMember.getMemberId();
+	int year = 0;
+	if(request.getParameter("year")!=null){
+		year = Integer.parseInt(request.getParameter("year"));
+	} else{ // 파라메타 값이 없다면, 올해 연도를 보여줌
+		Calendar c = Calendar.getInstance();
+		year = c.get(Calendar.YEAR);
+	}
+	StatsDao statsDao = new StatsDao();
+	ArrayList<HashMap<String, Object>> list = statsDao.selectStatsByMonth(memberId, year);
+	HashMap<String, Integer> map = statsDao.selectMinMaxYear(memberId);
+	int minYear = map.get("minYear");
+	int maxYear = map.get("maxYear");
+	
+	DecimalFormat df = new DecimalFormat("###,###"); // 3자리마다 반점찍는 포맷설정
 %>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="<%=request.getContextPath()%>/resources/" data-template="vertical-menu-template-free">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-<title>memberOne</title>
+<title>statsByMonth</title>
 <!-- Favicon -->
 <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/img/favicon/favicon.ico" />
 <!-- Icons. Uncomment required icon fonts -->
@@ -49,14 +68,12 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </script>
 <!-- Custom notification for demo -->
 <!-- beautify ignore:end -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css"> <!-- Custom css -->
 </head>
 <body>
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar ">
 	<div class="layout-container">
-	
-		<!-- Menu -->
+  		<!-- Menu -->
   		<div>	
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
 		</div>
@@ -64,42 +81,66 @@ gtag('config', 'GA_MEASUREMENT_ID');
 		
 		<!-- Layout container -->
    		<div class="layout-page">
-		
-			<!-- User -->
+  		
+			<!--User-->
 			<div>
 				<jsp:include page="/inc/userMenu.jsp"></jsp:include>
 			</div>
-			<!-- /User -->
+			<!-- /User -->                 
 			
-			<!-- Content wrapper-->
+			<!-- Content wrapper -->
 			<div class="content-wrapper">
-				<!-- Content -->
+		
+		    	<!-- Content -->
 				<div class="container-xxl flex-grow-1 container-p-y">
-				
-					<h4 class="fw-bold py-3 mb-4">
-					  <span class="text-muted fw-light">계정 관리 /</span> 내 프로필
-					</h4>
-					
-					<!-- Navbar pills -->
-					<div>
-						<jsp:include page="/inc/memberMenu.jsp"></jsp:include>
-					</div>
-					<!-- /Navbar pills -->
-					
-					<!-- User Profile -->
-					<div class="card mb-4">
-						<!-- Profile -->
-						<div class="card-body">
-							<div class="row">
-   								<small class="text-muted text-uppercase">About</small>
-								<ul class="list-unstyled mb-4 mt-3">
-								  <li class="d-flex align-items-center mb-3"><i class="bx bx-user"></i><span class="fw-semibold mx-2">이름: </span><span><%=loginMember.getMemberName()%></span></li>
-								  <li class="d-flex align-items-center mb-3"><i class='bx bx-at'></i><span class="fw-semibold mx-2">ID: </span><span><%=loginMember.getMemberId()%></span></li>
-								</ul>
+					<div class="card">
+		          		<div class="card-body">
+		          			<div class="card-body demo-vertical-spacing demo-only-element">
+		          				<div class="card-header fs-3 fw-semibold mb-4">
+		          					<%=year%> 년 월별 통계
+		          				</div>
+								<div>
+									<%
+										if(year>minYear){
+									%>
+											<span class="mx-3"><a href="<%=request.getContextPath()%>/cash/statsByMonth.jsp?year=<%=year-1%>"><i class='bx bx-chevron-left'></i><%=year-1%></a></span>
+									<%
+										}
+									%>
+									&nbsp;
+									<%
+										if(year<maxYear){
+									%>
+											<span class="mx-3"><a href="<%=request.getContextPath()%>/cash/statsByMonth.jsp?year=<%=year+1%>"><%=year+1%><i class='bx bx-chevron-right'></i></a></span>
+									<%
+										}
+									%>
+								</div>	
+								<table class="table">
+									<tr>
+										<th>월</th>
+										<th>수입합계</th>
+										<th>수입평균</th>
+										<th>지출합계</th>
+										<th>지출평균</th>
+									</tr>
+									<%
+										for(HashMap<String, Object> m : list){
+									%>
+											<tr>
+												<td><%=m.get("month")%>월</td>
+												<td><%=df.format((Long)m.get("sumImport"))%>원</td>
+												<td><%=df.format((Long)m.get("avgImport"))%>원</td>
+												<td><%=df.format((Long)m.get("sumExport"))%>원</td>
+												<td><%=df.format((Long)m.get("avgExport"))%>원</td>
+											</tr>
+									<%
+										}
+									%>
+								</table>
 							</div>
 						</div>
-					</div>
-					<a class="nav-link" href="<%=request.getContextPath()%>/member/deleteMemberForm.jsp"><span class="fw-semibold mx-2">회원 탈퇴<i class='bx bx-chevron-right'></i></span></a>
+					</div>			
 				</div>
 				<!-- /Content -->
 				
@@ -111,16 +152,16 @@ gtag('config', 'GA_MEASUREMENT_ID');
 				
 			</div>
 			<!-- /Content wrapper -->
-			
-		</div>
-		<!-- /Layout container -->
 		
-		<!-- Overlay -->
-    	<div class="layout-overlay layout-menu-toggle"></div>
-    
-	</div>
+	
+		  <!-- Overlay -->
+		  <div class="layout-overlay layout-menu-toggle"></div>
+	
+	  </div>
+	  <!-- /Layout container -->
+    </div>
 </div>
-<!-- /Layout wrapper -->
+<!-- /LayOut wrapper -->
 
 
 <!-- build:js assets/vendor/js/core.js -->
@@ -135,11 +176,11 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <!-- endbuild -->
 
 <!-- Vendors JS -->
-<script src="<%=request.getContextPath()%>/resources/vendor/libs/apex-charts/apexcharts.js"></script>
+ <script src="<%=request.getContextPath()%>/resources/vendor/libs/apex-charts/apexcharts.js"></script>
 <!-- Main JS -->
 <script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 
 <!-- Page JS -->
-<script src="<%=request.getContextPath()%>/resources/js/dashboards-analytics.js"></script>
+ <script src="<%=request.getContextPath()%>/resources/js/dashboards-analytics.js"></script>
 </body>
 </html>
