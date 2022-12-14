@@ -84,16 +84,16 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					<div class="card mb-4">
 						<div class="card-body mx-xxl-2 my-xxl-2">
 							<div class="card-body">
-								<form action="<%=request.getContextPath()%>/help/insertHelpAction.jsp" method="post">
+								<form action="<%=request.getContextPath()%>/help/insertHelpAction.jsp" id="form" method="post">
 									<input type="hidden" name="memberId" value="<%=memberId%>">
 									<div class="row">
 										<div class="mb-3">
-											<label for="helpMemo" class="form-label">문의 내용</label>
-											<textarea class="form-control" id="helpMemo" name="helpMemo" rows="5" style="resize:none"></textarea>
+											<label for="memo" class="form-label">문의 내용</label>
+											<textarea class="form-control" id="memo" name="helpMemo" rows="5" style="resize:none"></textarea>
 										</div>
 									</div>
 									<div class="mt-3">
-										<button type="submit" class="btn btn-primary">등록</button>
+										<button type="button" id="submitBtn" class="btn btn-primary">등록</button>
 										<button type="reset" class="btn btn-outline-secondary">취소</button>
 									</div>
 								</form>
@@ -117,6 +117,10 @@ gtag('config', 'GA_MEASUREMENT_ID');
 	</div>
 </div>
 <!-- /Layout wrapper -->
+
+
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/form.js"></script>
 
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>

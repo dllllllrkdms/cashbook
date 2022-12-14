@@ -100,18 +100,18 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									</div>
 									<div class="row mb-3">
 										<div class="col-md-3">
-											<label class="form-check-label form-label" for="categoryKind"> 카테고리 종류</label> <!-- 수정불가 -->
-											<input class="form-control" type="text" name="categoryKind" value="<%=categoryOne.getCategoryKind()%>" readonly=readonly>
+											<label class="form-check-label form-label" for="category"> 카테고리 종류</label> <!-- 수정불가 -->
+											<input class="form-control" type="text" id="category" name="categoryKind" value="<%=categoryOne.getCategoryKind()%>" readonly=readonly>
 										</div>
 									</div>
 									<div class="row mb-3">
 										<div class="col-md-3">
-											<label class="form-label" for="categoryName">카테고리 이름</label>
-											<input class="form-control" type="text" name="categoryName" value="<%=categoryOne.getCategoryName()%>">
+											<label class="form-label" for="cash">카테고리 이름</label>
+											<input class="form-control" id="cash" type="text" name="categoryName" value="<%=categoryOne.getCategoryName()%>">
 										</div>
 									</div>
 									<div class="mt-3 mb-3">
-										<button type="submit" class="btn btn-primary">등록</button>
+										<button type="button" id="submitBtn" class="btn btn-primary">등록</button>
 										<button type="reset" class="btn btn-outline-secondary">취소</button>
 									</div>
 								</form>

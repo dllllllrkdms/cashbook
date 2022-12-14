@@ -112,7 +112,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									</div>
 									<div class="row mb-3">
 										<div class="col-md-3">
-											<select class="form-select" name="categoryNo">
+											<select class="form-select" name="categoryNo" id="category">
+												<option value="">카테고리 선택</option>
 												<%
 													for(Category c : categoryList){
 												%>
@@ -123,15 +124,15 @@ gtag('config', 'GA_MEASUREMENT_ID');
 											</select>
 										</div>
 										<div class="col-md-3">
-											<input class="form-control" type="number" name="cashPrice" value="<%=cashOne.get("cashPrice")%>">
+											<input class="form-control" id="cash" type="number" name="cashPrice" value="<%=cashOne.get("cashPrice")%>">
 										</div>
 										<span class="col-form-label col-sm-2">원</span>
 									</div>
 									<div class="col-sm-9">
-										<textarea cols="50" rows="4" name="cashMemo" class="form-control"><%=cashOne.get("cashMemo") %></textarea>
+										<textarea cols="50" rows="4" name="cashMemo" id="memo" class="form-control"><%=cashOne.get("cashMemo") %></textarea>
 									</div>
 									<div class="mt-3 mb-3">
-										<button type="submit" class="btn btn-primary">등록</button>
+										<button type="button" id="submitBtn" class="btn btn-primary">등록</button>
 										<button type="reset" class="btn btn-outline-secondary">취소</button>
 									</div>
 								</form>
@@ -159,6 +160,10 @@ gtag('config', 'GA_MEASUREMENT_ID');
     </div>
 </div>
 <!-- /LayOut wrapper -->
+
+
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/form.js"></script>
 
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>

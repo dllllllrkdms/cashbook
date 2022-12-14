@@ -80,7 +80,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 				<h2 class="card-header mb-2">sign in to cashbook</h2>
 					<div class="card-body demo-vertical-spacing demo-only-element">
 						<div><%=msg%></div>
-						<form action="<%=request.getContextPath()%>/insertMemberAction.jsp" class="mb-3" method="post">
+						<form action="<%=request.getContextPath()%>/insertMemberAction.jsp" id="insertMemberForm" class="mb-3" method="post">
 							<div class="mb-3">
 								<label class="form-label" for="username">USERNAME</label>
 								<input type="text" name="memberName" class="form-control" id="username" placeholder="이름을 입력하세요" aria-label="username" aria-describedby="memberName" autofocus/><!-- autofocus : 페이지가 로드될때 자동으로 포커스가 이동됨 -->
@@ -89,14 +89,14 @@ gtag('config', 'GA_MEASUREMENT_ID');
 								<label class="form-label" for="id">ID</label> <!-- 중복검사 -->
 								<input type="text" name="memberId" class="form-control" id="id" placeholder="ID를 입력하세요" aria-label="userId" aria-describedby="memberId" autofocus/><!-- autofocus : 페이지가 로드될때 자동으로 포커스가 이동됨 -->
 							</div>
-							<div class="mb-3 form-password-toggle"> <!-- form-password-toggle X -->
+							<div class="mb-3 form-password-toggle">
 								<label class="form-label" for="password">Password</label>
 								<div class="input-group input-group-merge">
 									<input type="password" name="memberPw" class="form-control" id="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password">
 									<!-- span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>	-->				
 								</div>
 							</div>
-							<div class="mb-3 form-password-toggle"> <!-- form-password-toggle X -->
+							<div class="mb-3 form-password-toggle">
 								<label class="form-label" for="checkPw">Password</label>
 								<div class="input-group input-group-merge">
 									<input type="password" name="checkPw" class="form-control" id="checkPw" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password">
@@ -104,7 +104,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 								</div>
 							</div>
 							<div class="mb-3 mt-3">
-								<button type="submit" class="btn btn-primary d-grid w-100">회원가입</button>
+								<button type="button" id="submitBtn" class="btn btn-primary d-grid w-100">회원가입</button>
 							</div>
 						</form>
 						<hr>
@@ -119,6 +119,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 		</div>
 	</div>
 	
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/account.js"></script>
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>

@@ -94,13 +94,13 @@ gtag('config', 'GA_MEASUREMENT_ID');
 		          		<div class="card-body">
 		          			<h5 class="card-header">비밀번호 변경</h5>
 	          				<div class="card-body">
-								<form action="<%=request.getContextPath()%>/member/updateMemberPwAction.jsp" method="post">
+								<form action="<%=request.getContextPath()%>/member/updateMemberPwAction.jsp" id="updateMemberPwForm" method="post">
 									<input type="hidden" name="memberId" value="<%=memberId%>">
 									<div class="row">
 										<div class="mb-3 col-md-6 form-password-toggle"> <!-- form-password-toggle X -->
 											<label class="form-label" for="memberPw">현재 비밀번호</label>
 											<div class="input-group input-group-merge">
-												<input type="password" class="form-control" id="memberPw" name="memberPw" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+												<input type="password" class="form-control" id="pw" name="memberPw" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
 												<!-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> -->
 											</div>
 										</div>
@@ -109,7 +109,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 										<div class="mb-3 col-md-6 form-password-toggle"> <!-- form-password-toggle X -->
 											<label class="form-label" for="newMemberPw">새 비밀번호</label>
 											<div class="input-group input-group-merge">
-												<input type="password" class="form-control" id="newMemberPw" name="newMemberPw" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
+												<input type="password" class="form-control" id="password" name="newMemberPw" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" />
 												<!-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> -->
 											</div>
 										</div>
@@ -122,7 +122,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 										</div>
 									</div>
 									<div class="col-12 mb-3 mt-4">
-										<button type="submit" class="btn btn-primary me-2">비밀번호 변경</button>
+										<button type="button" id="submitBtn" class="btn btn-primary me-2">비밀번호 변경</button>
 										<button type="reset" class="btn btn-outline-secondary me-2">취소</button>
 									</div>
 								</form>
@@ -153,6 +153,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <!-- /Layout wrapper -->
 
 
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/account.js"></script>
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>

@@ -103,16 +103,16 @@ gtag('config', 'GA_MEASUREMENT_ID');
 								
 								<hr>
 								
-								<form action="<%=request.getContextPath()%>/admin/insertCommentAction.jsp" method="post">
+								<form action="<%=request.getContextPath()%>/admin/insertCommentAction.jsp" id="commentForm" method="post">
 									<input type="hidden" name="memberId" value="<%=loginMemberId%>">
 									<input type="hidden" name="helpNo" value="<%=helpNo%>">								
 									<!-- 답변 --> 
 									<div class="mb-3">
-										<label class="form-label" for="commentMemo">답변</label>
-										<textarea class="form-control" rows="5" name="commentMemo" id="commentMemo"></textarea>
+										<label class="form-label" for="memo">답변</label>
+										<textarea class="form-control" rows="5" name="commentMemo" id="memo"></textarea>
 									</div>
 									<div class="mb-3">
-										<button type="submit" class="btn btn-primary">등록</button>
+										<button type="button" id="submitBtn" class="btn btn-primary">등록</button>
 										<button type="reset" class="btn btn-outline-secondary">취소</button>
 									</div>
 								</form>
@@ -140,6 +140,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </div>
 <!-- /Layout wrapper -->
 
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/form.js"></script>
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>

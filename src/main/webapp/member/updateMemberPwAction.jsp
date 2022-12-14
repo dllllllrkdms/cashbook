@@ -4,7 +4,7 @@
 <%
 	// Controller
 	String msg = URLEncoder.encode("다시 시도해주세요","UTF-8");
-	String redirectUrl = "/updateMemberPwForm.jsp&msg="+msg;
+	String redirectUrl = "/updateMemberPwForm.jsp?msg="+msg;
 	// 빈칸을 입력받았을때
 	if(request.getParameter("memberPw")==null||request.getParameter("memberPw").equals("")||request.getParameter("newMemberPw")==null
 		||request.getParameter("newMemberPw").equals("")||request.getParameter("checkPw")==null||request.getParameter("checkPw").equals("")){

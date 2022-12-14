@@ -96,24 +96,27 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					<!-- Account -->
 					<div class="card mb-4">
 						<div class="card-body">
-							<form action="<%=request.getContextPath()%>/member/updateMemberAction.jsp" method="post">
+							<form action="<%=request.getContextPath()%>/member/updateMemberAction.jsp" id="updateMemberForm" method="post">
 								<%=msg%>
 								<div class="row">
 									<div class="mb-3 col-md-6">
-										<label for="name" class="form-label">이름</label>
-										<input class="form-control" id="name" type="text" name="memberName" value="<%=memberName%>" autofocus />
+										<label for="username" class="form-label">이름</label>
+										<input class="form-control" id="username" type="text" name="memberName" value="<%=memberName%>" autofocus />
 									</div>
 									<div class="mb-3 col-md-6">
 										<label for="id" class="form-label">ID</label> <!-- 수정불가 -->
 										<input class="form-control" id="id" type="text" name="memberId" value="<%=memberId%>" readonly=readonly/>
 									</div>
-									<div class="mb-3 col-md-6">
+									<div class="mb-3 col-md-6 form-password-toggle">
 										<label for="password" class="form-label">비밀번호 확인</label>
-										<input class="form-control" id="password" type="password" name="memberPw" />
+										<div class="input-group input-group-merge">
+											<input class="form-control" id="password" type="password" name="memberPw" />
+											<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>	
+										</div>
 									</div>
 								</div>
 								<div class="mt-2">
-									<button type="submit" class="btn btn-primary me-2">수정</button>
+									<button type="button" id="submitBtn" class="btn btn-primary me-2">수정</button>
 									<button type="reset" class="btn btn-outline-secondary">취소</button> <!-- button type="reset" : form 입력 내용을 초기화 시킴 -->
 								</div>
 							</form>
@@ -144,6 +147,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <!-- /Layout wrapper -->
 
 
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/account.js"></script>
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>

@@ -116,12 +116,13 @@ gtag('config', 'GA_MEASUREMENT_ID');
 						        <div id="insertCashForm" class="accordion-collapse collapse" data-bs-parent="#accordionCash">
 						        	<div class="accordion-body">
 						           		<!-- insertCashForm -->
-										<form action="<%=request.getContextPath()%>/cash/insertCashListAction.jsp" method="post">
+										<form id="form" action="<%=request.getContextPath()%>/cash/insertCashListAction.jsp" method="post">
 											<input type="hidden" name="memberId" value="<%=memberId%>">
 											<input type="hidden" name="cashDate" value="<%=cashDate%>">
 											<div class="row mb-3">
 												<div class="col-md-3">
-													<select class="form-select" name="categoryNo">
+													<select class="form-select" name="categoryNo" id="category">
+														<option value="">카테고리 선택</option>
 														<%
 															for(Category c : categoryList){
 														%>
@@ -132,15 +133,15 @@ gtag('config', 'GA_MEASUREMENT_ID');
 													</select>
 												</div> 
 												<div class="col-md-3">
-													<input class="form-control" type="number" name="cashPrice">
+													<input class="form-control" id="cash" type="number" name="cashPrice">
 												</div>
 												<span class="col-form-label col-sm-2">원</span>
 											</div>	
 											<div class="col-sm-9">
-												<textarea cols="50" rows="5" name="cashMemo" class="form-control"></textarea>
+												<textarea cols="50" rows="5" id="memo" name="cashMemo" class="form-control"></textarea>
 											</div>
 											<div class="mt-3 mb-3">
-												<button type="submit" class="btn btn-primary">등록</button>
+												<button type="button" id="submitBtn" class="btn btn-primary">등록</button>
 												<button type="reset" class="btn btn-outline-secondary">취소</button>
 											</div>
 										</form>
@@ -204,8 +205,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </div>
 <!-- /LayOut wrapper -->
 
-
-
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/form.js"></script>
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>

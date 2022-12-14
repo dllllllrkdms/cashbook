@@ -92,7 +92,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 						<div class="card-body mx-xxl-2">
 							<div class="card-body">
 								<div class="card-body">
-									<form action="<%=request.getContextPath()%>/admin/updateNoticeAction.jsp" method="post">
+									<form action="<%=request.getContextPath()%>/admin/updateNoticeAction.jsp" id="form" method="post">
 										<div class="row">
 											<div class="mb-3 col-md-2">
 												<label class="form-label" for="noticeNo">no</label> <!-- 수정불가 -->
@@ -101,8 +101,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 										</div>
 										<div class="row">
 											<div class="mb-3">
-												<label class="form-label" for="noticeMemo">공지내용</label>
-												<textarea class="form-control" name="noticeMemo" id="noticeMemo" rows="5"><%=notice.getNoticeMemo()%></textarea>
+												<label class="form-label" for="memo">공지내용</label>
+												<textarea class="form-control" name="noticeMemo" id="memo" rows="5"><%=notice.getNoticeMemo()%></textarea>
 											</div>
 										</div>
 										<div class="row">
@@ -112,7 +112,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 										</div>		
 												
 										<div class="mb-3">
-											<button type="submit" class="btn btn-primary">등록</button>
+											<button type="button" id="submitBtn" class="btn btn-primary">등록</button>
 											<button type="reset" class="btn btn-outline-secondary">취소</button>
 										</div>
 									</form>
@@ -141,6 +141,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </div>
 <!-- /LayOut wrapper -->
 
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/form.js"></script>
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>

@@ -18,9 +18,12 @@
 		Calendar c = Calendar.getInstance();
 		year = c.get(Calendar.YEAR);
 	}
-	String[] categoryName = request.getParameterValues("categoryName");
+	String categoryKind = request.getParameter("categoryKind");
+	if(categoryKind==null){
+		categoryKind = "수입";
+	}
 	StatsDao statsDao = new StatsDao();
-	ArrayList<HashMap<String, Object>> list = statsDao.selectStatsByCategory(memberId, year,categoryName);
+	ArrayList<HashMap<String, Object>> list = statsDao.selectStatsByCategory(memberId, year,categoryKind);
 	HashMap<String, Integer> map = statsDao.selectMinMaxYear(memberId);
 	int minYear = map.get("minYear");
 	int maxYear = map.get("maxYear");
@@ -97,7 +100,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 		          		<div class="card-body">
 		          			<div class="card-body demo-vertical-spacing demo-only-element">
 		          				<div class="card-header fs-3 fw-semibold mb-4">
-		          					<%=year%> 년 월별 통계
+		          					<%=year%> 년 월별 <%=categoryKind%>통계
 		          				</div>
 								<div>
 									<%

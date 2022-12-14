@@ -142,7 +142,6 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <!-- /LayOut wrapper -->
 
 
-
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>

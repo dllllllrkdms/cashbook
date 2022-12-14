@@ -118,7 +118,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					<h2 class="card-header mb-2">sign in to cashbook</h2>
 					<div class="card-body demo-vertical-spacing demo-only-element">
 						<div><%=msg%></div>
-						<form action="<%=request.getContextPath()%>/loginAction.jsp" class="mb-3" method="post">
+						<form id="loginForm" action="<%=request.getContextPath()%>/loginAction.jsp" class="mb-3" method="post">
 							<div class="mb-3">
 								<label class="form-label" for="id">ID</label>
 								<input type="text" name="memberId" class="form-control" id="id" placeholder="email or username" aria-label="UserId" aria-describedby="memberId" autofocus/><!-- autofocus : 페이지가 로드될때 자동으로 포커스가 이동됨 -->
@@ -127,11 +127,11 @@ gtag('config', 'GA_MEASUREMENT_ID');
 								<label class="form-label" for="password">Password</label>
 								<div class="input-group input-group-merge">
 									<input type="password" name="memberPw" class="form-control" id="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password">
-									<!-- span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>	-->				
+									<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>				
 								</div>
 							</div>
 							<div class="mb-3 mt-3">
-								<button type="submit" class="btn btn-primary d-grid w-100">로그인</button>
+								<button type="button" id="submitBtn" class="btn btn-primary d-grid w-100">로그인</button>
 							</div>
 						</form>
 						<hr>
@@ -156,5 +156,22 @@ gtag('config', 'GA_MEASUREMENT_ID');
 	
 	<!-- Overlay -->
 	<div class="layout-overlay layout-menu-toggle"></div>
+	
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/account.js"></script>
+<!-- build:js assets/vendor/js/core.js -->
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/js/bootstrap.js"></script>
+<script src="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+
+<script src="<%=request.getContextPath()%>/resources/vendor/js/menu.js"></script>
+<!-- endbuild -->
+
+
+<!-- Main JS -->
+<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
+
 </body>
 </html>

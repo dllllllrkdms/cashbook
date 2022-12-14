@@ -141,7 +141,7 @@ public class StatsDao {
 		}
 		return m;
 	}
-	public ArrayList<HashMap<String, Object>> selectStatsByCategory(String memberId, int year, String categoryKind){
+	public ArrayList<HashMap<String, Object>> selectStatsByCategory(String memberId, int year, String categoryKind){ // 카테고리별 상세보기
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = null;
@@ -150,17 +150,15 @@ public class StatsDao {
 		try {
 			conn = dbUtil.getConnection();
 			String sql = "SELECT EXTRACT(month FROM t2.cash_date) month"
+					+ "			, category_kind categoryKind"
 					+ "			, category_name categoryName"
-					+ "			, SUM(t2.importCash) sumImport"
-					+ "			, round(AVG(t2.importCash)) avgImport"
-					+ "			, SUM(t2.exportCash) sumExport"
-					+ "			, round(AVG(t2.exportCash)) avgExport"
+					+ "			, SUM(t2.cashPrice) sumCashPrice"
+					+ "			, round(AVG(t2.cashPrice)) avgCashPrice"
 					+ "		FROM (SELECT member_id"
 					+ "			, cash_date"
 					+ "			, category_kind"
 					+ "			, category_name"
-					+ "			, if(category_kind='수입', cash_price, NULL) importCash # if(조건문, 참일때 값, 거짓일 때 값)"
-					+ "			, if(category_kind='지출', cash_price, NULL) exportCash"
+					+ "			, if(category_kind=? , cash_price, NULL) cashPrice" //if(조건문, 참일때 값, 거짓일 때 값)
 					+ "				FROM (SELECT cs.member_id"
 					+ "							, cs.cash_date"
 					+ "							, cs.cash_price"
@@ -173,18 +171,18 @@ public class StatsDao {
 					+ " GROUP BY EXTRACT(month FROM t2.cash_date)"
 					+ " ORDER BY EXTRACT(month FROM t2.cash_date) ASC";
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, memberId);
-			stmt.setInt(2, year);
-			stmt.setString(3, categoryKind);
+			stmt.setString(1, categoryKind);
+			stmt.setString(2, memberId);
+			stmt.setInt(3, year);
+			stmt.setString(4, categoryKind);
 			rs = stmt.executeQuery();
 			while(rs.next()) {
 				HashMap<String, Object> m = new HashMap<String, Object>();
 				m.put("month", rs.getInt("month"));
+				m.put("categoryKind", rs.getString("categoryKind"));
 				m.put("categoryName", rs.getString("categoryName"));
-				m.put("sumImport", rs.getLong("sumImport"));
-				m.put("avgImport", rs.getLong("avgImport"));
-				m.put("sumExport", rs.getLong("sumExport"));
-				m.put("avgExport", rs.getLong("avgExport"));
+				m.put("sumCashPrice", rs.getLong("sumCashPrice"));
+				m.put("avgCashPrice", rs.getLong("avgCashPrice"));
 				list.add(m);
 			}
 		} catch (Exception e) {

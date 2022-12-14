@@ -84,13 +84,13 @@ gtag('config', 'GA_MEASUREMENT_ID');
 							<div class="card-body">
 							
 								<!-- 공지내용 작성 form -->
-								<form action="<%=request.getContextPath()%>/admin/insertNoticeAction.jsp" method="post">
+								<form action="<%=request.getContextPath()%>/admin/insertNoticeAction.jsp" id="form" method="post">
 									<div class="mb-3">
-										<label class="form-label" for="noticeMemo">공지 내용</label>
-										<textarea class="form-control" rows="5" name="noticeMemo" id="noticeMemo"></textarea>
+										<label class="form-label" for="memo">공지 내용</label>
+										<textarea class="form-control" rows="5" name="noticeMemo" id="memo"></textarea>
 									</div>
 									<div class="mb-3">
-										<button type="submit" class="btn btn-primary">등록</button>
+										<button type="button" id="submitBtn" class="btn btn-primary">등록</button>
 										<button type="reset" class="btn btn-outline-secondary">취소</button>
 									</div>
 								</form>
@@ -118,6 +118,10 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </div>
 <!-- /Layout wrapper -->
 	
+	
+
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/form.js"></script>
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>

@@ -93,11 +93,11 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									<p class="mb-0">탈퇴할 경우 복구가 불가능합니다.
 									탈퇴 후 회원정보 및 서비스 이용기록은 모두 삭제됩니다.</p>
 								</div>
-								<form id="formAccountDeactivation" action="<%=request.getContextPath()%>/member/deleteMemberAction.jsp" method="post">
+								<form id="deleteMemberForm" action="<%=request.getContextPath()%>/member/deleteMemberAction.jsp" method="post">
 									<input type="hidden" name="memberId" value="<%=memberId%>">
 									<div class="form-check mb-3">
-										<input type="checkbox" class="form-check-input" name="deleteAccount" id="accountActivation" value="true"/>
-										<label class="form-check-label" for="accountActivation">안내 사항을 모두 확인하였으며, 이에 동의합니다.</label>
+										<input type="checkbox" class="form-check-input" name="deleteAccount" id="check" value="true"/>
+										<label class="form-check-label" for="check">안내 사항을 모두 확인하였습니다.</label>
 									</div>
 									<div class="mb-3 row">
 										<div class="col-md-3">
@@ -107,7 +107,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 											</div>
 										</div>	
 									</div>
-									<button type="submit" class="btn btn-danger deactivate-account">회원 탈퇴</button>
+									<button type="button" id="submitBtn" class="btn btn-danger deactivate-account">회원 탈퇴</button>
 								</form>
 							</div> 
 						</div>
@@ -125,6 +125,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <!-- /Layout wrapper -->
 
 
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/deleteAccount.js"></script>
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>

@@ -110,16 +110,16 @@ gtag('config', 'GA_MEASUREMENT_ID');
 								
 								<hr>
 								
-								<form action="<%=request.getContextPath()%>/admin/updateCommentAction.jsp" method="post">
+								<form action="<%=request.getContextPath()%>/admin/updateCommentAction.jsp" id="form" method="post">
 									<input type="hidden" name="commentNo" value="<%=commentNo%>">
 									<input type="hidden" name="memberId" value="<%=loginMemberId%>"> <!-- 새로운 답변작성자 -->				
 									<!-- 답변 --> 
 									<div class="mb-3">
-										<label class="form-label" for="commentMemo">답변</label>
-										<textarea class="form-control" rows="5" name="commentMemo" id="commentMemo"><%=comment.getCommentMemo()%></textarea>
+										<label class="form-label" for="memo">답변</label>
+										<textarea class="form-control" rows="5" name="commentMemo" id="memo"><%=comment.getCommentMemo()%></textarea>
 									</div>
 									<div class="mb-3">
-										<button type="submit" class="btn btn-primary">등록</button>
+										<button type="button" id="submitBtn" class="btn btn-primary">등록</button>
 										<button type="reset" class="btn btn-outline-secondary">취소</button>
 									</div>
 								</form>
@@ -148,6 +148,10 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </div>
 <!-- /Layout wrapper -->
 
+
+
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/form.js"></script>
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>

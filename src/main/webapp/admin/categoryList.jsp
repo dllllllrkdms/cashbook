@@ -95,25 +95,25 @@ gtag('config', 'GA_MEASUREMENT_ID');
 								<!-- insertCategoryForm -->
 								<div id="insertCategoryForm" class="accordion-collapse collapse" data-bs-parent="#insertCategoryForm">
 									<div class="accordion-body">
-										<form action="<%=request.getContextPath()%>/admin/insertCategoryAction.jsp" method="post">
+										<form action="<%=request.getContextPath()%>/admin/insertCategoryAction.jsp" id="form" method="post">
 											<div class="row">
 												<div class="col-mt-2 col-md-3">
-													<label class="form-check-label form-label" for="categoryKind"> 카테고리 종류</label>
+													<label class="form-check-label form-label" for="radioCategory"> 카테고리 종류</label>
 													<br>
 													<div class="form-check form-check-inline">
-														<input class="form-check-input" type="radio" name="categoryKind" value="수입" id="categoryKind">수입
+														<input class="form-check-input" type="radio" name="categoryKind" value="수입" id="radioCategory">수입
 													</div>
 													<div class="form-check form-check-inline">
-														<input class="form-check-input" type="radio" name="categoryKind" value="지출" id="categoryKind">지출
+														<input class="form-check-input" type="radio" name="categoryKind" value="지출" id="radioCategory">지출
 													</div>
 												</div>
 												<div class="col-mt-2 col-md-3 mb-3">
-													<label class="form-label" for="categoryName">카테고리 이름</label>
-													<input class="form-control" type="text" name="categoryName" id="categoryName">
+													<label class="form-label" for="cash">카테고리 이름</label>
+													<input class="form-control" type="text" name="categoryName" id="cash">
 												</div>
 											</div>
 											<div class="mb-3">
-												<button type="submit" class="btn btn-primary">등록</button>
+												<button type="button" id="submitBtn" class="btn btn-primary">등록</button>
 												<button type="reset" class="btn btn-outline-secondary">취소</button>
 											</div>
 										</form>
