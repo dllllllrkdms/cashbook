@@ -91,7 +91,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					<div class="card">
 						<div class="card-body">
 							<div class="card-body">
-								<form action="<%=request.getContextPath()%>/admin/updateCategoryAction.jsp" method="post">
+								<form action="<%=request.getContextPath()%>/admin/updateCategoryAction.jsp" id="form" method="post">
 									<div class="row mb-3">
 										<div class="col-md-3">
 											<label class="form-label" for="categoryNo">no</label> <!-- 수정불가 -->
@@ -116,6 +116,11 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									</div>
 								</form>
 							</div>
+							<div class="alert alert-dark alert-dismissible mb-0" role="alert">
+					          alert dd
+					          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+					          </button>
+					        </div>
 						</div>
 					</div>
 				</div>

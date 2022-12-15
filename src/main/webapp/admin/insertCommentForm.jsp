@@ -103,7 +103,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 								
 								<hr>
 								
-								<form action="<%=request.getContextPath()%>/admin/insertCommentAction.jsp" id="commentForm" method="post">
+								<form action="<%=request.getContextPath()%>/admin/insertCommentAction.jsp" id="form" method="post">
 									<input type="hidden" name="memberId" value="<%=loginMemberId%>">
 									<input type="hidden" name="helpNo" value="<%=helpNo%>">								
 									<!-- 답변 --> 
