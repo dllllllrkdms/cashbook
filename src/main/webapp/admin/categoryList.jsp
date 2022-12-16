@@ -108,8 +108,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 													</div>
 												</div>
 												<div class="col-mt-2 col-md-3 mb-3">
-													<label class="form-label" for="cash">카테고리 이름</label>
-													<input class="form-control" type="text" name="categoryName" id="cash">
+													<label class="form-label" for="memo">카테고리 이름</label>
+													<input class="form-control" type="text" name="categoryName" id="memo">
 												</div>
 											</div>
 											<div class="mb-3">
@@ -184,6 +184,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </div>
 <!-- /Layout wrapper -->
 
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/form.js"></script>
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>

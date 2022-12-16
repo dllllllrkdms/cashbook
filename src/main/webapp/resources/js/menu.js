@@ -586,4 +586,4 @@ class Menu {
   }
 }
 
-export { Menu }
+module.export= Menu;

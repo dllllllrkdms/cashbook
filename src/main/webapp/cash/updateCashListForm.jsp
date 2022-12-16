@@ -104,7 +104,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 						<div class="card-body mx-xxl-2 my-xxl-2">
 							
 							<div class="card-body">
-								<form action="<%=request.getContextPath()%>/cash/updateCashListAction.jsp" method="post">
+								<form action="<%=request.getContextPath()%>/cash/updateCashListAction.jsp" id="form" method="post">
 									<input type="hidden" name="cashNo" value="<%=cashNo%>">
 									<input type="hidden" name="memberId" value="<%=memberId%>">
 									<div class="mb-3 col-md-2">
@@ -112,8 +112,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									</div>
 									<div class="row mb-3">
 										<div class="col-md-3">
-											<select class="form-select" name="categoryNo" id="category">
-												<option value="">카테고리 선택</option>
+											<select class="form-select" name="categoryNo" id="selectCategory">
+												<option value="" selected="selected">카테고리 선택</option>
 												<%
 													for(Category c : categoryList){
 												%>
@@ -162,8 +162,6 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <!-- /LayOut wrapper -->
 
 
-<!-- custom js -->
-<script src="<%=request.getContextPath()%>/script/form.js"></script>
 
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
@@ -179,9 +177,12 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <!-- Vendors JS -->
  <script src="<%=request.getContextPath()%>/resources/vendor/libs/apex-charts/apexcharts.js"></script>
 <!-- Main JS -->
-<script src="<%=request.getContextPath()%>/resources/js/main.js"></script>
+<script type="module" src="<%=request.getContextPath()%>/resources/js/main.js"></script>
 
 <!-- Page JS -->
  <script src="<%=request.getContextPath()%>/resources/js/dashboards-analytics.js"></script>
+ 
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/form.js"></script>
 </body>
 </html>

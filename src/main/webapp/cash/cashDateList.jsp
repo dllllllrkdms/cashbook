@@ -121,8 +121,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 											<input type="hidden" name="cashDate" value="<%=cashDate%>">
 											<div class="row mb-3">
 												<div class="col-md-3">
-													<select class="form-select" name="categoryNo" id="category">
-														<option value="">카테고리 선택</option>
+													<select class="form-select" name="categoryNo" id="selectCategory">
+														<option value="" selected="selected">카테고리 선택</option>
 														<%
 															for(Category c : categoryList){
 														%>

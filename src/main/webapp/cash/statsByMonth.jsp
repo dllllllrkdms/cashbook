@@ -128,7 +128,9 @@ gtag('config', 'GA_MEASUREMENT_ID');
 										for(HashMap<String, Object> m : list){
 									%>
 											<tr>
-												<td><%=m.get("month")%>월</td>
+												<td>
+													<a href="<%=request.getContextPath()%>/cash/statsByCategory.jsp?year=<%=year%>&month=<%=m.get("month")%>"><%=m.get("month")%>월</a>
+												</td>
 												<td><%=df.format((Long)m.get("sumImport"))%>원</td>
 												<td><%=df.format((Long)m.get("avgImport"))%>원</td>
 												<td><%=df.format((Long)m.get("sumExport"))%>원</td>

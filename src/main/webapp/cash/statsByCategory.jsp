@@ -12,18 +12,18 @@
 	}
 	String memberId = loginMember.getMemberId();
 	int year = 0;
-	if(request.getParameter("year")!=null){
+	int month = 0;
+	if(request.getParameter("year")!=null&&request.getParameter("month")!=null){
 		year = Integer.parseInt(request.getParameter("year"));
+		month = Integer.parseInt(request.getParameter("month"));
 	} else{ // 파라메타 값이 없다면, 올해 연도를 보여줌
 		Calendar c = Calendar.getInstance();
 		year = c.get(Calendar.YEAR);
+		month = c.get(Calendar.MONTH)+1; // 1월:0, 2월:1,...,12월:11 -> +1
 	}
-	String categoryKind = request.getParameter("categoryKind");
-	if(categoryKind==null){
-		categoryKind = "수입";
-	}
+	String categoryName = "급여";
 	StatsDao statsDao = new StatsDao();
-	ArrayList<HashMap<String, Object>> list = statsDao.selectStatsByCategory(memberId, year,categoryKind);
+	ArrayList<HashMap<String, Object>> list = statsDao.selectStatsByCategory(memberId, year, month, categoryName);
 	HashMap<String, Integer> map = statsDao.selectMinMaxYear(memberId);
 	int minYear = map.get("minYear");
 	int maxYear = map.get("maxYear");
@@ -100,8 +100,9 @@ gtag('config', 'GA_MEASUREMENT_ID');
 		          		<div class="card-body">
 		          			<div class="card-body demo-vertical-spacing demo-only-element">
 		          				<div class="card-header fs-3 fw-semibold mb-4">
-		          					<%=year%> 년 월별 <%=categoryKind%>통계
+		          					<%=year%> 년 <%=month%>월 통계
 		          				</div>
+		          				<!-- 년도 페이징 -->
 								<div>
 									<%
 										if(year>minYear){
@@ -119,23 +120,23 @@ gtag('config', 'GA_MEASUREMENT_ID');
 										}
 									%>
 								</div>	
+								
 								<table class="table">
 									<tr>
-										<th>월</th>
-										<th>수입합계</th>
-										<th>수입평균</th>
-										<th>지출합계</th>
-										<th>지출평균</th>
+										<th>종류</th>
+										<th>카테고리 이름</th>
+										<th>합계</th>
+										<th>평균</th>
 									</tr>
 									<%
 										for(HashMap<String, Object> m : list){
 									%>
 											<tr>
-												<td><%=m.get("month")%>월</td>
-												<td><%=df.format((Long)m.get("sumImport"))%>원</td>
+												<td><%=m.get("categoryKind")%></td>
+												<td><%=m.get("categoryName")%></td>
 												<td><%=df.format((Long)m.get("avgImport"))%>원</td>
-												<td><%=df.format((Long)m.get("sumExport"))%>원</td>
-												<td><%=df.format((Long)m.get("avgExport"))%>원</td>
+												<td><%=df.format((Long)m.get("sumCashPrice"))%>원</td>
+												<td><%=df.format((Long)m.get("avgCashPrice"))%>원</td>
 											</tr>
 									<%
 										}

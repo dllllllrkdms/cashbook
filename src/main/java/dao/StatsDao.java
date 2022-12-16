@@ -141,7 +141,7 @@ public class StatsDao {
 		}
 		return m;
 	}
-	public ArrayList<HashMap<String, Object>> selectStatsByCategory(String memberId, int year, String categoryKind){ // 카테고리별 상세보기
+	public ArrayList<HashMap<String, Object>> selectStatsByCategory(String memberId, int year, int month, String categoryName){ // 카테고리별 상세보기
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = null;
@@ -158,7 +158,7 @@ public class StatsDao {
 					+ "			, cash_date"
 					+ "			, category_kind"
 					+ "			, category_name"
-					+ "			, if(category_kind=? , cash_price, NULL) cashPrice" //if(조건문, 참일때 값, 거짓일 때 값)
+					+ "			, if(category_name=? , cash_price, NULL) cashPrice" //if(조건문, 참일때 값, 거짓일 때 값)
 					+ "				FROM (SELECT cs.member_id"
 					+ "							, cs.cash_date"
 					+ "							, cs.cash_price"
@@ -167,14 +167,14 @@ public class StatsDao {
 					+ "						FROM cash cs"
 					+ "							INNER JOIN category cg"
 					+ "							ON cs.category_no = cg.category_no) t) t2"
-					+ " WHERE member_id=? AND EXTRACT(YEAR FROM t2.cash_date)=? AND category_kind=?"
+					+ " WHERE member_id=? AND EXTRACT(YEAR FROM t2.cash_date)=? AND EXTRACT(MONTH FROM t2.cash_date)=?"
 					+ " GROUP BY EXTRACT(month FROM t2.cash_date)"
 					+ " ORDER BY EXTRACT(month FROM t2.cash_date) ASC";
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, categoryKind);
+			stmt.setString(1, categoryName);
 			stmt.setString(2, memberId);
 			stmt.setInt(3, year);
-			stmt.setString(4, categoryKind);
+			stmt.setInt(4, month);
 			rs = stmt.executeQuery();
 			while(rs.next()) {
 				HashMap<String, Object> m = new HashMap<String, Object>();

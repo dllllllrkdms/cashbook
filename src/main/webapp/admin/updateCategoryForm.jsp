@@ -106,8 +106,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 									</div>
 									<div class="row mb-3">
 										<div class="col-md-3">
-											<label class="form-label" for="cash">카테고리 이름</label>
-											<input class="form-control" id="cash" type="text" name="categoryName" value="<%=categoryOne.getCategoryName()%>">
+											<label class="form-label" for="memo">카테고리 이름</label>
+											<input class="form-control" id="memo" type="text" name="categoryName" value="<%=categoryOne.getCategoryName()%>">
 										</div>
 									</div>
 									<div class="mt-3 mb-3">
@@ -115,11 +115,6 @@ gtag('config', 'GA_MEASUREMENT_ID');
 										<button type="reset" class="btn btn-outline-secondary">취소</button>
 									</div>
 								</form>
-							</div>
-							<div class="alert alert-dark alert-dismissible mb-0" role="alert">
-					          alert dd
-					          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-					          </button>
 					        </div>
 						</div>
 					</div>
@@ -144,7 +139,8 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </div>
 <!-- /Layout wrapper -->
 
-
+<!-- custom js -->
+<script src="<%=request.getContextPath()%>/script/form.js"></script>
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>

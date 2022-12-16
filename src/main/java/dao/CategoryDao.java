@@ -13,7 +13,7 @@ public class CategoryDao {
 		ResultSet rs = null;
 		try {
 			conn = dbUtil.getConnection();
-			String sql = "SELECT category_no categoryNo, category_kind categoryKind, category_name categoryName, updatedate, createdate FROM category";
+			String sql = "SELECT category_no categoryNo, category_kind categoryKind, category_name categoryName, updatedate, createdate FROM category ORDER BY category_kind ASC";
 			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery();
 			while(rs.next()) {
@@ -36,7 +36,7 @@ public class CategoryDao {
 		}
 		return list;
 	}
-	public ArrayList<Category> selectCategoryList(int beginRow, int rowPerPage) { // category목록(cash 입력시 <select>목록
+	public ArrayList<Category> selectCategoryList(int beginRow, int rowPerPage) { // 관리자 페이지 최근 업데이트된 카테고리 5개 출력시
 		ArrayList<Category> list = new ArrayList<Category>();
 		DBUtil dbUtil = new DBUtil(); // null값으로 초기화 시키고 사용하는게 좋음
 		Connection conn = null;
