@@ -16,15 +16,27 @@
 	if(request.getParameter("year")!=null&&request.getParameter("month")!=null){
 		year = Integer.parseInt(request.getParameter("year"));
 		month = Integer.parseInt(request.getParameter("month"));
+		if(month>12){
+			year+=1;
+			month=1;
+		}
+		if(month<1){
+			year-=1;
+			month=12;
+		}
 	} else{ // 파라메타 값이 없다면, 올해 연도를 보여줌
 		Calendar c = Calendar.getInstance();
 		year = c.get(Calendar.YEAR);
 		month = c.get(Calendar.MONTH)+1; // 1월:0, 2월:1,...,12월:11 -> +1
 	}
+	
+	
 	String categoryName = "급여";
 	StatsDao statsDao = new StatsDao();
-	ArrayList<HashMap<String, Object>> list = statsDao.selectStatsByCategory(memberId, year, month, categoryName);
-	HashMap<String, Integer> map = statsDao.selectMinMaxYear(memberId);
+	ArrayList<HashMap<String, Object>> list = statsDao.selectStatsByCategory(memberId, year, month);
+	HashMap<String, Integer> map = statsDao.selectMinMaxDate(memberId);
+	int minMonth = map.get("minMonth");
+	int maxMonth = map.get("maxMonth");
 	int minYear = map.get("minYear");
 	int maxYear = map.get("maxYear");
 	
@@ -100,22 +112,30 @@ gtag('config', 'GA_MEASUREMENT_ID');
 		          		<div class="card-body">
 		          			<div class="card-body demo-vertical-spacing demo-only-element">
 		          				<div class="card-header fs-3 fw-semibold mb-4">
-		          					<%=year%> 년 <%=month%>월 통계
+		          					<%=year%>년 <%=month%>월 통계
 		          				</div>
-		          				<!-- 년도 페이징 -->
+		          				<!-- 페이징 -->
 								<div>
 									<%
-										if(year>minYear){
+										if(year>minYear||(year==minYear&&month>minMonth)){
+											String prevMonth = String.valueOf(month-1); // int->String 형변환은 할 수 없음. String.valueOf(int) 사용
+											if(prevMonth.equals("0")){
+												prevMonth = (year-1)+"년 12";
+											}
 									%>
-											<span class="mx-3"><a href="<%=request.getContextPath()%>/cash/statsByMonth.jsp?year=<%=year-1%>"><i class='bx bx-chevron-left'></i><%=year-1%></a></span>
+											<span class="mx-3"><a href="<%=request.getContextPath()%>/cash/statsByCategory.jsp?year=<%=year%>&month=<%=month-1%>"><i class='bx bx-chevron-left'></i><%=prevMonth%>월</a></span>
 									<%
 										}
 									%>
 									&nbsp;
 									<%
-										if(year<maxYear){
+										if(year<maxYear||(year==maxYear&&month<maxMonth)){
+											String nextMonth = String.valueOf(month+1);
+											if(nextMonth.equals("13")){
+												nextMonth = (year+1)+"년 01";
+											}
 									%>
-											<span class="mx-3"><a href="<%=request.getContextPath()%>/cash/statsByMonth.jsp?year=<%=year+1%>"><%=year+1%><i class='bx bx-chevron-right'></i></a></span>
+											<span class="mx-3"><a href="<%=request.getContextPath()%>/cash/statsByCategory.jsp?year=<%=year%>&month=<%=month+1%>"><%=nextMonth%>월<i class='bx bx-chevron-right'></i></a></span>
 									<%
 										}
 									%>
@@ -134,7 +154,6 @@ gtag('config', 'GA_MEASUREMENT_ID');
 											<tr>
 												<td><%=m.get("categoryKind")%></td>
 												<td><%=m.get("categoryName")%></td>
-												<td><%=df.format((Long)m.get("avgImport"))%>원</td>
 												<td><%=df.format((Long)m.get("sumCashPrice"))%>원</td>
 												<td><%=df.format((Long)m.get("avgCashPrice"))%>원</td>
 											</tr>

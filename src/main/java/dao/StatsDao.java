@@ -112,7 +112,7 @@ public class StatsDao {
 		}
 		return list;
 	}
-	public HashMap<String, Integer> selectMinMaxYear(String memberId){ // 페이징. 가계부가 작성된 최소 최대 연도 구하기
+	public HashMap<String, Integer> selectMinMaxDate(String memberId){ // 페이징. 가계부가 작성된 최소 최대 연도 구하기
 		HashMap<String, Integer> m = null;
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = null;
@@ -120,15 +120,25 @@ public class StatsDao {
 		ResultSet rs = null;
 		try {
 			conn = dbUtil.getConnection();
-			String sql = "SELECT (SELECT MIN(EXTRACT(YEAR FROM cash_date)) FROM cash WHERE member_id=?) minYear, (SELECT MAX(EXTRACT(YEAR FROM cash_date)) FROM cash WHERE member_id=?) maxYear FROM dual";
+			String sql = "SELECT (SELECT MIN(EXTRACT(MONTH FROM cash_date)) FROM cash WHERE member_id=? AND EXTRACT(YEAR FROM cash_date)=t.minYear) minMonth"
+					+ "		, (SELECT MAX(EXTRACT(MONTH FROM cash_date)) FROM cash WHERE member_id=? AND EXTRACT(YEAR FROM cash_date)=t.maxYear) maxMonth"
+					+ "		, minYear"
+					+ "		, maxYear"
+					+ "		FROM (SELECT (SELECT MIN(EXTRACT(YEAR FROM cash_date)) FROM cash WHERE member_id=?) minYear"
+					+ "					, (SELECT MAX(EXTRACT(YEAR FROM cash_date)) FROM cash WHERE member_id=?) maxYear"
+					+ "				FROM DUAL) t";
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, memberId);
 			stmt.setString(2, memberId);
+			stmt.setString(3, memberId);
+			stmt.setString(4, memberId);
 			rs = stmt.executeQuery();
 			if(rs.next()) {
 				m = new HashMap<String, Integer>();
 				m.put("minYear", rs.getInt("minYear"));
 				m.put("maxYear", rs.getInt("maxYear"));
+				m.put("minMonth", rs.getInt("minMonth"));
+				m.put("maxMonth", rs.getInt("maxMonth"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -141,7 +151,7 @@ public class StatsDao {
 		}
 		return m;
 	}
-	public ArrayList<HashMap<String, Object>> selectStatsByCategory(String memberId, int year, int month, String categoryName){ // 카테고리별 상세보기
+	public ArrayList<HashMap<String, Object>> selectStatsByCategory(String memberId, int year, int month){ // 카테고리별 상세보기
 		ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = null;
@@ -152,13 +162,13 @@ public class StatsDao {
 			String sql = "SELECT EXTRACT(month FROM t2.cash_date) month"
 					+ "			, category_kind categoryKind"
 					+ "			, category_name categoryName"
-					+ "			, SUM(t2.cashPrice) sumCashPrice"
-					+ "			, round(AVG(t2.cashPrice)) avgCashPrice"
+					+ "			, SUM(t2.cash_price) sumCashPrice"
+					+ "			, round(AVG(t2.cash_price)) avgCashPrice"
 					+ "		FROM (SELECT member_id"
 					+ "			, cash_date"
 					+ "			, category_kind"
 					+ "			, category_name"
-					+ "			, if(category_name=? , cash_price, NULL) cashPrice" //if(조건문, 참일때 값, 거짓일 때 값)
+					+ "			, cash_price"
 					+ "				FROM (SELECT cs.member_id"
 					+ "							, cs.cash_date"
 					+ "							, cs.cash_price"
@@ -168,13 +178,12 @@ public class StatsDao {
 					+ "							INNER JOIN category cg"
 					+ "							ON cs.category_no = cg.category_no) t) t2"
 					+ " WHERE member_id=? AND EXTRACT(YEAR FROM t2.cash_date)=? AND EXTRACT(MONTH FROM t2.cash_date)=?"
-					+ " GROUP BY EXTRACT(month FROM t2.cash_date)"
-					+ " ORDER BY EXTRACT(month FROM t2.cash_date) ASC";
+					+ " GROUP BY category_name"
+					+ " ORDER BY category_kind ASC";
 			stmt = conn.prepareStatement(sql);
-			stmt.setString(1, categoryName);
-			stmt.setString(2, memberId);
-			stmt.setInt(3, year);
-			stmt.setInt(4, month);
+			stmt.setString(1, memberId);
+			stmt.setInt(2, year);
+			stmt.setInt(3, month);
 			rs = stmt.executeQuery();
 			while(rs.next()) {
 				HashMap<String, Object> m = new HashMap<String, Object>();

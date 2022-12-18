@@ -57,7 +57,7 @@
 	DecimalFormat df = new DecimalFormat("###,###"); // 3자리마다 반점찍는 포맷설정
 %>
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="<%=request.getContextPath()%>/resources/" data-template="vertical-menu-template-free">
+<html class="light-style layout-menu-fixed">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
@@ -78,13 +78,13 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/demo.css" />
 
 <!-- Vendors CSS -->
-<link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-<link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
-
-<script src="<%=request.getContextPath()%>/resources/js/config.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/libs/apex-charts/apex-charts.css" />
 
 <!-- Helpers -->
 <script src="<%=request.getContextPath()%>/resources/vendor/js/helpers.js"></script>
+
+<script src="<%=request.getContextPath()%>/resources/js/config.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID" async ></script>
 <script>
@@ -223,7 +223,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <!-- /LayOut wrapper -->
 
 
-
+<!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/resources/vendor/libs/popper/popper.js"></script>

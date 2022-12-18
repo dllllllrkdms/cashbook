@@ -20,7 +20,7 @@
 	}
 	StatsDao statsDao = new StatsDao();
 	ArrayList<HashMap<String, Object>> list = statsDao.selectStatsByMonth(memberId, year);
-	HashMap<String, Integer> map = statsDao.selectMinMaxYear(memberId);
+	HashMap<String, Integer> map = statsDao.selectMinMaxDate(memberId);
 	int minYear = map.get("minYear");
 	int maxYear = map.get("maxYear");
 	
