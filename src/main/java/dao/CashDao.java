@@ -4,7 +4,9 @@ import java.sql.*;
 import util.*;
 import vo.*;
 public class CashDao { 
-	public ArrayList<HashMap<String, Object>> selectCashListByMonth(String memberId, int year, int month) { // cashList 목록출력(사용되지 않음)
+		
+	// cashList 목록출력(사용되지 않음)
+	public ArrayList<HashMap<String, Object>> selectCashListByMonth(String memberId, int year, int month) { 
 		ArrayList<HashMap<String, Object>> cashList = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> hmCash=null;
 		DBUtil dbUtil = new DBUtil();
@@ -44,7 +46,9 @@ public class CashDao {
 		}
 		return cashList;
 	}
-	public ArrayList<HashMap<String, Object>> selectCashListByDate(String memberId, String cashDate) { // cashDateList 상세보기
+	
+	// 날짜별 데이터 출력
+	public ArrayList<HashMap<String, Object>> selectCashListByDate(String memberId, String cashDate) { 
 		ArrayList<HashMap<String, Object>> cashDateList = new ArrayList<HashMap<String, Object>>();
 		HashMap<String, Object> hmCash=null;
 		DBUtil dbUtil = new DBUtil();
@@ -81,7 +85,9 @@ public class CashDao {
 		
 		return cashDateList;
 	}
-	public HashMap<String, Object> selectCashOne(String cashDate, int cashNo) { // cash 하나 출력 <-updateCashListForm 
+	
+	// cash 하나 출력 <-updateCashListForm
+	public HashMap<String, Object> selectCashOne(String cashDate, int cashNo) {  
 		HashMap<String, Object> hmCash = null;
 		DBUtil dbUtil = new DBUtil();
 		Connection conn=null;
@@ -114,7 +120,9 @@ public class CashDao {
 		}
 		return hmCash;
 	}
-	public int insertCashList(Cash cash) { // cashDate 추가하기
+	
+	// cashDate 추가하기
+	public int insertCashList(Cash cash) { 
 		int row = 0; // 리턴할 변수 초기화
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = null;
@@ -140,7 +148,9 @@ public class CashDao {
 		}
 		return row;
 	}
-	public int updateCashList(Cash cash) { // cashDateList 수정
+	
+	// cashDateList 수정
+	public int updateCashList(Cash cash) { 
 		int row = 0;
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = null;
@@ -167,7 +177,9 @@ public class CashDao {
 		}
 		return row;
 	} 
-	public int deleteCashList(String memberId, int cashNo) { // cashDateList 삭제
+	
+	// cashDateList 삭제
+	public int deleteCashList(String memberId, int cashNo) { 
 		int row = 0;
 		DBUtil dbUtil = new DBUtil();
 		Connection conn = null;
@@ -190,4 +202,6 @@ public class CashDao {
 		}
 		return row;
 	}
+	
+	
 }

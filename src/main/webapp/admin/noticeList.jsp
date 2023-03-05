@@ -34,7 +34,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-<title>noticeList</title>
+<title>공지사항 관리</title>
 <!-- Favicon -->
 <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/img/favicon/favicon.ico" />
 <!-- Icons. Uncomment required icon fonts -->

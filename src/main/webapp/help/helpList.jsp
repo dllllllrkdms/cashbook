@@ -86,7 +86,15 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					</h4>
 					<div class="card">
 						<div class="card-header">
-							<span class="float-end"><a class="btn-sm btn-primary me-3" href="<%=request.getContextPath()%>/help/insertHelpForm.jsp">문의하기</a></span>
+							<div class="row">
+								<div class="col-md-6">
+									<i class="bx bx-help-circle"></i> <small>답변이 달리면 수정/삭제가 불가합니다.</small>
+								</div>
+								
+								<div class="col-md-6">
+									<span class="float-end"><a class="btn-sm btn-primary me-3" href="<%=request.getContextPath()%>/help/insertHelpForm.jsp">문의하기</a></span>
+								</div>
+							</div>
 						</div>
 							<div class="card-body">
 								<div class="card-body">

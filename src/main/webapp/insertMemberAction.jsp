@@ -13,8 +13,10 @@
 		response.sendRedirect(request.getContextPath()+redirectUrl);
 		return;
 	}
+	
 	// 아이디 중복확인 --> insertMemberForm
 	MemberDao memberDao = new MemberDao();
+	// 1. 아이디 중복확인
 	boolean idDupResult = memberDao.idDup(request.getParameter("memberId"));
 	String idDupMsg = URLEncoder.encode("사용가능한 아이디입니다.","UTF-8");
 	if(idDupResult) { // true이면 중복-> 사용불가
@@ -23,19 +25,24 @@
 		response.sendRedirect(request.getContextPath()+redirectUrl);
 		return;
 	}
+	// 2. 회원가입
 	if(!request.getParameter("memberPw").equals(request.getParameter("checkPw"))){ // 비밀번호와 비밀번호확인이 같지 않으면 
 		msg = URLEncoder.encode("비밀번호가 일치하지 않습니다","UTF-8");
 		response.sendRedirect(request.getContextPath()+redirectUrl);
 		return;
 	}
+	
 	Member paramMember = new Member();
 	paramMember.setMemberId(request.getParameter("memberId"));
 	paramMember.setMemberPw(request.getParameter("memberPw"));
 	paramMember.setMemberName(request.getParameter("memberName"));
 	int insertMemberRow = memberDao.insertMember(paramMember);
+	
 	if(insertMemberRow==1){
 		//System.out.println("회원가입 성공");
 		redirectUrl = "/loginForm.jsp";
 	}
+	
+	// redirect
 	response.sendRedirect(request.getContextPath()+redirectUrl);
 %>

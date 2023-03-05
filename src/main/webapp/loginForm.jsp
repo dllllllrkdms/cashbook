@@ -12,21 +12,13 @@
 	if(request.getParameter("msg")!=null){
 		msg = request.getParameter("msg");
 	}
-	int currentPage = 1; // 공지 페이징
-	if(request.getParameter("currentPage")!=null){
-		currentPage = Integer.parseInt(request.getParameter("currentPage"));
-	}
-	int rowPerPage = 5;
-	int beginRow = (currentPage-1)*rowPerPage;
-	NoticeDao noticeDao = new NoticeDao();
-	ArrayList<Notice> noticeList = noticeDao.selectNoticeListByPage(beginRow, rowPerPage);
 %>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed " dir="ltr" data-theme="theme-default" data-assets-path="<%=request.getContextPath()%>/resources/" data-template="vertical-menu-template-free">
 <head>
 <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-<title>insertMemberForm</title>
+<title>로그인 | 가계부</title>
 <!-- Favicon -->
 <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/img/favicon/favicon.ico" />
 
@@ -78,36 +70,12 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <!-- beautify ignore:end -->
 </head>
 <style>
-	.authentication-wrapper {
-		min-height: 70vh;
+	.msg {
+		color: #C21A09;
 	}
 </style>
 <body>
-	<!-- 공지(5개) 목록 페이징 --> <!-- 공지보기 누르면 공지가 나오게 -->
-	<div class="mx-5">
-		<table class="table table-sm">
-			<thead>
-				<tr>
-					<th style="width: 8%">No</th>
-					<th style="width: 75%">공지사항</th>
-					<th style="width: 17%">날짜</th>
-				</tr>
-			</thead>
-			<tbody >
-			<%
-				for(Notice n : noticeList){
-			%>
-				<tr>
-					<td><%=n.getNoticeNo()%></td>	
-					<td><%=n.getNoticeMemo()%></td>	
-					<td><%=n.getCreatedate().substring(0,10)%></td>	
-				</tr>
-			<%
-				}
-			%>
-			</tbody>
-		</table>
-	</div>
+	
 	<!-- wrapper -->
 	<div class="authentication-wrapper authentication-basic container-p-y">
 		<div class="authentication-inner">
@@ -117,16 +85,19 @@ gtag('config', 'GA_MEASUREMENT_ID');
 				<div class="card-body">
 					<h2 class="card-header mb-2">sign in to cashbook</h2>
 					<div class="card-body demo-vertical-spacing demo-only-element">
-						<div><%=msg%></div>
+					
+						<div class="msg"><%=msg%></div> <!-- 로그인 실패 메시지 -->
+					
+						<!-- 로그인 form -->
 						<form id="loginForm" action="<%=request.getContextPath()%>/loginAction.jsp" class="mb-3" method="post">
 							<div class="mb-3">
 								<label class="form-label" for="id">ID</label>
-								<input type="text" name="memberId" class="form-control" id="id" placeholder="email or username" aria-label="UserId" aria-describedby="memberId" autofocus/><!-- autofocus : 페이지가 로드될때 자동으로 포커스가 이동됨 -->
+								<input type="text" name="memberId" class="form-control" id="id" placeholder="email or username" aria-label="UserId" value="userOne" aria-describedby="memberId" autofocus/><!-- autofocus : 페이지가 로드될때 자동으로 포커스가 이동됨 -->
 							</div>
 							<div class="mb-3 form-password-toggle">
 								<label class="form-label" for="password">Password</label>
 								<div class="input-group input-group-merge">
-									<input type="password" name="memberPw" class="form-control" id="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password">
+									<input value="1234" type="password" name="memberPw" class="form-control" id="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password">
 									<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>				
 								</div>
 							</div>
@@ -148,14 +119,11 @@ gtag('config', 'GA_MEASUREMENT_ID');
 	</div>
 	<!-- /wrapper -->
 	
-	<!-- Footer -->
-	<div>
-		<jsp:include page="/inc/footer.jsp"></jsp:include>
-	</div>
-	<!-- /Footer -->
+	
 	
 	<!-- Overlay -->
 	<div class="layout-overlay layout-menu-toggle"></div>
+	
 	
 <!-- custom js -->
 <script src="<%=request.getContextPath()%>/script/account.js"></script>

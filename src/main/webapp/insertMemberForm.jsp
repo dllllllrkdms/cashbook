@@ -69,6 +69,11 @@ gtag('config', 'GA_MEASUREMENT_ID');
 </script>
 <!-- Custom notification for demo -->
 <!-- beautify ignore:end -->
+<style>
+	.msg {
+		color: #C21A09;
+	}
+</style>
 </head>
 <body>
 <div class="authentication-wrapper authentication-basic container-p-y">
@@ -79,25 +84,27 @@ gtag('config', 'GA_MEASUREMENT_ID');
 			<div class="card-body">
 				<h2 class="card-header mb-2">sign in to cashbook</h2>
 					<div class="card-body demo-vertical-spacing demo-only-element">
-						<div><%=msg%></div>
+					
+						<div class="msg"><%=msg%></div> <!-- 실패 메시지 -->
+					
+						<!-- 회원가입 form -->
 						<form action="<%=request.getContextPath()%>/insertMemberAction.jsp" id="insertMemberForm" class="mb-3" method="post">
 							<div class="mb-3">
-								<label class="form-label" for="username">USERNAME</label>
+								<label class="form-label" for="username">이름</label>
 								<input type="text" name="memberName" class="form-control" id="username" placeholder="이름을 입력하세요" aria-label="username" aria-describedby="memberName" autofocus/><!-- autofocus : 페이지가 로드될때 자동으로 포커스가 이동됨 -->
 							</div>
 							<div class="mb-3">
-								<label class="form-label" for="id">ID</label> <!-- 중복검사 -->
+								<label class="form-label" for="id">아이디</label> <!-- 중복검사 -->
 								<input type="text" name="memberId" class="form-control" id="id" placeholder="ID를 입력하세요" aria-label="userId" aria-describedby="memberId" autofocus/><!-- autofocus : 페이지가 로드될때 자동으로 포커스가 이동됨 -->
 							</div>
 							<div class="mb-3 form-password-toggle">
-								<label class="form-label" for="password">Password</label>
+								<label class="form-label" for="password">비밀번호</label>
 								<div class="input-group input-group-merge">
 									<input type="password" name="memberPw" class="form-control" id="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password">
-									<!-- span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>	-->				
 								</div>
 							</div>
 							<div class="mb-3 form-password-toggle">
-								<label class="form-label" for="checkPw">Password</label>
+								<label class="form-label" for="checkPw">비밀번호 확인</label>
 								<div class="input-group input-group-merge">
 									<input type="password" name="checkPw" class="form-control" id="checkPw" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password">
 									<!-- span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>	-->				

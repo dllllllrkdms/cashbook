@@ -12,6 +12,7 @@
 	cash.setCashMemo(request.getParameter("cashMemo"));
 	cash.setCashPrice(Long.parseLong(request.getParameter("cashPrice")));
 	cash.setCategoryNo(Integer.parseInt(request.getParameter("categoryNo")));
+	
 	CashDao cashDao = new CashDao();
 	int row = cashDao.insertCashList(cash);
 	String msg = URLEncoder.encode("다시 시도해주세요","UTF-8");

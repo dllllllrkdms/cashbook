@@ -100,14 +100,15 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					</div>
 					<!-- /Content -->
 						
-						<!-- Footer -->
-					<div>
-						<jsp:include page="/inc/footer.jsp"></jsp:include>
-					</div>
-					<!-- /Footer -->
-					
 				</div>
 				<!-- /Content wrapper -->
+				
+				<!-- Footer -->
+				<div>
+					<jsp:include page="/inc/footer.jsp"></jsp:include>
+				</div>
+				<!-- /Footer -->
+				
 			</div>
 			<!-- /Layout container -->
 		

@@ -9,19 +9,25 @@
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
+	
+	request.setCharacterEncoding("UTF-8"); // 인코딩
 	String search = ""; // 검색단어
 	if(request.getParameter("search")!=null&&request.getParameter("search").equals("")==false){
 		search = request.getParameter("search");
 	}
+	
+	// Model 호출, 페이징
 	int currentPage=1; // 페이징
 	if(request.getParameter("currentPage")!=null){
 		currentPage = Integer.parseInt(request.getParameter("currentPage")); 
 	}
 	int rowPerPage=10;
 	int beginRow=(currentPage-1)*rowPerPage;
+	
 	MemberDao memberDao = new MemberDao();
 	ArrayList<Member> memberList = memberDao.selectMemberListByPage(beginRow, rowPerPage, search); // Model 호출
-	int count = memberDao.totalCount();
+	
+	int count = memberDao.totalCount(); // Model 총 개수
 	int lastPage = count/rowPerPage;
 	if(count%rowPerPage!=0){ // 남은 목록이 있다면 페이지+1
 		lastPage+=1;
@@ -55,8 +61,8 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/demo.css" />
 
 <!-- Vendors CSS -->
-<link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-<link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/vendor/libs/apex-charts/apex-charts.css" />
 
 <script src="<%=request.getContextPath()%>/resources/js/config.js"></script>
 
@@ -106,22 +112,27 @@ gtag('config', 'GA_MEASUREMENT_ID');
 					<div class="card">
 		          		<div class="card-body">
 			
-							<div class="row mx-2 mb-3">
-								<form action="" method="post">
-									<div class="col-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-start gap-2">
-										<div class="col-md-4">
-											<input type="search" class="form-control" name="search" placeholder="검색어를 입력하세요" value="<%=search%>">
+							<div class="row col-12 mx-2 mb-3">
+								<div class="col-md-6">
+									<form action="" method="post">
+										<div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2">
+											<div class="col-md-4">
+												<input type="search" class="form-control" name="search" placeholder="아이디를 입력하세요" value="<%=search%>">
+											</div>
+											<button class="btn btn-primary" type="submit">검색</button>
 										</div>
-										<button class="btn btn-primary" type="submit">검색</button>
-									</div>
-								</form>
+									</form>
+								</div>
 							</div>
+							
 							<div>
 								<table class="table">
 									<tr>
-										<th>멤버번호</th>
+										<th>번호</th>
 										<th>아이디</th>
-										<th>레벨</th>
+										<th>레벨<button type="button" class="btn btn-sm btn-icon rounded-pill" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title=" <span class='fs-tiny'>관리자:1 일반회원:2<br>내 레벨은 수정할 수 없습니다. </span>">
+										<i class='bx bx-help-circle'></i>
+						       		</button></th>
 										<th>이름</th>
 										<th>생성일자</th>
 										<th>레벨수정</th>

@@ -37,7 +37,7 @@ public class NoticeDao {
 		ResultSet rs = null;
 		try {
 			conn = dbUtil.getConnection();
-			String sql = "SELECT notice_no noticeNo, notice_memo noticeMemo, createdate FROM notice ORDER BY createdate DESC LIMIT ?,?";
+			String sql = "SELECT notice_no noticeNo, notice_memo noticeMemo, createdate FROM notice ORDER BY notice_no DESC LIMIT ?,?";
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, beginRow);
 			stmt.setInt(2, rowPerPage);

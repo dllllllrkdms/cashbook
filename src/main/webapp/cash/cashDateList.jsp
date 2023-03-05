@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.text.*"%> <!-- DecimalFormat -->
 <%@ page import="java.util.*"%>
 <%@ page import="dao.*"%>
 <%@ page import="vo.*"%>
@@ -8,6 +9,7 @@
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
+
 	// 파라메타값 유효성검사
 	String cashDate = null;
 	if(request.getParameter("cashDate")==null||request.getParameter("cashDate").equals("")){ 
@@ -19,13 +21,18 @@
 	}else{ // 넘어온 값이 없으면 오늘날짜 설정 
 		cashDate = request.getParameter("cashDate");
 	}
+	
 	//System.out.println(cashDate+"<--cashDateList cashDate");
 	Member loginMember = (Member)session.getAttribute("loginMember");
 	String memberId = loginMember.getMemberId();
+	
 	CashDao cashDao = new CashDao();
 	ArrayList<HashMap<String, Object>> cashDateList = cashDao.selectCashListByDate(memberId, cashDate); // Model호출
+	
 	CategoryDao categoryDao = new CategoryDao();
 	ArrayList<Category> categoryList = categoryDao.selectCategoryList(); // Model호출
+	
+	DecimalFormat df = new DecimalFormat("###,###"); // 3자리마다 반점찍는 포맷설정
 %>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="<%=request.getContextPath()%>/resources/" data-template="vertical-menu-template-free">
@@ -126,7 +133,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 														<%
 															for(Category c : categoryList){
 														%>
-																<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind()%><%=c.getCategoryName()%></option>
+																<option value="<%=c.getCategoryNo()%>"><%=c.getCategoryKind()%>-<%=c.getCategoryName()%></option>
 														<%
 															}
 														%>
@@ -161,7 +168,7 @@ gtag('config', 'GA_MEASUREMENT_ID');
 											<tr>
 												<td style="width:50px"><%=(String)m.get("categoryKind")%></td>
 												<td style="width:100px"><%=(String)m.get("categoryName")%></td>
-												<td style="width:100px"><%=(Long)m.get("cashPrice")%>원</td>
+												<td style="width:100px"><%=df.format((Long)m.get("cashPrice"))%>원</td>
 												<td><%=(String)m.get("cashMemo")%></td>
 												<td style="width:150px">
 													<div class="btn-group">

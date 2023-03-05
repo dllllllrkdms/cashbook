@@ -3,44 +3,43 @@
 <%@ page import="dao.*"%>
 <%@ page import="vo.*"%>
 <%
-	// Controller 
-	// 모든 고객센터 문의사항 목록 출력
+	// Controller
 	Member loginMember = (Member)session.getAttribute("loginMember");
-	if(loginMember==null||loginMember.getMemberLevel()<1){ // 로그인 관리자레벨검사
+	if(loginMember==null){ // 로그인 유효성검사
 		response.sendRedirect(request.getContextPath()+"/loginForm.jsp");
 		return;
 	}
 	
-	// Model 호출, 페이징
-	int currentPage=1; // 페이징
+	// 공지 출력
+	int currentPage = 1; // 공지 페이징
 	if(request.getParameter("currentPage")!=null){
-		currentPage=Integer.parseInt(request.getParameter("currentPage"));
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
-	int rowPerPage=10;
-	int beginRow=(currentPage-1)*rowPerPage;
+	int rowPerPage = 10;
+	int beginRow = (currentPage-1)*rowPerPage;
 	
-	HelpDao helpDao = new HelpDao();
-	ArrayList<HashMap<String, Object>> helpList = helpDao.selectHelpList(beginRow, rowPerPage); // Model 호출
-	 
-	int count = helpDao.totalCountHelpList(); // Model 총 개수
-	int lastPage=count/rowPerPage;
-	if(count%rowPerPage!=0){ // 올림
+	NoticeDao noticeDao = new NoticeDao();
+	ArrayList<Notice> noticeList = noticeDao.selectNoticeListByPage(beginRow, rowPerPage);
+	
+	int totalCount = noticeDao.totalCount(); // 공지 전체 수
+	int lastPage = totalCount/rowPerPage;
+	if(totalCount%rowPerPage!=0){ // 남은 글이 있으면 페이지+1
 		lastPage+=1;
 	}
-	if(currentPage<1){ // 임의로 현재페이지를 첫페이지보다 작게했을경우
+	if(currentPage<1){ // 강제로 페이지를 첫페이지보다 작게 했을경우
 		currentPage=1;
 	}
-	if(currentPage>lastPage){ // 임의로 현재페이지를 첫페이지보다 크게했을경우
+	if(currentPage>lastPage){ // 강제로 페이지를 마지막페이지보다 크게 했을경우
 		currentPage=lastPage;
 	}
-	// View
+	
 %>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="<%=request.getContextPath()%>/resources/" data-template="vertical-menu-template-free">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-<title>helpList</title>
+<title>공지사항</title>
 <!-- Favicon -->
 <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/img/favicon/favicon.ico" />
 <!-- Icons. Uncomment required icon fonts -->
@@ -83,7 +82,6 @@ gtag('config', 'GA_MEASUREMENT_ID');
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar ">
 	<div class="layout-container">
-	
   		<!-- Menu -->
   		<div>	
 			<jsp:include page="/inc/menu.jsp"></jsp:include>
@@ -92,127 +90,108 @@ gtag('config', 'GA_MEASUREMENT_ID');
 		
 		<!-- Layout container -->
    		<div class="layout-page">
-   		
-			<!-- User -->
+   		 
+			<!--User-->
 			<div>
 				<jsp:include page="/inc/userMenu.jsp"></jsp:include>
 			</div>
 			<!-- /User -->
 			
-			<!-- Content wrapper-->
+			<!-- Content wrapper -->
 			<div class="content-wrapper">
+			
+				<!-- Content -->
 				<div class="container-xxl flex-grow-1 container-p-y">
 					<h4 class="fw-bold py-3 mb-4">
-					  <span class="text-muted fw-light">Admin /</span> help
+					  <span class="text-muted fw-light">고객센터 /</span> 내 문의내역
 					</h4>
-					<!-- Content -->
 					<div class="card">
-		          		<div class="card-body">
-										
-							<table class="table">
-								<thead>
-									<tr>
-										<th style="width: 8%">no</th>
-										<th style="width: 35%">문의내용</th>
-										<th style="width: 17%">문의날짜</th>
-										<th style="width: 35%">답변내용</th>
-										<th style="width: 17%">답변날짜</th>
-										<th style="width: 10%">&nbsp;</th>
-									</tr>
-								</thead>
-								<tbody>
-									<%
-										for(HashMap<String, Object> m : helpList){
-									%>
-											<tr>
-												<td><%=m.get("helpNo")%></td>
-												<td class="multiline-ellipsis"><%=m.get("helpMemo")%></td>
-												<td class="multiline-ellipsis"><%=m.get("helpCreatedate")%></td>
-												<%
-													if(m.get("commentMemo")==null){ // 답변이 달리지 않은 문의는 답변추가
-												%>
-														<td>&nbsp;</td>
-														<td>&nbsp;</td>
-														<td class="multiline-ellipsis"><a href="<%=request.getContextPath()%>/admin/insertCommentForm.jsp?helpNo=<%=m.get("helpNo")%>">답변추가</a></td>
-												<%
-													}else{ // 답변이 달린 문의글은 수정/삭제
-												%>
-														<td class="multiline-ellipsis"><%=m.get("commentMemo")%></td>
-														<td class="multiline-ellipsis"><%=m.get("commentCreatedate")%></td>
-														<td>
-															<div class="dropdown">
-																<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-																<div class="dropdown-menu">
-																	<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/updateCommentForm.jsp?commentNo=<%=m.get("commentNo")%>"><i class="bx bx-edit-alt me-1"></i> 수정</a>
-																	<a class="dropdown-item" href="<%=request.getContextPath()%>/admin/deleteComment.jsp?commentNo=<%=m.get("commentNo")%>"><i class="bx bx-trash me-1"></i> 삭제</a>
-																</div>
-														    </div>
-														</td>
-												<%
-													}
-												%>
-											</tr>
-									<%
-										}
-									%>
-								</tbody>
-							</table>
-							
+						<div class="card-header">
+							<span class="float-end"><a class="btn-sm btn-primary me-3" href="<%=request.getContextPath()%>/help/insertHelpForm.jsp">문의하기</a></span>
 						</div>
-						
-						<div class="card-footer">
-							<!-- helpList 페이징 -->
+							<div class="card-body">
+								<div class="card-body">
+								
+									<!-- 공지 출력 -->
+									<table class="table">
+										<thead>
+											<tr>
+												<th style="width: 8%">No</th>
+												<th style="width: 75%">공지사항</th>
+												<th style="width: 17%">등록일</th>
+											</tr>
+										</thead>
+										<tbody >
+										<%
+											for(Notice n : noticeList){
+										%>
+											<tr>
+												<td><%=n.getNoticeNo()%></td>	
+												<td><%=n.getNoticeMemo()%></td>	
+												<td><%=n.getCreatedate().substring(0,10)%></td>	
+											</tr>
+										<%
+											}
+										%>
+										</tbody>
+									</table>
+									
+								</div>
+							</div>
+							
+							<div class="card-footer">
+							<!-- noticeList 페이징 -->
 							<nav aria-label="Page navigation">
 					            <ul class="pagination justify-content-center">
 									<li class="page-item prev">
-										<a class="page-link" href="<%=request.getContextPath()%>/admin/helpList.jsp?currentPage=1"><i class="tf-icon bx bx-chevrons-left"></i></a>
+										<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=1"><i class="tf-icon bx bx-chevrons-left"></i></a>
 									</li>
 									<%
 										if(currentPage>1){
 									%>
 											<li class="page-item">
-												<a class="page-link" href="<%=request.getContextPath()%>/admin/helpList.jsp?currentPage=<%=currentPage-1%>"><i class='bx bx-chevron-left'></i></a>
+												<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage-1%>"><i class='bx bx-chevron-left'></i></a>
 											</li>
 									<% 
 										}
 									%>
 									<li class="page-item active">
-										<a class="page-link" href="<%=request.getContextPath()%>/admin/helpList.jsp?currentPage=<%=currentPage%>"><%=currentPage%></a>
+										<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage%>"><%=currentPage%></a>
 									</li>
 									<%
 										if(currentPage<lastPage){
 									%>
 											<li class="page-item">
-												<a class="page-link" href="<%=request.getContextPath()%>/admin/helpList.jsp?currentPage=<%=currentPage+1%>"><i class='bx bx-chevron-right' ></i></a>
+												<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=currentPage+1%>"><i class='bx bx-chevron-right' ></i></a>
 											</li>
 									<% 
 										}
 									%>
-									
 									<li class="page-item next">
-										<a class="page-link" href="<%=request.getContextPath()%>/admin/helpList.jsp?currentPage=<%=lastPage%>"><i class="tf-icon bx bx-chevrons-right"></i></a>
+										<a class="page-link" href="<%=request.getContextPath()%>/admin/noticeList.jsp?currentPage=<%=lastPage%>"><i class="tf-icon bx bx-chevrons-right"></i></a>
 									</li>
 					            </ul>
 					        </nav>
-							<!-- /helpList 페이징 -->
+							<!-- /noticeList 페이징 -->
+						</div>
+						
 						</div>
 					</div>
-				</div>
-				<!-- /Content -->
+					<!-- /Content -->
+						
+						<!-- Footer -->
+					<div>
+						<jsp:include page="/inc/footer.jsp"></jsp:include>
+					</div>
+					<!-- /Footer -->
 					
-				<!-- Footer -->
-				<div>
-					<jsp:include page="/inc/footer.jsp"></jsp:include>
 				</div>
-				<!-- /Footer -->
-					
+				<!-- /Content wrapper -->
 			</div>
-			<!-- /Content wrapper -->
-		</div>
-		<!-- /Layout container -->
+			<!-- /Layout container -->
 		
 		<!-- Overlay -->
-    	<div class="layout-overlay layout-menu-toggle"></div>
+    	<div class="layout-overlay layout-menu-toggle"></div>  	
 		
 	</div>
 </div>
@@ -237,6 +216,5 @@ gtag('config', 'GA_MEASUREMENT_ID');
 
 <!-- Page JS -->
 <script src="<%=request.getContextPath()%>/resources/js/dashboards-analytics.js"></script>
-</body>
 </body>
 </html>
