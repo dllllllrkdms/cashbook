@@ -32,7 +32,7 @@
 				  	</a>
 				</li>
 				<li class="menu-item">
-					<a href="<%=request.getContextPath()%>/help/helpList.jsp" class="menu-link">
+					<a href="<%=request.getContextPath()%>/cash/statsByCategory.jsp" class="menu-link">
 				    	<div>카테고리별</div>
 					</a>
 				</li>
